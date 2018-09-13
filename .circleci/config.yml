@@ -43,17 +43,18 @@ jobs:
             - ./venv
           key: v1-dependencies-gcloud-212-{{ checksum "requirements.txt" }}
 
-      # - run:
-      #     name: Build primary image if needed
-      #     command: |
-      #       hubploy-image-builder \\
-      #         --push \\
-      #         --registry-url https://gcr.io \\
-      #         --registry-username _json_key \\
-      #         --registry-password "${GCR_READWRITE_KEY}" \\
-      #         deployments/datahub/image/ gcr.io/${GCR_PROJECT}/${
-      #     environment:
-      #       PYTHONIOENCODING: utf-8
+      - run:
+          name: Build primary image if needed
+          command: |
+            hubploy-image-builder \
+              --push \
+              --registry-url https://gcr.io \
+              --registry-username _json_key \
+              --registry-password "${GCR_READWRITE_KEY}" \
+              --repo2docker \
+              deployments/example.pangeo.io/image/ gcr.io/${GOOGLE_PROJECT}/example-pangeo-io-notebook
+          environment:
+            PYTHONIOENCODING: utf-8
 
       - run:
           name: Unlock our secrets
@@ -65,12 +66,12 @@ jobs:
       - run:
           name: Authenticate to Google
           command: |
-            echo ${GKE_READWRITE_KEY} > ${HOME}/gcloud-service-key.json
+            echo ${GCR_READWRITE_KEY} > ${HOME}/gcloud-service-key.json
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
             rm ${HOME}/gcloud-service-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT}
             gcloud --quiet config set compute/zone ${GOOGLE_ZONE}
-            gcloud --quiet beta container clusters get-credentials prod --region=us-central1
+            gcloud --quiet beta container clusters get-credentials ${GKE_CLUSTER} --region=${GOOGLE_REGION}
 
       - run:
           name: Install helm
