@@ -31,11 +31,22 @@ jobs:
             # Be careful with quote ordering here. ${PATH} must not be expanded
             echo 'export PATH="~/repo/venv/bin:~/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
-      - setup_remote_docker
       - save_cache:
           paths:
             - ./venv
           key: v1-dependencies-gcloud-212-{{ checksum "requirements.txt" }}
+
+      - setup_remote_docker
+
+      - run:
+          name: Authenticate to Google
+          command: |
+            echo ${GCR_READWRITE_KEY} > ${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            rm ${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT}
+            gcloud --quiet config set compute/zone ${GOOGLE_ZONE}
+            gcloud --quiet beta container clusters get-credentials ${GKE_CLUSTER} --region=${GOOGLE_REGION}
 
       - run:
           name: Build primary image if needed
@@ -56,16 +67,6 @@ jobs:
             echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
             git crypt unlock ~/repo/key
             rm ~/repo/key
-
-      - run:
-          name: Authenticate to Google
-          command: |
-            echo ${GCR_READWRITE_KEY} > ${HOME}/gcloud-service-key.json
-            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-            rm ${HOME}/gcloud-service-key.json
-            gcloud --quiet config set project ${GOOGLE_PROJECT}
-            gcloud --quiet config set compute/zone ${GOOGLE_ZONE}
-            gcloud --quiet beta container clusters get-credentials ${GKE_CLUSTER} --region=${GOOGLE_REGION}
 
       - run:
           name: Install helm
