@@ -1,15 +1,9 @@
 version: 2
 jobs:
-  build:
+  deploy:
     docker:
       - image: buildpack-deps:bionic-scm
     working_directory: ~/repo
-
-    # Only run this post merge
-    branches:
-      only:
-        - staging
-        - prod
 
     steps:
       - run:
@@ -88,3 +82,14 @@ jobs:
           name: Deploy hub
           command: |
             hubploy-helm-deploy example.pangeo.io pangeo/pangeo ${CIRCLE_BRANCH}
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+    - deploy:
+        # Only run this post merge
+        branches:
+          only:
+          - staging
+          - prod
