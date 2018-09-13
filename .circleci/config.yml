@@ -46,7 +46,7 @@ jobs:
             rm ${HOME}/gcloud-service-key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT}
             gcloud --quiet config set compute/zone ${GOOGLE_ZONE}
-            gcloud --quiet beta container clusters get-credentials ${GKE_CLUSTER} --region=${GOOGLE_REGION}
+            gcloud --quiet beta container clusters get-credentials ${GKE_CLUSTER} --zone=${GOOGLE_ZONE}
 
       - run:
           name: Build primary image if needed
