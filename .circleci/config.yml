@@ -89,7 +89,8 @@ workflows:
     jobs:
     - deploy:
         # Only run this post merge
-        branches:
-          only:
-          - staging
-          - prod
+        filters:
+          branches:
+            only:
+            - staging
+            - prod
