@@ -1,0 +1,16 @@
+jupyterhub:
+  singleuser:
+    image:
+      name: gcr.io/pangeo-181919/example-pangeo-io-notebook
+    cloudMetadata:
+      enabled: true
+    cpu:
+      limit: 4
+      guarantee: 1
+    memory:
+      limit: 14G
+      guarantee: 4G
+
+#  proxy:
+#    service:
+#      loadBalancerIP: 35.205.79.244
