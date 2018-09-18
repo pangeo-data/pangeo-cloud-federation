@@ -82,7 +82,7 @@ jobs:
       - run:
           name: Deploy hub
           command: |
-            hubploy-helm-deploy example.pangeo.io pangeo/pangeo ${CIRCLE_BRANCH}
+            hubploy-helm-deploy example.pangeo.io pangeo/pangeo ${CIRCLE_BRANCH} --version=v0.1.1-a8f057f
 
 workflows:
   version: 2
