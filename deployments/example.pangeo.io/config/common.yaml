@@ -1,7 +1,7 @@
 jupyterhub:
   singleuser:
     image:
-      name: gcr.io/pangeo-181919/example-pangeo-io-notebook
+      name: us.gcr.io/pangeo-181919/example-pangeo-io-notebook
     cloudMetadata:
       enabled: true
     cpu:

@@ -53,11 +53,11 @@ jobs:
           command: |
             hubploy-image-builder \
               --push \
-              --registry-url https://gcr.io \
+              --registry-url https://us.gcr.io \
               --registry-username _json_key \
               --registry-password "${GCR_READWRITE_KEY}" \
               --repo2docker \
-              deployments/example.pangeo.io/image/ gcr.io/${GOOGLE_PROJECT}/example-pangeo-io-notebook
+              deployments/example.pangeo.io/image/ us.gcr.io/${GOOGLE_PROJECT}/example-pangeo-io-notebook
           environment:
             PYTHONIOENCODING: utf-8
 
