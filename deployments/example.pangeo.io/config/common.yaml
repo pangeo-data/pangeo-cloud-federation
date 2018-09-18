@@ -10,7 +10,3 @@ jupyterhub:
     memory:
       limit: 14G
       guarantee: 4G
-
-#  proxy:
-#    service:
-#      loadBalancerIP: 35.205.79.244
