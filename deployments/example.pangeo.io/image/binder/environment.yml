@@ -52,9 +52,6 @@ dependencies:
   - python-graphviz
   - gsw
   - pip:
-    - --upgrade
-    - --no-cache-dir
-    - --upgrade-strategy only-if-needed
     - fusepy
     - click
     - jedi
