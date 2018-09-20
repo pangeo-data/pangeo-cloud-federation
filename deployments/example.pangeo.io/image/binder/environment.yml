@@ -52,6 +52,9 @@ dependencies:
   - python-graphviz
   - gsw
   - pip:
+    - --upgrade
+    - --no-cache-dir
+    - --upgrade-strategy only-if-needed
     - fusepy
     - click
     - jedi
@@ -60,6 +63,3 @@ dependencies:
     - xesmf
     - nbserverproxy==0.8.1
     - git+https://github.com/xgcm/xgcm
-    - --upgrade
-    - --no-cache-dir
-    - --upgrade-strategy only-if-needed
