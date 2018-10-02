@@ -21,20 +21,27 @@ https://github.com/pangeo-data/pangeo/tree/master/gce/setup-guide
 ./2_configure_kubernetes.sh
 ```
 
+## Install git-crypt
+
+You will need to install
+[`git-crypt`](https://www.agwa.name/projects/git-crypt/). `git-crypt` is used
+to encrypt the secrets that are used for deploying your cluster.
+
 # Configure this repository
 
 Once you have a cluster created, you can begin customizing the configuration.
 
 * Create a fork of this repository in GitHub.
 * Rename the deployments/example.pangeo.io directory to your desired name
-* 
+* Regenerate the git-crypt key. This will be used to encrypt the secrets
+that are used for your deployment.
+  * `git crypt init`
 * Create a CircleCI job for the repo. You will need to add environment 
 variables to configure your job:
 
-
 | Name | Description |
 | ---- | ----------- |
-| GCR_READWRITE_KEY | The JSON output of `gcloud iam service-accounts keys create` |
+| GCR_READWRITE_KEY | The JSON output of `gcloud iam service-accounts keys create` (ask Pangeo administrator to configure this) |
 | GIT_CRYPT_KEY | The base64 encoded output of `git crypt export-key` |
 | GKE_CLUSTER | The name that your cluster was created with |
 | GOOGLE_PROJECT | The identifier of the project where your cluster was created |
