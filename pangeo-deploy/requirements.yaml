@@ -1,4 +1,4 @@
 dependencies:
-  - name: pangeo/pangeo
-    version: v0.1.1-a8f057f
+  - name: pangeo
+    version: v0.1.1-69b4a02
     repository: https://pangeo-data.github.io/helm-chart/
