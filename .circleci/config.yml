@@ -57,7 +57,7 @@ jobs:
               --registry-username _json_key \
               --registry-password "${GCR_READWRITE_KEY}" \
               --repo2docker \
-              deployments/example.pangeo.io/image/ us.gcr.io/${GOOGLE_PROJECT}/example-pangeo-io-notebook
+              deployments/${DEPLOYMENT}/image/ ${IMAGE_NAME}
           environment:
             PYTHONIOENCODING: utf-8
 
@@ -82,9 +82,9 @@ jobs:
       - run:
           name: Deploy hub
           command: |
-            hubploy-helm-deploy example.pangeo.io pangeo/pangeo ${CIRCLE_BRANCH} \
-              --version=v0.1.1-a8f057f \
-              --namespace ${CIRCLE_BRANCH}
+            hubploy-helm-deploy ${DEPLOYMENT} pangeo-deploy ${CIRCLE_BRANCH} \
+              --namespace ${CIRCLE_BRANCH} \
+              --set jupyterhub.singleuser.image.name=${IMAGE_NAME}
 
 workflows:
   version: 2
