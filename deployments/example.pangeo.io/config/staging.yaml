@@ -1,4 +1,5 @@
-jupyterhub:
-  proxy:
-    service:
-      loadBalancerIP: 104.154.59.98
+pangeo:
+  jupyterhub:
+    proxy:
+      service:
+        loadBalancerIP: 104.154.59.98
