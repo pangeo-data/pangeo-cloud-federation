@@ -25,7 +25,7 @@ https://github.com/pangeo-data/pangeo/tree/master/gce/setup-guide
 
 You will need to install
 [`git-crypt`](https://www.agwa.name/projects/git-crypt/). `git-crypt` is used
-to encrypt the secrets that are used for deploying your cluster.
+to encrypt the secrets that are used for deploying your cluster. Please read this [HOW GIT-CRYPT WORKS](https://www.agwa.name/projects/git-crypt/) if new to it. 
 
 # Configure this repository
 
@@ -35,7 +35,7 @@ Once you have a cluster created, you can begin customizing the configuration.
 * Rename the deployments/example.pangeo.io directory to your desired name
   * `git mv example.pangeo.io newname.pangeo.io`
 * Regenerate the git-crypt key. This will be used to encrypt the secrets
-that are used for your deployment. (How do we know if it was succesful?)
+that are used for your deployment.
   * `git crypt init`
 * Create a CircleCI job for the repo. 
   * Log in or Sign up [here](https://circleci.com). Go to [dashboard](https://circleci.com/dashboard). 
@@ -46,7 +46,7 @@ that are used for your deployment. (How do we know if it was succesful?)
 | Name | Description |
 | ---- | ----------- |
 | GCR_READWRITE_KEY | The JSON output of `gcloud iam service-accounts keys create` (ask Pangeo administrator to configure this) |
-| GIT_CRYPT_KEY | The base64 encoded output of `git crypt export-key` |
+| GIT_CRYPT_KEY | The base64 encoded output of `git crypt export-key key.txt` Delete `key.txt` afterwards!|
 | GKE_CLUSTER | The name that your cluster was created with |
 | GOOGLE_PROJECT | The identifier of the project where your cluster was created |
 | GOOGLE_REGION | The Google compute region where your cluster is located (e.g. us-central1) |
