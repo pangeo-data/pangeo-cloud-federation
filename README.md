@@ -54,4 +54,4 @@ that are used for your deployment.
 | IMAGE_NAME | The container registry image to build and use for your notebook and worker containers (e.g. us.gcr.io/pangeo-181919/example-pangeo-io-notebook) |
 | DEPLOYMENT | The name of the directory in `deployments` you wish to deploy (e.g.,  example.pangeo.io) |
 
-* Make a commit to test if the job succeeded. If it failed troubleshoot it... 
+* Make a commit to test if the job succeeded. If it failed troubleshoot it. 
