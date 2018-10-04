@@ -35,10 +35,13 @@ Once you have a cluster created, you can begin customizing the configuration.
 * Rename the deployments/example.pangeo.io directory to your desired name
   * `git mv example.pangeo.io newname.pangeo.io`
 * Regenerate the git-crypt key. This will be used to encrypt the secrets
-that are used for your deployment.
+that are used for your deployment. (How do we know if it was succesful?)
   * `git crypt init`
-* Create a CircleCI job for the repo. You will need to add environment 
-variables to configure your job:
+* Create a CircleCI job for the repo. 
+  * Log in or Sign up [here](https://circleci.com). Go to [dashboard](https://circleci.com/dashboard). 
+  * Click add project under your github account name. 
+  * Click Set Up Project for the example.pangeo.io-deploy repo. Click Linux. Click Start building at bottom. 
+  * You will need to add the below environmental variables to your CircleCI configuration:
 
 | Name | Description |
 | ---- | ----------- |
