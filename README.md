@@ -31,7 +31,7 @@ to encrypt the secrets that are used for deploying your cluster. Please read thi
 
 Once you have a cluster created, you can begin customizing the configuration.
 
-* Create a fork of this repository in GitHub.
+* Create a fork of this repository in GitHub. (Note: the default branch is staging)
 * Rename the deployments/example.pangeo.io directory to your desired name
   * `git mv example.pangeo.io newname.pangeo.io`
 * Regenerate the git-crypt key. This will be used to encrypt the secrets
