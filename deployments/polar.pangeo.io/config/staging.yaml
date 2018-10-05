@@ -2,7 +2,7 @@
 
 jupyterhub:
   singleuser:
-    cmd: ['/usr/local/bin/start-singleuser.sh']
+    cmd: ['start-singleuser.sh']
     extraEnv:
       EXTRA_PIP_PACKAGES: >-
       GCSFUSE_BUCKET: pangeo-data
@@ -39,6 +39,7 @@ jupyterhub:
         c.JupyterHub.logo_file = '/usr/local/share/jupyter/hub/static/custom/images/logo.png'
         c.JupyterHub.template_paths = ['/usr/local/share/jupyter/hub/custom_templates/',
                                       '/usr/local/share/jupyter/hub/templates/']
+        c.DockerSpawner.extra_create_kwargs = {"command": 'env PATH="/opt/conda/bin:$PATH" /usr/local/bin/start-singleuser.sh'}
     image:
       name: jupyterhub/k8s-hub
       tag: v0.6
