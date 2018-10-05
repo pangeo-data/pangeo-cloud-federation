@@ -6,14 +6,14 @@ channels:
   - intake
   - conda-forge
 dependencies:
-  - conda-forge::proj4
+        #- conda-forge::proj4
   - jupyterhub==0.9.2
   - bokeh=0.12.16
   - bqplot
   - cython
   - cytoolz
-  - cartopy
-  - seaborn
+    #- cartopy
+    #- seaborn
   - dask=0.18.2
   - dask-ml
   - datashader
@@ -63,4 +63,4 @@ dependencies:
     - xesmf
     - nbserverproxy==0.8.1
     - git+https://github.com/xgcm/xgcm
-    - git+https://github.com/NicWayand/ESIO.git
+      #- git+https://github.com/NicWayand/ESIO.git
