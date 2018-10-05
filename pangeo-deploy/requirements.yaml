@@ -2,3 +2,7 @@ dependencies:
   - name: pangeo
     version: v0.1.1-69b4a02
     repository: https://pangeo-data.github.io/helm-chart/
+  - name: proj4
+    channel: conda-forge
+  - name: cartopy
+  - name: seaborn
