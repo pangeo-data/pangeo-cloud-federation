@@ -55,3 +55,7 @@ that are used for your deployment.
 | DEPLOYMENT | The name of the directory in `deployments` you wish to deploy (e.g.,  example.pangeo.io) |
 
 * Make a commit to test if the job succeeded. If it failed troubleshoot it. 
+
+# Common Issues
+
+* `Error: could not find a ready tiller pod` Some times it takes a while to download the new tiller image, wait and try again.
