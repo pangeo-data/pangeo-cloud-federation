@@ -2,7 +2,7 @@
 
 jupyterhub:
   singleuser:
-    cmd: ['start-singleuser.sh']
+    cmd: ['/usr/local/bin/start-singleuser.sh']
     extraEnv:
       EXTRA_PIP_PACKAGES: >-
       GCSFUSE_BUCKET: pangeo-data
