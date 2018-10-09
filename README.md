@@ -32,8 +32,8 @@ to encrypt the secrets that are used for deploying your cluster. Please read thi
 Once you have a cluster created, you can begin customizing the configuration.
 
 * Create a fork of this repository in GitHub. (Note: the default branch is staging)
-* Rename the deployments/example.pangeo.io directory to your desired name
-  * `git mv example.pangeo.io newname.pangeo.io`
+* Copy the deployments/example.pangeo.io directory to your desired name
+  * `cp -r example.pangeo.io newname.pangeo.io`
 * Regenerate the git-crypt key. This will be used to encrypt the secrets
 that are used for your deployment.
   * `git crypt init`
@@ -52,9 +52,9 @@ that are used for your deployment.
 | GOOGLE_REGION | The Google compute region where your cluster is located (e.g. us-central1) |
 | GOOGLE_ZONE | The Google compute zone where your cluster is located (e.g. us-central1-b) |
 | IMAGE_NAME | The container registry image to build and use for your notebook and worker containers (e.g. us.gcr.io/pangeo-181919/example-pangeo-io-notebook). See [documentation](https://cloud.google.com/container-registry/) for setting up with your own project. Note: you need write permisson for this project. You will also have to give permisson (Storage Admin, Kubernetes Engine Admin, and Viewer) to the circleCI service account on the container registry ([see doc](https://cloud.google.com/container-registry/docs/access-control)). Then enable the registry API [here](https://console.cloud.google.com/flows/enableapi?apiid=containerregistry.googleapis.com&redirect=https://cloud.google.com/container-registry/docs/quickstart&_ga=2.12214260.-1113544925.1533776076)|
-| DEPLOYMENT | The name of the directory in `deployments` you wish to deploy (e.g.,  example.pangeo.io) |
+| DEPLOYMENT | The name of the directory in `deployments` you wish to deploy (e.g., example.pangeo.io) |
 
-* Make a commit to test if the job succeeded. If it failed troubleshoot it. 
+* Make a commit to test if the job succeeded on circleCI. If it failed troubleshoot it. 
 
 # Common Issues
 
