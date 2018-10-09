@@ -1,0 +1,10 @@
+jupyterhub:
+  singleuser:
+    cloudMetadata:
+      enabled: true
+    cpu:
+      limit: 4
+      guarantee: 1
+    memory:
+      limit: 14G
+      guarantee: 4G
