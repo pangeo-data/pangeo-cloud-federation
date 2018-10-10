@@ -59,3 +59,4 @@ that are used for your deployment.
 # Common Issues
 
 * `Error: could not find a ready tiller pod` Some times it takes a while to download the new tiller image, wait and try again.
+* `Error: UPGRADE FAILED: "example.pangeo.io-staging" has no deployed releases` If your first deploy of an application fails. Run `helm delete polar.pangeo.io-staging --purge` anywhere you have run `gcloud container clusters get-credentials`
