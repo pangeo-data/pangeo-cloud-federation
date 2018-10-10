@@ -4,7 +4,7 @@ jupyterhub:
       hosts:
       - polar.pangeo.io
       letsencrypt:
-        contactEmail: nicway@gmail.com
+      contactEmail: nicway@gmail.com
     service:
-      loadBalancerIP: 35.233.186.201 
+      loadBalancerIP: 35.199.148.218/ 
 
