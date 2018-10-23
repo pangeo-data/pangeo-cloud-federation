@@ -8,3 +8,23 @@ jupyterhub:
     memory:
       limit: 14G
       guarantee: 4G
+  auth:
+    github:
+      org_whitelist:
+        - pangeo-data
+        - pydata
+        - dask
+        - xarray-dev
+        - jupyterhub
+        - informatics-lab
+    admin:
+      access: true
+      users:
+        - mrocklin
+        - jhamman
+        - rabernat
+        - yuvipanda
+        - choldgraf
+        - jacobtomlinson
+        - dsludwig
+        - rsignell-usgs
