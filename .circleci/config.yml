@@ -96,5 +96,6 @@ workflows:
         filters:
           branches:
             only:
+            - develop
             - staging
             - prod
