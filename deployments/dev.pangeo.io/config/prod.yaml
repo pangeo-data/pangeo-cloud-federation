@@ -2,8 +2,9 @@ jupyterhub:
   proxy:
     https:
       hosts:
-      - staging.pangeo.io
+      - hub.pangeo.io
       letsencrypt:
         contactEmail: dludwig@anaconda.com
     # service:
     #   loadBalancerIP: 104.154.59.98
+
