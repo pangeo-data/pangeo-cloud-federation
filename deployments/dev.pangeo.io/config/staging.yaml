@@ -5,5 +5,5 @@ jupyterhub:
       - staging.pangeo.io
       letsencrypt:
         contactEmail: dludwig@anaconda.com
-    # service:
-    #   loadBalancerIP: 104.154.59.98
+    service:
+      loadBalancerIP: 104.197.224.206
