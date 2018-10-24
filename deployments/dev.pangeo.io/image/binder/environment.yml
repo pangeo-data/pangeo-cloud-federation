@@ -1,28 +1,32 @@
 name: root
 channels:
-  - defaults
-  - pyviz/label/dev
-  - bokeh/label/dev
-  - intake
   - conda-forge
 dependencies:
-  - jupyterhub==0.9.2
-  - bokeh=0.12.16
+  - jupyterhub
+  - bokeh
   - bqplot
+  - click
   - cython
   - cytoolz
-  - dask=0.18.2
+  - dask
   - dask-ml
+  - dask-kubernetes
   - datashader
-  - distributed=1.22.1
+  - distributed
   - esmpy
   - fastparquet
-  - gcsfs=0.1.2
+  - fusepy
+  - holoviews
+  - gcsfs
+  - geoviews
+  - hvplot
+  - intake::intake-xarray
   - ipywidgets
   - ipyleaflet
+  - jedi
   - jupyter
-  - jupyterlab=0.34.2
-  - jupyterlab_launcher=0.13.1
+  - jupyterlab=0.35
+  - jupyterlab_launcher
   - jupyter_client
   - holoviews
   - libsodium
@@ -30,33 +34,26 @@ dependencies:
   - matplotlib
   - msgpack-python
   - nb_conda_kernels
-  - netcdf4>1.4
+  - nbserverproxy
+  - netcdf4
   - nomkl
   - numba
   - numcodecs
-  - numpy=1.15.1
-  - pandas=0.23.2
+  - numpy
+  - pandas
+  - panel
   - python-blosc
+  - python-graphviz
   - pyzmq
   - s3fs
   - scipy
   - scikit-image
   - scikit-learn
-  - toolz=0.9.0
-  - tornado=5.0.2
-  - xarray=0.10.8
-  - zarr=2.2.0
+  - toolz
+  - tornado
+  - xesmf
+  - xgcm
+  - zarr
   - zict
-  - intake-xarray
-  - graphviz
-  - python-graphviz
-  - gsw
   - pip:
-    - fusepy
-    - click
-    - jedi
-    - kubernetes==6.0.0
-    - dask-kubernetes==0.5.0
-    - xesmf
-    - nbserverproxy==0.8.1
-    - git+https://github.com/xgcm/xgcm
+    - git+https://github.com/pydata/xarray.git
