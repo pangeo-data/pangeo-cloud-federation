@@ -8,11 +8,11 @@ dependencies:
   - click
   - cython
   - cytoolz
-  - dask
+  - dask=0.18.2
   - dask-ml
-  - dask-kubernetes
+  - dask-kubernetes=0.5.0
   - datashader
-  - distributed
+  - distributed=1.22.1
   - esmpy
   - fastparquet
   - fusepy
@@ -50,7 +50,7 @@ dependencies:
   - scikit-image
   - scikit-learn
   - toolz
-  - tornado
+  - tornado=5.0.2
   - xesmf
   - xgcm
   - zarr
