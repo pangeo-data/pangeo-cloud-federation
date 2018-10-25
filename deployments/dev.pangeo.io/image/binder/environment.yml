@@ -15,7 +15,6 @@ dependencies:
   - distributed=1.23.3
   - esmpy
   - fastparquet
-  - fusepy
   - holoviews
   - gcsfs
   - geoviews
