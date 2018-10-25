@@ -1,2 +1,2 @@
-git+https://github.com/dsludwig/hubploy.git
+git+https://github.com/dsludwig/hubploy.git@cp-update
 git+https://github.com/dsludwig/repo2docker.git
