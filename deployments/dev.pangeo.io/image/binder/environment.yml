@@ -10,7 +10,7 @@ dependencies:
   - cytoolz
   - dask=0.19.4
   - dask-ml
-  - dask-kubernetes=0.50
+  - dask-kubernetes=0.5.0
   - datashader
   - distributed=1.23.3
   - esmpy
