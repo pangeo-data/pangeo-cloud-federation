@@ -8,11 +8,11 @@ dependencies:
   - click
   - cython
   - cytoolz
-  - dask
+  - dask=0.19.4
   - dask-ml
-  - dask-kubernetes
+  - dask-kubernetes=0.50
   - datashader
-  - distributed
+  - distributed=1.23.3
   - esmpy
   - fastparquet
   - fusepy
