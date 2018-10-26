@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - jupyterhub
-  - bokeh
+  - bokeh=1
   - bqplot
   - click
   - cython
