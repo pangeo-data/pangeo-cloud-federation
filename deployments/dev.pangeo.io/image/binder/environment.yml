@@ -3,15 +3,15 @@ channels:
   - conda-forge
 dependencies:
   - jupyterhub
-  - bokeh=1
+  - bokeh
   - bqplot
   - click
   - cython
   - cytoolz
-  - dask=0.19.4
+  - dask
   - dask-ml
   - datashader
-  - distributed=1.23.3
+  - distributed
   - esmpy
   - fastparquet
   - fusepy
@@ -41,6 +41,7 @@ dependencies:
   - numpy
   - pandas
   - panel
+  - pygam
   - python-blosc
   - python-graphviz
   - pyzmq
