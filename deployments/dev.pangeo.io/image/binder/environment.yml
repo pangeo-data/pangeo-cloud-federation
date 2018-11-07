@@ -55,6 +55,7 @@ dependencies:
   - toolz
   - tqdm
   - tornado
+  - umap-learn
   - xesmf
   - xgcm
   - zarr
