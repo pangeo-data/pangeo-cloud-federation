@@ -53,6 +53,7 @@ dependencies:
   - scikit-image
   - scikit-learn
   - toolz
+  - tqdm
   - tornado
   - xesmf
   - xgcm
