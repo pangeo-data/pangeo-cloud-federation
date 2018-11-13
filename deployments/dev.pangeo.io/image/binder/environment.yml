@@ -17,10 +17,10 @@ dependencies:
   - esmpy
   - fastparquet
   - fusepy
-  - holoviews
+  - pyviz/label/dev::holoviews
   - gcsfs
-  - geoviews
-  - hvplot
+  - pyviz/label/dev::geoviews
+  - pyviz/label/dev::hvplot
   - intake::intake
   - intake::intake-xarray
   - ipywidgets
@@ -43,7 +43,7 @@ dependencies:
   - numcodecs
   - numpy
   - pandas
-  - panel
+  - pyviz/label/dev::panel
   - pygam
   - python-blosc
   - python-graphviz
