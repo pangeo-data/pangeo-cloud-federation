@@ -58,6 +58,7 @@ dependencies:
   - tqdm
   - tornado
   - umap-learn
+  - utide
   - xarray
   - xesmf
   - xgcm
