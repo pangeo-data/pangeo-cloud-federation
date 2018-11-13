@@ -11,6 +11,7 @@ dependencies:
   - cytoolz
   - dask
   - dask-ml
+  - dask-kubernetes
   - datashader
   - distributed
   - esmpy
@@ -20,6 +21,7 @@ dependencies:
   - gcsfs
   - geoviews
   - hvplot
+  - intake::intake
   - intake::intake-xarray
   - ipywidgets
   - ipyleaflet
@@ -56,10 +58,8 @@ dependencies:
   - tqdm
   - tornado
   - umap-learn
+  - xarray
   - xesmf
   - xgcm
   - zarr
   - zict
-  - pip:
-    - git+https://github.com/pydata/xarray.git
-    - git+https://github.com/dask/dask-kubernetes.git
