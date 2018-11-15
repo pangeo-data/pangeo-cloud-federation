@@ -24,7 +24,7 @@ kubernetes:
           - 7GB
           - --death-timeout
           - '60'
-        image: WORKER_IMAGE
+        image: ${JUPYTER_IMAGE_SPEC}
         name: dask-worker
         resources:
           limits:
