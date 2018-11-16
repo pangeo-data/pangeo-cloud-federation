@@ -9,7 +9,7 @@ spec:
     - ReadWriteMany
   nfs:
     server: {{ .Values.homeDirectories.nfs.serverIP | quote}}
-    path: {{ .Values.homeDirectories.nfs.serverPath | quote }}
+    path: "/{{ .Values.homeDirectories.nfs.serverName }}"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
