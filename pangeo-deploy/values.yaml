@@ -34,3 +34,7 @@ jupyterhub:
   prePuller:
     hook:
       enabled: false
+
+homeDirectories:
+  nfs:
+    serverPath: "/homes"
