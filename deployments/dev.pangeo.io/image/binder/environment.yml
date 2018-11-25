@@ -13,6 +13,7 @@ dependencies:
   - dask-ml
   - dask-kubernetes
   - datashader
+  - depfinder
   - distributed
   - esmpy
   - fastparquet
