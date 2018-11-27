@@ -5,6 +5,7 @@ dependencies:
   - jupyterhub
   - bokeh
   - bqplot
+  - cartopy=0.16.0
   - cdo
   - click
   - cython
