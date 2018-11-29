@@ -36,6 +36,7 @@ dependencies:
   - libsodium
   - lz4
   - matplotlib
+  - metpy
   - msgpack-python
   - nb_conda_kernels
   - nbserverproxy
