@@ -5,6 +5,7 @@ dependencies:
   - jupyterhub
   - bokeh
   - bqplot
+  - cartopy=0.16.0
   - cdo
   - click
   - cython
@@ -13,6 +14,7 @@ dependencies:
   - dask-ml
   - dask-kubernetes
   - datashader
+  - depfinder
   - distributed
   - esmpy
   - fastparquet
@@ -34,6 +36,7 @@ dependencies:
   - libsodium
   - lz4
   - matplotlib
+  - metpy
   - msgpack-python
   - nb_conda_kernels
   - nbserverproxy

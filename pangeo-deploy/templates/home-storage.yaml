@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Release.Name }}-home-nfs
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.homeDirectories.nfs.serverIP | quote}}
+    path: "/{{ .Values.homeDirectories.nfs.serverName }}"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: home-nfs
+spec:
+  accessModes:
+    - ReadWriteMany
+  # Match name of PV
+  volumeName: {{ .Release.Name }}-home-nfs
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 1Mi
