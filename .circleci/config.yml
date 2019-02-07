@@ -49,6 +49,11 @@ jobs:
             gcloud --quiet beta container clusters get-credentials ${GKE_CLUSTER} --zone=${GOOGLE_ZONE}
 
       - run:
+          name: Set envinronment variables
+          command: |
+            export DEPLOYMENT=$( echo ${CIRCLE_BRANCH} | sed -e "s/-/ /" | awk '{print $1}').pangeo.io
+
+      - run:
           name: Build primary image if needed
           command: |
             hubploy-image-builder \
