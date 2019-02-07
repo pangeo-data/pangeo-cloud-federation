@@ -4,7 +4,8 @@ jobs:
     docker:
       - image: buildpack-deps:bionic-scm
     working_directory: ~/repo
-
+    environment:
+      DEPLOYMENT: $( echo ${CIRCLE_BRANCH} | sed -e "s/-/ /" | awk '{print $1}').pangeo.io
     steps:
       - run:
           name: Install base apt packages
@@ -47,11 +48,6 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT}
             gcloud --quiet config set compute/zone ${GOOGLE_ZONE}
             gcloud --quiet beta container clusters get-credentials ${GKE_CLUSTER} --zone=${GOOGLE_ZONE}
-
-      - run:
-          name: Set envinronment variables
-          command: |
-            echo 'export DEPLOYMENT=$( echo ${CIRCLE_BRANCH} | sed -e "s/-/ /" | awk '{print $1}').pangeo.io' >> ${BASH_ENV}
 
       - run:
           name: Build primary image if needed
