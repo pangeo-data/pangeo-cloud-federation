@@ -56,6 +56,9 @@ jobs:
       - run:
           name: Build primary image if needed
           command: |
+            echo "Deployment: ${DEPLOYMENT}"
+            echo "Branch: ${CIRCLE_BRANCH}"
+            echo "Image: ${IMAGE_NAME}"
             hubploy-image-builder \
               --push \
               --registry-url https://us.gcr.io \
