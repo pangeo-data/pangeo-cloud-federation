@@ -98,3 +98,5 @@ workflows:
             - develop
             - staging
             - prod
+            - ocean-prod
+            - ocean-test
