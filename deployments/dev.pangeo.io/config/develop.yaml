@@ -7,4 +7,3 @@ jupyterhub:
         contactEmail: dludwig@anaconda.com
     service:
       loadBalancerIP: 35.192.110.1
-

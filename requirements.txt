@@ -1,2 +1,2 @@
-jupyter-repo2docker==0.7.0
-git+https://github.com/yuvipanda/hubploy.git
+git+https://github.com/yuvipanda/hubploy.git@a669af1
+pygithub
