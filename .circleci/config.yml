@@ -51,9 +51,7 @@ jobs:
       - run:
           name: Set envinronment variables
           command: |
-            export DEPLOYMENT=$( echo ${CIRCLE_BRANCH} | sed -e "s/-/ /" | awk '{print $1}').pangeo.io
-            echo ${CIRCLE_BRANCH}
-            echo ${DEPLOYMENT}
+            echo 'export DEPLOYMENT=$( echo ${CIRCLE_BRANCH} | sed -e "s/-/ /" | awk '{print $1}').pangeo.io' >> ${BASH_ENV}
 
       - run:
           name: Build primary image if needed
