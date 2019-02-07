@@ -1,0 +1,58 @@
+jupyterhub:
+  singleuser:
+    cloudMetadata:
+      enabled: true
+  hub:
+    extraConfig:
+      profile_list: |
+        c.KubeSpawner.profile_list = [
+          {
+              'display_name': 'small (n1-highmem-2 | 2 cores, 12GB)',
+              'kubespawner_override': {
+                  'cpu_limit': 2,
+                  'cpu_guarantee': 2,
+                  'mem_limit': '12G',
+                  'mem_guarantee': '12G',
+              }
+          },
+          {
+              'display_name': 'standard (n1-highmem-4 | 4 cores, 24GB)',
+              'kubespawner_override': {
+                  'cpu_limit': 4,
+                  'cpu_guarantee': 4,
+                  'mem_limit': '24G',
+                  'mem_guarantee': '24G',
+              }
+          },
+          {
+              'display_name': 'large (n1-highmem-8 | 8 cores, 50GB)',
+              'kubespawner_override': {
+                  'cpu_limit': 8,
+                  'cpu_guarantee': 8,
+                  'mem_limit': '50G',
+                  'mem_guarantee': '50G',
+              }
+          },
+          {
+              'display_name': 'x-large (n1-highmem-16 | 16 cores, 96GB RAM)',
+              'kubespawner_override': {
+                  'cpu_limit': 16,
+                  'cpu_guarantee': 14,
+                  'mem_limit': '100G',
+                  'mem_guarantee': '96G',
+              }
+          }
+        ]
+  auth:
+    type: github
+    github:
+      orgWhitelist:
+        - "pangeo-data"
+    scopes:
+      - "read:org"
+      - "read:user"
+    admin:
+      access: true
+      users:
+        - raphaeldussin
+        - rabernat
