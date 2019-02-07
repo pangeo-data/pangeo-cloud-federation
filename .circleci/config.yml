@@ -6,7 +6,6 @@ jobs:
     working_directory: ~/repo
     environment:
       DEPLOYMENT: $( echo ${CIRCLE_BRANCH} | sed -e "s/-/ /" | awk '{print $1}').pangeo.io
-
     steps:
       - run:
           name: Install base apt packages
