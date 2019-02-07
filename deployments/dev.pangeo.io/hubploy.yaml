@@ -1,0 +1,16 @@
+images:
+  image_name: gcr.io/pangeo-181919/dev-pangeo-io-notebook
+  registry:
+    provider: gcloud
+    gcloud:
+      project: pangeo-181919
+      service_key: gcloud-service-key.json
+
+cluster:
+  provider: gcloud
+  gcloud:
+    project: pangeo-181919
+    service_key: gcloud-service-key.json
+    cluster: dev-pangeo-io-cluster
+    zone: us-central1-b
+
