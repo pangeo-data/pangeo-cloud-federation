@@ -10,7 +10,6 @@ Changing the image will typically take ~20 minutes, and changing a Helm config v
 
 Branch | Deployment | Build
 -|-|-
-develop | https://dev.pangeo.io | [![CircleCI](https://circleci.com/gh/pangeo-data/dev.pangeo.io-deploy/tree/develop.svg?style=svg)](https://circleci.com/gh/pangeo-data/dev.pangeo.io-deploy/tree/develop) |
 staging | https://staging.pangeo.io | [![CircleCI](https://circleci.com/gh/pangeo-data/dev.pangeo.io-deploy/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/dev.pangeo.io-deploy/tree/staging)
 prod | https://hub.pangeo.io | [![CircleCI](https://circleci.com/gh/pangeo-data/dev.pangeo.io-deploy/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/dev.pangeo.io-deploy/tree/prod)
 
