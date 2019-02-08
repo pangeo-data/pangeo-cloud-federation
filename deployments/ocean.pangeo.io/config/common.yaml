@@ -1,5 +1,20 @@
 jupyterhub:
   singleuser:
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "home/dev.pangeo.io/{username}"
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "home/dev.pangeo.io/{username}"
     cloudMetadata:
       enabled: true
   hub:
@@ -56,3 +71,5 @@ jupyterhub:
       users:
         - raphaeldussin
         - rabernat
+        - jhamman
+

@@ -18,24 +18,9 @@ jupyterhub:
   # See https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/master/jupyterhub/values.yaml
 
   singleuser:
-    initContainers:
-      - name: volume-mount-hack
-        image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "home/{username}"
-    storage:
-      type: static
-      static:
-        pvcName: home-nfs
-        subPath: "home/{username}"
     image:
-      name: pangeo/notebook
-      tag: 2018-06-13.4
+      name: pangeo/base-notebook
+      tag: 2019.02.01
     cpu:
       limit: 2
       guarantee: 1
