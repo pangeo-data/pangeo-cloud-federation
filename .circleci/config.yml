@@ -26,7 +26,7 @@ jobs:
             # Install repo2docker explicitly since we want a higher version than the released
             # Can't put this in requirements.txt since pip doesn't seem to realize this is a newer version
             # This branch combines upstream/master with yuvipanda/julia-requirements-no-verseioneer
-            pip install git+https://github.com/jhamman/repo2docker@pangeo_hubploy
+            pip install --upgrade --force-reinstall git+https://github.com/jhamman/repo2docker@pangeo_hubploy
             echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
       - setup_remote_docker
       - save_cache:
