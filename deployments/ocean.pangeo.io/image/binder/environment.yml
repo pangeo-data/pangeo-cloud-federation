@@ -55,6 +55,7 @@ dependencies:
   - scipy
   - scikit-image
   - scikit-learn
+  - seawater
   - siphon
   - toolz
   - tqdm
