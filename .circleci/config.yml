@@ -12,9 +12,15 @@ jobs:
             apt-get update --yes -qq
             apt-get install --yes -qq python3 python3-venv git-crypt jq
       - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
       - run:
           name: install dependencies
           command: |
+            echo "INSTALLING DEPENDENCIES!"
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
