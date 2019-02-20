@@ -133,7 +133,7 @@ jobs:
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm init --client-only
-            # helm repo add jupyterhubhttps://jupyterhub.github.io/helm-chart/
+            helm repo add jupyterhubhttps://jupyterhub.github.io/helm-chart/
             helm repo update
 
       - run:
