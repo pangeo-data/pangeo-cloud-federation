@@ -139,12 +139,12 @@ jobs:
       - run:
           name: Deploy dev.pangeo.io
           command: |
-            hubploy deploy dev.pangeo.io hub ${CIRCLE_BRANCH}
+            hubploy deploy dev.pangeo.io pangeo-deploy ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy ocean.pangeo.io
           command: |
-            hubploy deploy ocean.pangeo.io hub ${CIRCLE_BRANCH}
+            hubploy deploy ocean.pangeo.io pangeo-deploy ${CIRCLE_BRANCH}
 
 workflows:
   version: 2
