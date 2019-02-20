@@ -1,9 +1,8 @@
 jupyterhub:
   proxy:
     https:
+      enabled: false
       hosts:
       - ocean.pangeo.io
       letsencrypt:
         contactEmail: raphael.dussin@gmail.com
-    service:
-      loadBalancerIP: 104.154.85.139
