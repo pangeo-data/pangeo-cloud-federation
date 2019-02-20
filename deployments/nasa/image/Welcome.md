@@ -1,5 +1,5 @@
 <center>
-    <img src="nasa-logo.png" width="75%" align="center">
+    <img src="nasa-logo.png" width="25%" align="center">
     <img src="pangeo_simple_logo.png" width="50%" align="center">
 </center>
 
