@@ -43,14 +43,14 @@ jobs:
       - run:
           name: Test building dev.pangeo.io image if needed
           command: |
-            hubploy build dev.pangeo.io --commit-range ${COMMIT_RANGE}
+            hubploy build dev --commit-range ${COMMIT_RANGE}
           environment:
             PYTHONIOENCODING: utf-8
 
       - run:
           name: Test building ocean.pangeo.io image if needed
           command: |
-            hubploy build ocean.pangeo.io --commit-range ${COMMIT_RANGE}
+            hubploy build ocean --commit-range ${COMMIT_RANGE}
           environment:
             PYTHONIOENCODING: utf-8
   deploy:
@@ -115,14 +115,14 @@ jobs:
       - run:
           name: Build dev.pangeo.io image if needed
           command: |
-            hubploy build dev.pangeo.io --commit-range ${COMMIT_RANGE} --push
+            hubploy build dev --commit-range ${COMMIT_RANGE} --push
           environment:
             PYTHONIOENCODING: utf-8
 
       - run:
           name: Build ocean.pangeo.io image if needed
           command: |
-            hubploy build ocean.pangeo.io --commit-range ${COMMIT_RANGE} --push
+            hubploy build ocean --commit-range ${COMMIT_RANGE} --push
           environment:
             PYTHONIOENCODING: utf-8
 
@@ -133,18 +133,18 @@ jobs:
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm init --client-only
-            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+            # helm repo add jupyterhubhttps://jupyterhub.github.io/helm-chart/
             helm repo update
 
       - run:
           name: Deploy dev.pangeo.io
           command: |
-            hubploy deploy dev.pangeo.io pangeo-deploy ${CIRCLE_BRANCH}
+            hubploy deploy dev pangeo-deploy ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy ocean.pangeo.io
           command: |
-            hubploy deploy ocean.pangeo.io pangeo-deploy ${CIRCLE_BRANCH}
+            hubploy deploy ocean pangeo-deploy ${CIRCLE_BRANCH}
 
 workflows:
   version: 2
