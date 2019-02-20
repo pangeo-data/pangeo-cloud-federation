@@ -1,13 +1,13 @@
 <center>
-    <img src="images/small_e_logo.svg" width="75%" align="center">
-    <img src="images/pangeo_simple_logo.png" width="50%" align="center">
+    <img src="small_e_logo.svg" width="75%" align="center">
+    <img src="pangeo_simple_logo.png" width="50%" align="center">
 </center>
 
 # Welcome to nasa.pangeo.io! 
 
 This is a [JupyterHub](https://jupyterhub.readthedocs.io/en/stable/) running on Amazon Web Services (AWS). You have access to a scalable cluster based on [Kubernetes and Dask](http://kubernetes.dask.org/en/latest/).
 
-Pangeo is a community effort and big-data platform for the geosciences. This particular Pangeo project is aimed at processing NASA Earth Observation data on AWS. The main motivation is NASA moving a 100 Petabyte+ archive of imagery to AWS - read more [here](https://earthdata.nasa.gov/about/eosdis-cloud-evolution).
+Pangeo is a community effort and big-data platform for the geosciences. This particular Pangeo project is aimed at processing NASA Earth Observation data on AWS. The main motivation is NASA moving a 100 Petabyte+ archive of imagery to AWS - read more [here](https://earthdata.nasa.gov/about/eosdis-cloud-evolution). The JupyterHub environment you are now in enables interactive and scalable analysis next to those datasets, circumventing the need to duplicate and download large archives.
 
 A file browser listing example notebooks is available to the left. 
 
