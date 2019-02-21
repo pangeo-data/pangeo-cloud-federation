@@ -23,6 +23,22 @@ jupyterhub:
     memory:
       limit: 14G
       guarantee: 4G
+  extraConfig:
+      profile_list: |
+        c.KubeSpawner.profile_list = [
+          {
+              'display_name': 'base-notebook - small (n1-highmem-2 | 2 cores, 12GB)',
+              'kubespawner_override': {
+                  'image': 'pangeo/base-notebook:latest',
+              }
+          },
+          {
+              'display_name': 'pangeo-notebook - small (n1-highmem-2 | 2 cores, 12GB)',
+              'kubespawner_override': {
+                  'image': 'pangeo/pangeo-notebook:latest',
+              }
+          },
+        ]
   auth:
     github:
       org_whitelist:
