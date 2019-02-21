@@ -3,6 +3,6 @@ jupyterhub:
     https:
       enabled: false
       hosts:
-      - staging.pangeo.io
+      - staging.hub.pangeo.io
       letsencrypt:
         contactEmail: dludwig@anaconda.com
