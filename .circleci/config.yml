@@ -44,15 +44,11 @@ jobs:
           name: Test building dev.pangeo.io image if needed
           command: |
             hubploy build dev --commit-range ${COMMIT_RANGE}
-          environment:
-            PYTHONIOENCODING: utf-8
 
       - run:
           name: Test building ocean.pangeo.io image if needed
           command: |
             hubploy build ocean --commit-range ${COMMIT_RANGE}
-          environment:
-            PYTHONIOENCODING: utf-8
   deploy:
     docker:
       - image: buildpack-deps:bionic-scm
@@ -116,15 +112,11 @@ jobs:
           name: Build dev.pangeo.io image if needed
           command: |
             hubploy build dev --commit-range ${COMMIT_RANGE} --push
-          environment:
-            PYTHONIOENCODING: utf-8
 
       - run:
           name: Build ocean.pangeo.io image if needed
           command: |
             hubploy build ocean --commit-range ${COMMIT_RANGE} --push
-          environment:
-            PYTHONIOENCODING: utf-8
 
       - run:
           name: Install helm
