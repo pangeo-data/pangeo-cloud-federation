@@ -1,17 +1,23 @@
-# About
-
-This repository contains the reproducible configuration for deploying a Pangeo
-instance on Google Kubernetes Engine.
-
+This repository manages the continuous deployment of the Pangeo Cloud Federation
+JupyterHub Kubernetes clusters using [hubploy](https://github.com/yuvipanda/hubploy).
 It contains scripts to automatically redeploy when the image definition or
 chart parameters are changed.
 
 Changing the image will typically take ~20 minutes, and changing a Helm config variable ~1 minute.
 
-Branch | Deployment | Build
+# Clusters
+
+Name | Staging URL | Production URL
 -|-|-
-staging | https://staging.pangeo.io | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/dev.pangeo.io-deploy/tree/staging)
-prod | https://hub.pangeo.io | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/dev.pangeo.io-deploy/tree/prod)
+ocean.pangeo.io | http://staging.ocean.pangeo.io | n/a
+dev.pangeo.io | ? | ?
+
+# Build Status
+
+Branch | Build
+-|-
+staging | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging)
+prod | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod)
 
 # Setup
 
