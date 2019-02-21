@@ -1,7 +1,6 @@
 jupyterhub:
   proxy:
     https:
-      enabled: false
       hosts:
       - ocean.pangeo.io
       letsencrypt:
