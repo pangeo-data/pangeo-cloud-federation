@@ -7,15 +7,15 @@ Changing the image will typically take ~20 minutes, and changing a Helm config v
 
 # Clusters
 
-Name  | Staging URL                        | Production URL
--     |-                                   |-
-ocean | http://staging.ocean.pangeo.io     | n/a
-dev   | http://staging.hub.ocean.pangeo.io | http://hub.pangeo.io
+Name  | Staging URL | Production URL
+- |- |-
+ocean | http://staging.ocean.pangeo.io | n/a
+dev | http://staging.hub.ocean.pangeo.io | http://hub.pangeo.io
 
 # Build Status
 
 Branch | Build
--      |-
+- |-
 staging | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging)
 prod | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod)
 
