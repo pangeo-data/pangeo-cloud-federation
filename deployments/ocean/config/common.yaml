@@ -9,12 +9,12 @@ jupyterhub:
         volumeMounts:
         - name: home
           mountPath: /home/jovyan
-          subPath: "home/ocean.pangeo.io/{username}"
+          subPath: "home/pangeo-users/{username}"
     storage:
       type: static
       static:
         pvcName: home-nfs
-        subPath: "home/ocean.pangeo.io/{username}"
+        subPath: "home/pangeo-users/{username}"
     cloudMetadata:
       enabled: true
   hub:
@@ -72,4 +72,8 @@ jupyterhub:
         - raphaeldussin
         - rabernat
         - jhamman
-
+homeDirectories:
+  nfs:
+    # Output from gcloud beta filestore instances describe dev-home --location=us-central1-b
+    serverIP: 10.171.161.186
+    serverName: test
