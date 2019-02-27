@@ -46,6 +46,14 @@ jobs:
           name: Test building ocean.pangeo.io image if needed
           command: |
             hubploy build ocean --commit-range ${COMMIT_RANGE}
+
+      - run:
+          name: Test building nasa.pangeo.io image if needed
+          command: |
+            hubploy build nasa --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
+
   deploy:
     docker:
       - image: buildpack-deps:bionic-scm
@@ -112,6 +120,13 @@ jobs:
             hubploy build ocean --commit-range ${COMMIT_RANGE} --push
 
       - run:
+          name: Build nasa.pangeo.io image if needed
+          command: |
+            hubploy build nasa --commit-range ${COMMIT_RANGE} --push
+          environment:
+            PYTHONIOENCODING: utf-8
+
+      - run:
           name: Install helm
           command: |
             curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.0-linux-amd64.tar.gz | \
@@ -130,6 +145,12 @@ jobs:
           name: Deploy ocean.pangeo.io
           command: |
             hubploy deploy ocean pangeo-deploy ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy nasa.pangeo.io
+          command: |
+            hubploy deploy nasa pangeo-deploy ${CIRCLE_BRANCH}
+
 
 workflows:
   version: 2
