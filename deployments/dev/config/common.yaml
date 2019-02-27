@@ -41,13 +41,16 @@ jupyterhub:
         ]
   auth:
     github:
-      org_whitelist:
+      orgWhitelist:
         - pangeo-data
         - pydata
         - dask
         - xarray-dev
         - jupyterhub
         - informatics-lab
+    scopes:
+      - "read:org"
+      - "read:user"
     admin:
       access: true
       users:
