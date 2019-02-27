@@ -2,15 +2,10 @@ images:
   image_name: TBD/nasa-pangeo-io-notebook
   registry:
     provider: aws
-    gcloud:
-      project: TBD
-      service_key: TBD
+      project: pangeo-nasa-access
+      service_key: aws-config.txt
 
 cluster:
   provider: aws
-  gcloud:
-    project: TBD
-    service_key: TBD
-    cluster: pangeo
-    zone: us-east-1
-
+    project: pangeo-nasa-access
+    service_key: aws-config.txt
