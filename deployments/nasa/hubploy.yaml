@@ -1,16 +1,16 @@
 images:
-  image_name: gcr.io/pangeo-181919/dev-pangeo-io-notebook
+  image_name: TBD/nasa-pangeo-io-notebook
   registry:
-    provider: gcloud
+    provider: aws
     gcloud:
-      project: pangeo-181919
-      service_key: gcloud-service-key.json
+      project: TBD
+      service_key: TBD
 
 cluster:
-  provider: gcloud
+  provider: aws
   gcloud:
-    project: pangeo-181919
-    service_key: gcloud-service-key.json
-    cluster: dev-pangeo-io-cluster
-    zone: us-central1-b
+    project: TBD
+    service_key: TBD
+    cluster: pangeo
+    zone: us-east-1
 

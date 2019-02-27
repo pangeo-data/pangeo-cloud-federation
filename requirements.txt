@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 git+https://github.com/jhamman/hubploy.git@feature/aws_auth
 pygithub
+=======
+git+https://github.com/jhamman/hubploy.git@aws_auth
+pygithub
+>>>>>>> ad93bdd75d1e5f988fb382c46a3bfcbff5a7a999
