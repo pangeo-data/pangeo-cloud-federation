@@ -8,9 +8,10 @@ images:
 
 cluster:
   provider: aws
+    project: pangeo-nasa-access
+    service_key: aws-config.txt
   gcloud:
     project: TBD
     service_key: TBD
     cluster: pangeo
     zone: us-east-1
-
