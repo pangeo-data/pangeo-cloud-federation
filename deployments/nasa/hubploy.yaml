@@ -2,6 +2,8 @@ images:
   image_name: TBD/nasa-pangeo-io-notebook
   registry:
     provider: aws
+      project: pangeo-nasa-access
+      service_key: aws-config.txt
 
 cluster:
   provider: aws
