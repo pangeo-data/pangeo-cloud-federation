@@ -1,0 +1,125 @@
+# Template to load 30m Landsat8 images from AWS
+plugins:
+  source:
+    - module: intake_xarray
+sources:
+  aws_landsat_8_30m:
+    description: AWS Cloud Storage hosted files containing Landsat 8 data for a particular path, row and product_id. Landsat data is collected by NASA and the USGS and freely available for use.
+    driver: rasterio
+    parameters:
+      baseurl:
+        description: public url
+        type: str
+        default: s3-us-west-2.amazonaws.com/landsat-pds/c1/L8
+      path:
+        description: landsat path
+        type: int
+        default: 47
+      row:
+        description: landsat row
+        type: int
+        default: 27
+      pid:
+        description: landsat file id
+        type: str
+        default: LC08_L1TP_047027_20180113_20180119_01_T1
+    args:
+      urlpath:
+        - https://{{ baseurl }}/{{ '%03d' % path }}/{{ '%03d' % row }}/{{ pid }}/{{ pid}}_B1.TIF
+        - https://{{ baseurl }}/{{ '%03d' % path }}/{{ '%03d' % row }}/{{ pid }}/{{ pid }}_B2.TIF
+        - https://{{ baseurl }}/{{ '%03d' % path }}/{{ '%03d' % row }}/{{ pid}}/{{ pid}}_B3.TIF
+        - https://{{ baseurl }}/{{ '%03d' % path }}/{{ '%03d' % row }}/{{ pid }}/{{ pid }}_B4.TIF
+        - https://{{ baseurl }}/{{ '%03d' % path }}/{{ '%03d' % row }}/{{ pid }}/{{ pid }}_B5.TIF
+        - https://{{ baseurl }}/{{ '%03d' % path }}/{{ '%03d' % row }}/{{ pid }}/{{ pid }}_B6.TIF
+        - https://{{ baseurl }}/{{ '%03d' % path }}/{{ '%03d' % row }}/{{ pid }}/{{ pid }}_B7.TIF
+        - https://{{ baseurl }}/{{ '%03d' % path }}/{{ '%03d' % row }}/{{ pid }}/{{ pid }}_B9.TIF
+      path_as_pattern: _B{band:d}.TIF
+      chunks:
+        band: 1
+        x: 2048
+        y: 2048
+      concat_dim: band
+      storage_options: {'anon': True}
+    metadata:
+      origin: https://landsat.usgs.gov/landsat-data-access
+      plots:
+        band_image:
+          kind: 'image'
+          x: 'x'
+          y: 'y'
+          groupby: 'band'
+          datashade: True
+          rasterize: True
+          dynamic: True
+          width: 700
+          height: 500
+          cmap: 'magma'
+          colorbar: True
+  
+  aws_landsat_8_singleband:
+    description: AWS Landsat 8, load single band by passing public url.
+    driver: rasterio
+    parameters:
+      url:
+        description: public url
+        type: str
+        default: https://s3-us-west-2.amazonaws.com/landsat-pds/c1/L8/047/027/LC08_L1TP_047027_20130726_20170309_01_T1/LC08_L1TP_047027_20130726_20170309_01_T1_B1.TIF
+    args:
+      urlpath: '{{url}}'
+      chunks:
+        band: 1
+        x: 2048
+        y: 2048
+      concat_dim: band
+      storage_options: {'anon': True}
+    metadata:
+      origin: https://landsat.usgs.gov/landsat-data-access
+
+
+  aws_landsat_8_ndvi:
+    description: AWS Cloud Storage hosted files containing Landsat 8 data for a particular path, row and product_id. Landsat data is collected by NASA and the USGS and freely available for use.
+    driver: rasterio
+    parameters:
+      baseurl:
+        description: public url
+        type: str
+        default: s3-us-west-2.amazonaws.com/landsat-pds/c1/L8
+      path:
+        description: landsat path
+        type: int
+        default: 47
+      row:
+        description: landsat row
+        type: int
+        default: 27
+      pid:
+        description: landsat file id
+        type: str
+        default: LC08_L1TP_047027_20180113_20180119_01_T1
+    args:
+      urlpath:
+        - https://{{ baseurl }}/{{ '%03d' % path }}/{{ '%03d' % row }}/{{ pid }}/{{ pid }}_B4.TIF
+        - https://{{ baseurl }}/{{ '%03d' % path }}/{{ '%03d' % row }}/{{ pid }}/{{ pid }}_B5.TIF
+
+      path_as_pattern: _B{band:d}.TIF
+      chunks:
+        band: 1
+        x: 2048
+        y: 2048
+      concat_dim: band
+      storage_options: {'anon': True}
+    metadata:
+      origin: https://landsat.usgs.gov/landsat-data-access
+      plots:
+        band_image:
+          kind: 'image'
+          x: 'x'
+          y: 'y'
+          groupby: 'band'
+          datashade: True
+          rasterize: True
+          dynamic: True
+          width: 700
+          height: 500
+          cmap: 'magma'
+          colorbar: True

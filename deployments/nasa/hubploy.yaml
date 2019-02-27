@@ -1,0 +1,16 @@
+images:
+  image_name: TBD/nasa-pangeo-io-notebook
+  registry:
+    provider: aws
+    gcloud:
+      project: TBD
+      service_key: TBD
+
+cluster:
+  provider: aws
+  gcloud:
+    project: TBD
+    service_key: TBD
+    cluster: pangeo
+    zone: us-east-1
+
