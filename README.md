@@ -11,7 +11,7 @@ Name  | Staging URL | Production URL
 -- |- |-
 dev | http://dev.pangeo.io | http://hub.pangeo.io
 ocean | http://staging.ocean.pangeo.io | http://ocean.pangeo.io
-nasa | http://staging.ocean.pangeo.io | http://nasa.pangeo.io
+nasa | http://staging.nasa.pangeo.io | http://nasa.pangeo.io
 
 # Build Status
 
