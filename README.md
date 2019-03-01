@@ -9,8 +9,9 @@ Changing the image will typically take ~20 minutes, and changing a Helm config v
 
 Name  | Staging URL | Production URL
 -- |- |-
-ocean | http://staging.ocean.pangeo.io | n/a
-dev | http://staging.hub.ocean.pangeo.io | http://hub.pangeo.io
+dev | http://dev.pangeo.io | http://hub.pangeo.io
+ocean | http://staging.ocean.pangeo.io | http://ocean.pangeo.io
+nasa | http://staging.nasa.pangeo.io | http://nasa.pangeo.io
 
 # Build Status
 
