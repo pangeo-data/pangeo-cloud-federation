@@ -2,6 +2,10 @@
 
 Welcome to ocean.pangeo.io, a cloud based JupyterHub operated by the [Pangeo project](http://pangeo.io). This hub is supported by an award from the NSF EarthCube program and by Google Cloud, who contributed credits via NSF's [BIGDATA program](https://www.nsf.gov/news/news_summ.jsp?cntn_id=244450).
 
+## Logging in
+
+Authentication is based on your ORCID via Globus.
+
 ## Getting Help
 
 - Mailing list: general questions about this resource or Pangeo
