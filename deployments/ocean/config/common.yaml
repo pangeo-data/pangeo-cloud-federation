@@ -73,3 +73,8 @@ jupyterhub:
         - rabernat
         - jhamman
 
+homeDirectories:
+  nfs:
+    # Output from gcloud beta filestore instances describe dev-home --location=us-central1-b
+    serverIP: 10.171.161.186
+    serverName: test
