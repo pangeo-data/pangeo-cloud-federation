@@ -58,11 +58,6 @@ jupyterhub:
               }
           }
         ]
-  auth:
-    type: globus
-    globus:
-      callbackUrl: "https://staging.ocean.pangeo.io/hub/oauth_callback"
-      identityProvider: "ORCID"
 
 homeDirectories:
   nfs:
