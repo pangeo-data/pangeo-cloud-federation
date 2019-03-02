@@ -4,13 +4,13 @@ Welcome to ocean.pangeo.io, a cloud based JupyterHub operated by the [Pangeo pro
 
 ## Logging in
 
-Authentication is based on your ORCID via Globus.
+Authentication is based on your ORCID ID via Globus.
 
 ## Getting Help
 
 - Mailing list: general questions about this resource or Pangeo
 - Gitter: live chat with other users of the cluster
-- Github: report bugs and other technical problems with the cluster. (Note: for questions and bug reports related to specific python packages like xarray, your should go directly to that package's github repository.)
+- [Github Issues](https://github.com/pangeo-data/pangeo-cloud-federation/issues): report bugs and other technical problems with the cluster. (Note: for questions and bug reports related to specific python packages like xarray, your should go directly to that package's github repository.)
 
 ## Datasets
 
