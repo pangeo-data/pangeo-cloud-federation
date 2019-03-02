@@ -59,19 +59,10 @@ jupyterhub:
           }
         ]
   auth:
-    type: github
-    github:
-      orgWhitelist:
-        - "pangeo-data"
-    scopes:
-      - "read:org"
-      - "read:user"
-    admin:
-      access: true
-      users:
-        - raphaeldussin
-        - rabernat
-        - jhamman
+    type: globus
+    globus:
+      callbackUrl: "https://staging.ocean.pangeo.io/hub/oauth_callback"
+      identityProvider: "ORCID"
 
 homeDirectories:
   nfs:
