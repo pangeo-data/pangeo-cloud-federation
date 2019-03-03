@@ -67,7 +67,7 @@ jobs:
           name: Install base apt packages
           command: |
             sudo apt-get update -qq --yes
-            sudo apt-get install -qq --yes python3 python3-venv git-crypt golang-go
+            sudo apt-get install -qq --yes git-crypt golang-go
       - checkout
       # Download and cache dependencies
       - restore_cache:
