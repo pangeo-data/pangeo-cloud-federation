@@ -9,8 +9,8 @@ jobs:
       - run:
           name: Install base apt packages
           command: |
-            apt-get update --yes -qq
-            apt-get install --yes -qq git-crypt jq
+            sudo apt-get update --yes -qq
+            sudo apt-get install --yes -qq git-crypt jq
       - checkout
       - restore_cache:
           keys:
