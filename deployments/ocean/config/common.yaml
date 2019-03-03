@@ -58,18 +58,9 @@ jupyterhub:
               }
           }
         ]
-  auth:
-    type: github
-    github:
-      orgWhitelist:
-        - "pangeo-data"
-    scopes:
-      - "read:org"
-      - "read:user"
-    admin:
-      access: true
-      users:
-        - raphaeldussin
-        - rabernat
-        - jhamman
 
+homeDirectories:
+  nfs:
+    # Output from gcloud beta filestore instances describe dev-home --location=us-central1-b
+    serverIP: 10.171.161.186
+    serverName: test

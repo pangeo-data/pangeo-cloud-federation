@@ -5,4 +5,4 @@ jupyterhub:
       hosts:
       - staging.pangeo.io
       letsencrypt:
-        contactEmail: dludwig@anaconda.com
+        contactEmail: jhamman@ucar.edu

@@ -12,4 +12,4 @@ cluster:
     project: pangeo-nasa-access
     service_key: aws-config.txt
     cluster: pangeo
-    zone: us-east1
+    zone: us-east-1
