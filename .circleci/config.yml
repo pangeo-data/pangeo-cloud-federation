@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: buildpack-deps:bionic-scm
+      - image: circleci/python:3.7.2
 
     working_directory: ~/repo
     steps:
@@ -10,7 +10,7 @@ jobs:
           name: Install base apt packages
           command: |
             apt-get update --yes -qq
-            apt-get install --yes -qq python3 python3-venv git-crypt jq
+            apt-get install --yes -qq git-crypt jq
       - checkout
       - restore_cache:
           keys:
