@@ -2,24 +2,25 @@ version: 2
 jobs:
   build:
     docker:
-      - image: buildpack-deps:bionic-scm
+      - image: circleci/python:3.7.2
 
     working_directory: ~/repo
     steps:
       - run:
           name: Install base apt packages
           command: |
-            apt-get update --yes -qq
-            apt-get install --yes -qq python3 python3-venv git-crypt jq
+            sudo apt-get update --yes -qq
+            sudo apt-get install --yes -qq git-crypt jq
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+          - v2-dependencies-{{ checksum "requirements.txt" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          - v2-dependencies-
       - run:
           name: install dependencies
           command: |
+            python3 --version
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
@@ -29,7 +30,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v2-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: Determine range of commits we are building
           command: |
@@ -59,7 +60,7 @@ jobs:
 
   deploy:
     docker:
-      - image: buildpack-deps:bionic-scm
+      - image: circleci/python:3.7.2
     working_directory: ~/repo
     steps:
       - run:
@@ -71,9 +72,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
+          - v2-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-gcloud-226-
+          - v2-dependencies-gcloud-226-
 
       - run:
           name: install dependencies
@@ -99,7 +100,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
+          key: v2-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
 
       - run:
           name: Determine range of commits we are building
