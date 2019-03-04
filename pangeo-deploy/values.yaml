@@ -35,6 +35,3 @@ jupyterhub:
     hook:
       enabled: false
 
-homeDirectories:
-  nfs:
-    serverPath: "/homes"
