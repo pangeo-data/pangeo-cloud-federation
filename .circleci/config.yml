@@ -24,7 +24,9 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
-            echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
+            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
+            curl -sSL https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator > venv/bin/aws-iam-authenticator
+            echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
       - setup_remote_docker
       - save_cache:
@@ -48,7 +50,7 @@ jobs:
           name: Test building ocean.pangeo.io image if needed
           when: always
           command: |
-            hubploy build ocean --commit-range ${COMMIT_RANGE}
+            hubploy build ocean --check-registry
 
       - run:
           name: Test building nasa.pangeo.io image if needed
@@ -127,7 +129,7 @@ jobs:
           name: Build ocean.pangeo.io image if needed
           when: always
           command: |
-            hubploy build ocean --commit-range ${COMMIT_RANGE} --push
+            hubploy build ocean --check-registry --push
 
       - run:
           name: Build nasa.pangeo.io image if needed
