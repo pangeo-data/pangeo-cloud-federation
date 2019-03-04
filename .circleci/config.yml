@@ -25,7 +25,6 @@ jobs:
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
             curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
-            curl -sSL https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator > venv/bin/aws-iam-authenticator
             echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
       - setup_remote_docker
@@ -86,7 +85,7 @@ jobs:
             pip install --upgrade -r requirements.txt
 
             curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
-            curl -sSL https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator > venv/bin/aws-iam-authenticator
+            curl -sSL https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/aws-iam-authenticator > venv/bin/aws-iam-authenticator
             chmod +x venv/bin/aws-iam-authenticator
             # https://github.com/awslabs/amazon-ecr-credential-helper/issues/101
             export GOPATH=$PWD/venv

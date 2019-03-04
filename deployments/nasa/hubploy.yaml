@@ -9,7 +9,7 @@ images:
 cluster:
   provider: aws
   aws:
-    project: pangeo-nasa-access
+    project: 783380859522
     service_key: aws-config.txt
     cluster: pangeo
     zone: us-east-1
