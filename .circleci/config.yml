@@ -67,7 +67,10 @@ jobs:
           name: Install base apt packages
           command: |
             sudo apt-get update -qq --yes
-            sudo apt-get install -qq --yes git-crypt golang-go
+            # Install docker.io just for the commandline client
+            # aws ecr get-login requires docker commandline for login
+            # We can remove docker.io once we switch to the credential helper fully
+            sudo apt-get install -qq --yes git-crypt golang-go docker.io
       - checkout
       # Download and cache dependencies
       - restore_cache:
