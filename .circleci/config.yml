@@ -24,9 +24,7 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
-            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
-            curl -sSL https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator > venv/bin/aws-iam-authenticator
-            echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+            echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
 
       - setup_remote_docker
       - save_cache:
@@ -50,7 +48,7 @@ jobs:
           name: Test building ocean.pangeo.io image if needed
           when: always
           command: |
-            hubploy build ocean --check-registry
+            hubploy build ocean --commit-range ${COMMIT_RANGE}
 
       - run:
           name: Test building nasa.pangeo.io image if needed
@@ -92,6 +90,9 @@ jobs:
             export GOPATH=$PWD/venv
             go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
 
+            # Can be removed once https://github.com/docker/docker-py/issues/2225 is merged and released
+            pip install --upgrade git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf
+
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
             # Always use full PATHs in PATH!
@@ -105,14 +106,6 @@ jobs:
           key: v2-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
 
       - run:
-          name: Determine range of commits we are building
-          command: |
-              # CircleCI doesn't have equivalent to Travis' COMMIT_RANGE
-              COMMIT_RANGE=$(./.circleci/get-commit-range.py)
-              echo ${COMMIT_RANGE}
-              echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
-
-      - run:
           name: Unlock our secrets
           command: |
             echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
@@ -123,7 +116,7 @@ jobs:
           name: Build dev.pangeo.io image if needed
           when: always
           command: |
-            hubploy build dev --commit-range ${COMMIT_RANGE} --push
+            hubploy build dev --check-registry --push
 
       - run:
           name: Build ocean.pangeo.io image if needed
@@ -135,7 +128,7 @@ jobs:
           name: Build nasa.pangeo.io image if needed
           when: always
           command: |
-            hubploy build nasa --commit-range ${COMMIT_RANGE} --push
+            hubploy build nasa --check-registry --push
           environment:
             PYTHONIOENCODING: utf-8
 
