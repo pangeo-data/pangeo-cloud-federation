@@ -35,3 +35,6 @@ jupyterhub:
     hook:
       enabled: false
 
+homeDirectories:
+  nfs:
+    enabled: false
