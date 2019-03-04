@@ -1,10 +1,11 @@
 images:
-  image_name: pangeo/nasa-pangeo-io-notebook
+  image_name: 783380859522.dkr.ecr.us-east-1.amazonaws.com/pangeo
   registry:
     provider: aws
     aws:
-      project: pangeo-nasa-access
+      project: 783380859522
       service_key: aws-config.txt
+      zone: us-east-1
 
 cluster:
   provider: aws
