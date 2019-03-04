@@ -10,7 +10,7 @@ jobs:
           name: Install base apt packages
           command: |
             sudo apt-get update --yes -qq
-            sudo apt-get install --yes -qq git-crypt jq
+            sudo apt-get install --yes -qq git-crypt jq golang-go
       - checkout
       - restore_cache:
           keys:
