@@ -37,4 +37,4 @@ jupyterhub:
 
 homeDirectories:
   nfs:
-    serverPath: "/homes"
+    enabled: false
