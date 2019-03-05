@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export DASK_KUBERNETES__WORKER_TEMPLATE_PATH=${PWD}/.dask/config.yaml
-export DASK_KUBERNETES__WORKER_NAME=dask-{JUPYTERHUB_USER}-{uuid}
+export DASK_ROOT_CONFIG=/srv/repo/dask_config.yaml
 
 cd ${HOME}
 
