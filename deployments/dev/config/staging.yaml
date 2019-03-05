@@ -1,8 +1,9 @@
 jupyterhub:
   proxy:
     https:
-      enabled: false
       hosts:
       - staging.hub.pangeo.io
       letsencrypt:
-        contactEmail: dludwig@anaconda.com
+        contactEmail: jhamman@ucar.edu
+    service:
+      loadBalancerIP: 35.232.186.70
