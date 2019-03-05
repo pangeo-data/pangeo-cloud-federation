@@ -1,3 +1,3 @@
-git+https://github.com/yuvipanda/hubploy@2dadcfdd2f431904b6c29049f9fdfbdff0b3708c
+git+https://github.com/scottyhq/hubploy
 pygithub
 awscli
