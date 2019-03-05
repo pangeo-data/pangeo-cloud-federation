@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mv etc_dask_config.yaml /etc/dask/config.yaml
+mv binder/etc_dask_config.yaml /etc/dask/config.yaml
 
 jupyter serverextension enable --py nbserverproxy --sys-prefix
 jupyter labextension install @jupyter-widgets/jupyterlab-manager@0.38 \
