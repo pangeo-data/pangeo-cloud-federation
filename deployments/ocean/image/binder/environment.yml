@@ -59,7 +59,7 @@ dependencies:
   - siphon
   - toolz
   - tqdm
-  - tornado
+  - tornado=5.1
   - umap-learn
   - utide
   - xarray
