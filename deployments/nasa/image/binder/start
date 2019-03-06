@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export DASK_ROOT_CONFIG=/srv/repo/dask_config.yaml
+export DASK_ROOT_CONFIG=/srv/repo/binder/dask_config.yaml
 
 # Replace DASK_DASHBOARD_URL with the proxy location
 sed -i -e "s|DASK_DASHBOARD_URL|/user/${JUPYTERHUB_USER}/proxy/8787|g" binder/jupyterlab-workspace.json
