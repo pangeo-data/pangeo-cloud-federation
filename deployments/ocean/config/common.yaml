@@ -60,8 +60,7 @@ jupyterhub:
         ]
 
       customPodHook: |
-        c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/',
-                                       '/usr/local/share/jupyterhub/templates/']
+        c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
         c.JupyterHub.template_vars = {
           'pangeo_hub_title': 'ocean.pangeo.io',
           'pangeo_hub_subtitle': 'a community hub for ocean, atmospheric, and climate research',
@@ -72,12 +71,12 @@ jupyterhub:
       - name: custom-templates
         gitRepo:
           repository: "https://github.com/pangeo-data/pangeo-custom-jupyterhub-templates.git"
-          revision: "c983e90a796a488fa6e0d2757e21cfc3ab8c4e67"
+          revision: "0c799bb2f880c8b516dcf90e2a90328078d60c25"
     extraVolumeMounts:
       - mountPath: /usr/local/share/jupyterhub/custom_templates
         name: custom-templates
         subPath: "pangeo-custom-jupyterhub-templates/templates"
-      - mountPath: /usr/local/share/jupyterhub/static/custom/extra-assets
+      - mountPath: /usr/local/share/jupyterhub/static/extra-assets
         name: custom-templates
         subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
 
