@@ -149,7 +149,7 @@ jobs:
               tar -xzf -
             sudo mv linux-amd64/helm /usr/local/bin
             helm init --client-only
-            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+            helm repo add pangeo-data https://pangeo-data.github.io/helm-chart/
             helm repo update
 
       - run:

@@ -1,39 +1,40 @@
-# Pangeo configuration values
-# --------------------
-# The following configuration options are specifically for the custom Pangeo components.
-# Some values will be inherited into the dependent chart configs. See requirements.yaml for info.
+pangeo:
+  # Pangeo configuration values
+  # --------------------
+  # The following configuration options are specifically for the custom Pangeo components.
+  # Some values will be inherited into the dependent chart configs. See requirements.yaml for info.
 
-# Create and use roles and service accounts on an RBAC enabled cluster.
-rbac:
-  enabled: true
+  # Create and use roles and service accounts on an RBAC enabled cluster.
+  rbac:
+    enabled: true
 
 
-# Dependency configuration values
-# -------------------------------
-# To configure dependencies you must create a key with the name of the dependency
-# and then configure as per the dependent chart's values.yaml. Don't forget to indent!
+  # Dependency configuration values
+  # -------------------------------
+  # To configure dependencies you must create a key with the name of the dependency
+  # and then configure as per the dependent chart's values.yaml. Don't forget to indent!
 
-jupyterhub:
-  # Helm config for jupyterhub goes here
-  # See https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/master/jupyterhub/values.yaml
+  jupyterhub:
+    # Helm config for jupyterhub goes here
+    # See https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/master/jupyterhub/values.yaml
 
-  singleuser:
-    image:
-      name: pangeo/base-notebook
-      tag: 2019.02.01
-    cpu:
-      limit: 2
-      guarantee: 1
-    memory:
-      limit: 4G
-      guarantee: 2G
-    defaultUrl: "/lab"
-    cmd: jupyter-labhub
-    serviceAccountName: daskkubernetes
+    singleuser:
+      image:
+        name: pangeo/base-notebook
+        tag: 2019.02.01
+      cpu:
+        limit: 2
+        guarantee: 1
+      memory:
+        limit: 4G
+        guarantee: 2G
+      defaultUrl: "/lab"
+      cmd: jupyter-labhub
+      serviceAccountName: daskkubernetes
 
-  prePuller:
-    hook:
-      enabled: false
+    prePuller:
+      hook:
+        enabled: false
 
 homeDirectories:
   nfs:
