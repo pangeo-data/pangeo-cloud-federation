@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export DASK_ROOT_CONFIG=/srv/repo/dask_config.yaml
+export DASK_ROOT_CONFIG=/srv/repo/binder/dask_config.yaml
 
 cd ${HOME}
 
