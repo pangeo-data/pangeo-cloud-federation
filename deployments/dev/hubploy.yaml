@@ -1,5 +1,6 @@
 images:
   image_name: gcr.io/pangeo-181919/dev-pangeo-io-notebook
+  image_config_path: pangeo.jupyterhub.singleuser.image
   registry:
     provider: gcloud
     gcloud:

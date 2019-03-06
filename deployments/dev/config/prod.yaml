@@ -1,9 +1,10 @@
-jupyterhub:
-  proxy:
-    https:
-      enabled: false
-      hosts:
-      - hub.pangeo.io
-      letsencrypt:
-        contactEmail: dludwig@anaconda.com
+pangeo:
+  jupyterhub:
+    proxy:
+      https:
+        enabled: false
+        hosts:
+        - hub.pangeo.io
+        letsencrypt:
+          contactEmail: dludwig@anaconda.com
 

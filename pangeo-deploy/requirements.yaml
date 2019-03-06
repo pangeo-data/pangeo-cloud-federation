@@ -1,10 +1,7 @@
 dependencies:
-- name: jupyterhub
-  version: "0.9-e120fda"
-  repository: 'https://jupyterhub.github.io/helm-chart/'
+- name: pangeo
+  version: "0.1.1-c04d8fa"
+  repository: https://pangeo-data.github.io/helm-chart/
   import-values:
     - child: rbac
       parent: rbac
-  # - name: pangeo
-  #   version: v0.1.1-69b4a02
-  #   repository: https://pangeo-data.github.io/helm-chart/
