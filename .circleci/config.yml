@@ -12,6 +12,11 @@ jobs:
             sudo apt-get update --yes -qq
             sudo apt-get install --yes -qq git-crypt jq golang-go
       - checkout
+      - run:
+          name: Pull Submodules
+          command: |
+            git submodule init
+            git submodule update --remote
       - restore_cache:
           keys:
           - v2-dependencies-{{ checksum "requirements.txt" }}
