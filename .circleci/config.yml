@@ -192,7 +192,6 @@ jobs:
           command: |
             hubploy deploy hydro pangeo-deploy ${CIRCLE_BRANCH}
 
-
       - run:
           name: Deploy nasa.pangeo.io
           when: always
