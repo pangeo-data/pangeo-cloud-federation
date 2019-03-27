@@ -1,3 +1,4 @@
+# Leave commented for first build, then uncomment and add loadBalancerIP
 #pangeo:
 #  jupyterhub:
 #    proxy:
