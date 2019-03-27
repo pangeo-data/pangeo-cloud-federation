@@ -6,9 +6,14 @@ dependencies:
   - numpy
   - matplotlib
   - jupyterthemes
+  - dask
   - xarray
   - ipyleaflet
   - seaborn
+  - cartopy
+  - pandas
+  - geopandas
+  - hvplot
   - pip:
     - git+https://github.com/arbennett/pysumma.git@snow_course
     - hs_restclient
