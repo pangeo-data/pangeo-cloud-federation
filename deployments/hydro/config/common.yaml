@@ -18,6 +18,16 @@ pangeo:
           subPath: "home/hydro.pangeo.io/{username}"
       cloudMetadata:
         enabled: true
+    auth:
+      github:
+        org_whitelist:
+          - pangeo-data
+      admin:
+        access: true
+        users:
+          - jhamman
+          - bartnijssen
+          - arbennett
     hub:
       extraConfig:
         profile_list: |
