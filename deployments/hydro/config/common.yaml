@@ -18,6 +18,16 @@ pangeo:
           subPath: "home/hydro.pangeo.io/{username}"
       cloudMetadata:
         enabled: true
+    auth:
+      github:
+        org_whitelist:
+          - pangeo-data
+      admin:
+        access: true
+        users:
+          - jhamman
+          - bartnijssen
+          - arbennett
     hub:
       extraConfig:
         profile_list: |
@@ -38,24 +48,6 @@ pangeo:
                     'cpu_guarantee': 4,
                     'mem_limit': '24G',
                     'mem_guarantee': '24G',
-                }
-            },
-            {
-                'display_name': 'large (n1-highmem-8 | 8 cores, 50GB)',
-                'kubespawner_override': {
-                    'cpu_limit': 8,
-                    'cpu_guarantee': 8,
-                    'mem_limit': '50G',
-                    'mem_guarantee': '50G',
-                }
-            },
-            {
-                'display_name': 'x-large (n1-highmem-16 | 16 cores, 96GB RAM)',
-                'kubespawner_override': {
-                    'cpu_limit': 16,
-                    'cpu_guarantee': 14,
-                    'mem_limit': '100G',
-                    'mem_guarantee': '96G',
                 }
             }
           ]
