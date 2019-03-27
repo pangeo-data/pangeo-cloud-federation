@@ -1,0 +1,20 @@
+#!/bin/bash
+
+git clone --single-branch -b sopron_2018 https://github.com/bartnijssen/summa.git
+
+cd summa
+
+export F_MASTER=${PWD}
+export FC="gfortran"
+export FC_EXE="gfortran"
+export FC_ENV="gfortran-6-docker"
+
+make -C build/ -f Makefile
+cd ../
+
+mkdir work
+mkdir -p work/homework_0
+mkdir -p work/homework_1
+mkdir -p junk
+
+#EOF

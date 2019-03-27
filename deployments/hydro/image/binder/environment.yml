@@ -1,0 +1,14 @@
+name: pangeo
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6
+  - numpy
+  - matplotlib
+  - jupyterthemes
+  - xarray
+  - ipyleaflet
+  - seaborn
+  - pip:
+    - git+https://github.com/arbennett/pysumma.git@snow_course
+    - hs_restclient
