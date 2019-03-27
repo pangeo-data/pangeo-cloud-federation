@@ -14,4 +14,3 @@ cluster:
     service_key: gcloud-service-key.json
     cluster: dev-pangeo-io-cluster
     zone: us-central1-b
-
