@@ -11,9 +11,10 @@ export FC_EXE="gfortran"
 export FC_ENV="gfortran-6-docker"
 
 make -C build/ -f Makefile
-cd ../
 
-mkdir work
+cd ${HOME}
+
+mkdir -p work
 mkdir -p work/homework_0
 mkdir -p work/homework_1
 mkdir -p junk
