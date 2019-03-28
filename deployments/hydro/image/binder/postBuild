@@ -14,7 +14,7 @@ make -C build/ -f Makefile
 
 cd ${HOME}
 
-mkdir work
+mkdir -p work
 mkdir -p work/homework_0
 mkdir -p work/homework_1
 mkdir -p junk
