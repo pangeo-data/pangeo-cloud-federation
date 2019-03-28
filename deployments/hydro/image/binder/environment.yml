@@ -14,6 +14,8 @@ dependencies:
   - pandas
   - geopandas
   - hvplot
+  - netCDF4
+  - bokeh
   - pip:
     - git+https://github.com/arbennett/pysumma.git@whw2019
     - hs_restclient
