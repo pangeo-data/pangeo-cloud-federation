@@ -20,7 +20,7 @@ dependencies:
   - dask-kubernetes=0.7
   - matplotlib=3.0
   - nbserverproxy=0.8.8
-  - jupyter=1.0
+  - jupyter=1.0.0
   - ipywidgets=7.4
   - graphviz=2.38
   - jupyterlab=0.35.4
