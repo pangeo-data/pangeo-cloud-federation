@@ -1,8 +1,9 @@
 #!/bin/bash
 
-git clone --single-branch -b sopron_2018 https://github.com/bartnijssen/summa.git
+git clone --single-branch -b develop https://github.com/ncar/summa.git
 
 cd summa
+git checkout -b whw2019 b074b0
 
 export F_MASTER=${PWD}
 export FC="gfortran"

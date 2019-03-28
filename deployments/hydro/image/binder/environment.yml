@@ -15,5 +15,5 @@ dependencies:
   - geopandas
   - hvplot
   - pip:
-    - git+https://github.com/arbennett/pysumma.git@snow_course
+    - git+https://github.com/arbennett/pysumma.git@whw2019
     - hs_restclient

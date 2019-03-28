@@ -1,0 +1,9 @@
+#!/bin/bash
+
+export SUMMA_ROOT_PATH=/srv/repo/summa
+
+export PATH=${SUMMA_ROOT_PATH}/bin:${PATH}
+
+cd ${HOME}
+
+exec "$@"
