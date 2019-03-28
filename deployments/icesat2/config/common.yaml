@@ -2,8 +2,14 @@ pangeo:
   jupyterhub:
     singleuser:
       storage:
-        dynamic:
-          storageClass: gp2
+        type: "static"
+        static:
+          pvcName: "efs-persist"
+          subPath: 'home/{username}'
+      extraEnv:
+        CHOWN_HOME: 'yes'
+      uid: 0
+      fsGid: 0
       cloudMetadata:
         enabled: true
       cpu:
