@@ -11,7 +11,8 @@ export FC_EXE="gfortran"
 export FC_ENV="gfortran-6-docker"
 
 make -C build/ -f Makefile
-cd ../
+
+cd ${HOME}
 
 mkdir work
 mkdir -p work/homework_0
