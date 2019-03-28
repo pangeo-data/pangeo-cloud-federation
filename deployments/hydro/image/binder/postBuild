@@ -1,0 +1,21 @@
+#!/bin/bash
+
+git clone --single-branch -b develop https://github.com/ncar/summa.git
+
+cd summa
+git checkout -b whw2019 b074b0
+
+export F_MASTER=${PWD}
+export FC="gfortran"
+export FC_EXE="gfortran"
+export FC_ENV="gfortran-6-docker"
+
+make -C build/ -f Makefile
+cd ../
+
+mkdir work
+mkdir -p work/homework_0
+mkdir -p work/homework_1
+mkdir -p junk
+
+#EOF

@@ -1,8 +1,10 @@
-jupyterhub:
-  proxy:
-    https:
-      enabled: true
-      hosts:
-      - nasa.staging.pangeo.io
-      letsencrypt:
-        contactEmail: jhamman@ucar.edu
+pangeo:
+  jupyterhub:
+    proxy:
+      https:
+        hosts:
+        - staging.nasa.pangeo.io
+        letsencrypt:
+          contactEmail: jhamman@ucar.edu
+      service:
+        loadBalancerIP: aa551d9683ec511e9bf3f12e07d3d23e-514376866.us-east-1.elb.amazonaws.com

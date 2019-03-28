@@ -1,67 +1,72 @@
-jupyterhub:
-  singleuser:
-    initContainers:
-      - name: volume-mount-hack
-        image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
+pangeo:
+  jupyterhub:
+    singleuser:
+      initContainers:
+        - name: volume-mount-hack
+          image: busybox
+          command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+          - name: home
+            mountPath: /home/jovyan
+            subPath: "home/hub.pangeo.io/{username}"
+      storage:
+        type: static
+        static:
+          pvcName: home-nfs
           subPath: "home/hub.pangeo.io/{username}"
-    storage:
-      type: static
-      static:
-        pvcName: home-nfs
-        subPath: "home/hub.pangeo.io/{username}"
-    cloudMetadata:
-      enabled: true
-    cpu:
-      limit: 4
-      guarantee: 1
-    memory:
-      limit: 14G
-      guarantee: 4G
-  extraConfig:
-      profile_list: |
-        c.KubeSpawner.profile_list = [
-          {
-              'display_name': 'base-notebook - small (n1-highmem-2 | 2 cores, 12GB)',
-              'kubespawner_override': {
-                  'image': 'pangeo/base-notebook:latest',
-              }
-          },
-          {
-              'display_name': 'pangeo-notebook - small (n1-highmem-2 | 2 cores, 12GB)',
-              'kubespawner_override': {
-                  'image': 'pangeo/pangeo-notebook:latest',
-              }
-          },
-        ]
-  auth:
-    github:
-      orgWhitelist:
-        - pangeo-data
-        - pydata
-        - dask
-        - xarray-dev
-        - jupyterhub
-        - informatics-lab
-    scopes:
-      - "read:org"
-      - "read:user"
-    admin:
-      access: true
-      users:
-        - mrocklin
-        - jhamman
-        - rabernat
-        - yuvipanda
-        - choldgraf
-        - jacobtomlinson
-        - dsludwig
-        - rsignell-usgs
+      cloudMetadata:
+        enabled: true
+      cpu:
+        limit: 4
+        guarantee: 1
+      memory:
+        limit: 14G
+        guarantee: 4G
+    extraConfig:
+        profile_list: |
+          c.KubeSpawner.profile_list = [
+            {
+                'display_name': 'base-notebook - small (n1-highmem-2 | 2 cores, 12GB)',
+                'kubespawner_override': {
+                    'image': 'pangeo/base-notebook:latest',
+                }
+            },
+            {
+                'display_name': 'pangeo-notebook - small (n1-highmem-2 | 2 cores, 12GB)',
+                'kubespawner_override': {
+                    'image': 'pangeo/pangeo-notebook:latest',
+                }
+            },
+          ]
+    auth:
+      github:
+        orgWhitelist:
+          - pangeo-data
+          - pydata
+          - dask
+          - xarray-dev
+          - jupyterhub
+          - informatics-lab
+      scopes:
+        - "read:org"
+        - "read:user"
+      admin:
+        access: true
+        users:
+          - mrocklin
+          - jhamman
+          - rabernat
+          - yuvipanda
+          - choldgraf
+          - jacobtomlinson
+          - dsludwig
+          - rsignell-usgs
+    scheduling:
+      userScheduler:
+        enabled: true
+        replicas: 2
 homeDirectories:
   nfs:
     enabled: true
