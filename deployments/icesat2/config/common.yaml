@@ -8,9 +8,9 @@ pangeo:
           securityContext:
             runAsUser: 0
           volumeMounts:
-          - name: home
-            mountPath: /home/jovyan
-            subPath: "home/icesat2.pangeo.io/{username}"
+            - name: home
+              mountPath: /home/jovyan
+              subPath: "home/icesat2.pangeo.io/{username}"
       storage:
         type: static
         static:
@@ -24,21 +24,22 @@ pangeo:
       memory:
         limit: 14G
         guarantee: 4G
-    auth:
-      github:
-        callbackUrl: "https://staging.icesat2.pangeo.io/hub/oauth_callback"
-        orgWhitelist:
-          - "ICESAT-2HackWeek"
-          - "pangeo-data"
-      scopes:
-        - "read:user"
-      admin:
-        access: true
-        users:
-          - scottyhq
-          - jhamman
-          - apawloski
-          - amanda-tan
+    # auth:
+    #   github:
+    #     callbackUrl: "https://staging.icesat2.pangeo.io/hub/oauth_callback"
+    #     orgWhitelist:
+    #       - "ICESAT-2HackWeek"
+    #       - "pangeo-data"
+    #   scopes:
+    #     - "read:user"
+    #   admin:
+    #     access: true
+    #     users:
+    #       - scottyhq
+    #       - jhamman
+    #       - apawloski
+    #       - amanda-tan
+
 homeDirectories:
   nfs:
     enabled: true
