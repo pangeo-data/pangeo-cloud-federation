@@ -1,5 +1,6 @@
 pangeo:
   jupyterhub:
+    singleuser:
       initContainers:
         - name: volume-mount-hack
           image: busybox
@@ -9,12 +10,12 @@ pangeo:
           volumeMounts:
           - name: home
             mountPath: /home/jovyan
-            subPath: "home/hub.pangeo.io/{username}"
+            subPath: "home/icesat2.pangeo.io/{username}"
       storage:
         type: static
         static:
           pvcName: home-nfs
-          subPath: "home/hub.pangeo.io/{username}"
+          subPath: "home/icesat2.pangeo.io/{username}"
       cloudMetadata:
         enabled: true
       cpu:
@@ -43,4 +44,4 @@ homeDirectories:
     enabled: true
     serverPath: "/homes"
     serverIP: fs-04b8a8ac.efs.us-west-2.amazonaws.com
-    serverName: icesat2
+    serverName: pangeo-efs
