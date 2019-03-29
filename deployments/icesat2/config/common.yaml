@@ -39,7 +39,6 @@ pangeo:
           - jhamman
           - apawloski
           - amanda-tan
-
 homeDirectories:
   nfs:
     enabled: true
