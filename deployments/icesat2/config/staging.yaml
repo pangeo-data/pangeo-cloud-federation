@@ -1,11 +1,11 @@
 # Leave commented for first build, then uncomment and add loadBalancerIP
-# pangeo:
-#   jupyterhub:
-#     proxy:
-#       https:
-#         hosts:
-#         - staging.icesat2.pangeo.io
-#         letsencrypt:
-#           contactEmail: scottyh@uw.edu
-#       service:
-#         loadBalancerIP: a8abf937f51b011e9924302ea5ee1624-244515937.us-west-2.elb.amazonaws.com
+pangeo:
+  jupyterhub:
+    proxy:
+      https:
+        hosts:
+        - staging.icesat2.pangeo.io
+        letsencrypt:
+          contactEmail: scottyh@uw.edu
+      service:
+        loadBalancerIP: a070b2175523111e9924302ea5ee1624-1148941357.us-west-2.elb.amazonaws.com
