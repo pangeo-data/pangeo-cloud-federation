@@ -2,20 +2,21 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
+  - conda=4.6.8
   - python=3.6
-  - numpy
-  - matplotlib
+  - numpy=1.16
+  - matplotlib=3.0
   - jupyterthemes
-  - dask
-  - xarray
+  - dask=1.1
+  - xarray=0.12
   - ipyleaflet
-  - seaborn
-  - cartopy
-  - pandas
-  - geopandas
+  - seaborn=0.9
+  - cartopy=0.17
+  - pandas=0.24
+  - geopandas=0.4
   - hvplot
-  - netCDF4
-  - bokeh
+  - netCDF4=1.5
+  - bokeh=1.0
   - pip:
     - git+https://github.com/arbennett/pysumma.git@whw2019
     - hs_restclient
