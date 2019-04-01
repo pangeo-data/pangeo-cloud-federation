@@ -11,6 +11,14 @@ pangeo:
             - name: home
               mountPath: /home/jovyan
               subPath: "home/icesat2.pangeo.io/{username}"
+        - name: git-sync-landing-page
+          image: alpine/git:1.0.7
+          args: ["clone", "https://github.com/pangeo-data/pangeo-custom-jupyterhub-templates"]
+          securityContext:
+            runAsUser: 1
+          volumeMounts:
+            - name: custom_templates
+              mountPath: /usr/local/share/jupyterhub/custom_templates
       storage:
         type: static
         static:
@@ -39,6 +47,28 @@ pangeo:
           - jhamman
           - apawloski
           - amanda-tan
+    hub:
+      extraConfig:
+        customPodHook: |
+          c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
+          c.JupyterHub.template_vars = {
+            'pangeo_hub_title': 'icesat2.pangeo.io',
+            'pangeo_hub_subtitle': 'a community hub for icesat2 hackweek',
+            'pangeo_welcome': """Welcome to icesat2.pangeo.io. This hub lives in AWS region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and supported by a grant from NASA ACCESS, which includes a direct award of cloud credits from AWS. The hub's configuration is stored in the github repository <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">https://github.com/pangeo-data/pangeo-cloud-federation/</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation//issues">github issue tracker</a>."""
+          }
+      extraVolumes:
+        - name: custom-templates
+          emptyDir: {}
+      extraVolumeMounts:
+        - name: custom-templates
+          mountPath: /usr/local/share/jupyterhub/custom_templates
+          subPath: "pangeo-custom-jupyterhub-templates/templates"
+        - mountPath: /usr/local/share/jupyterhub/static/extra-assets
+          name: custom-templates
+          subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
+
+
+
 homeDirectories:
   nfs:
     enabled: true
