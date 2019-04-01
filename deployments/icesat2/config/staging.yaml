@@ -8,4 +8,4 @@ pangeo:
         letsencrypt:
           contactEmail: scottyh@uw.edu
       service:
-        loadBalancerIP: ab3b0a6d550e011e98ef80e7500bb762-697431159.us-west-2.elb.amazonaws.com 
+        loadBalancerIP: a070b2175523111e9924302ea5ee1624-1148941357.us-west-2.elb.amazonaws.com
