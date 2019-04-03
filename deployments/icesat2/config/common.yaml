@@ -11,14 +11,6 @@ pangeo:
             - name: home
               mountPath: /home/jovyan
               subPath: "home/icesat2.pangeo.io/{username}"
-        - name: git-sync-landing-page
-          image: alpine/git:1.0.7
-          args: ["clone", "https://github.com/pangeo-data/pangeo-custom-jupyterhub-templates"]
-          securityContext:
-            runAsUser: 1
-          volumeMounts:
-            - name: custom_templates
-              mountPath: /usr/local/share/jupyterhub/custom_templates
       storage:
         type: static
         static:
@@ -49,25 +41,32 @@ pangeo:
           - amanda-tan
     hub:
       extraConfig:
-        customPodHook: |
-          c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
-          c.JupyterHub.template_vars = {
-            'pangeo_hub_title': 'icesat2.pangeo.io',
-            'pangeo_hub_subtitle': 'a community hub for icesat2 hackweek',
-            'pangeo_welcome': """Welcome to icesat2.pangeo.io. This hub lives in AWS region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and supported by a grant from NASA ACCESS, which includes a direct award of cloud credits from AWS. The hub's configuration is stored in the github repository <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">https://github.com/pangeo-data/pangeo-cloud-federation/</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation//issues">github issue tracker</a>."""
-          }
-      extraVolumes:
-        - name: custom-templates
-          emptyDir: {}
-      extraVolumeMounts:
-        - name: custom-templates
-          mountPath: /usr/local/share/jupyterhub/custom_templates
-          subPath: "pangeo-custom-jupyterhub-templates/templates"
-        - mountPath: /usr/local/share/jupyterhub/static/extra-assets
-          name: custom-templates
-          subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
+    cloneRepo: |
+      # Hack solution for branding
+      import z2jh, os, shutil
+      repo = z2jh.get_config('custom.template-repo')
+      webdir = z2jh.get_config('custom.static-webdir')
+      dst = '/srv/jupyterhub/style'
+      shutil.rmtree(dst, ignore_errors=True)
+      os.system(f'git clone {repo} {dst}')
+      os.system(f'cp -rf {dst}/extra-assets {webdir}')
+    customPodHook: |
+      c.JupyterHub.template_paths = ['/srv/jupyterhub/style/templates']
+      c.JupyterHub.template_vars = {
+        'pangeo_hub_title': 'icesat2.pangeo.io',
+        'pangeo_hub_subtitle': 'a community hub for icesat2 hackweek',
+        'pangeo_welcome': """Welcome to icesat2.pangeo.io, the computational environment for <a href="https://icesat-2hackweek.github.io">Icesat-2 Hackweek</a>! This hub lives in AWS region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. Access is currently limited to the <a href="https://github.com/ICESAT-2HackWeek">ICESAT-2HackWeek GitHub Organization</a>. The hub's configuration is stored in this <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">github repository</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation/issues">github issue tracker</a>."""
+      }
+  extraVolumes:
+    - name: custom-assets
+      emptyDir: {}
+  extraVolumeMounts:
+    - name: custom-assets
+      mountPath: /usr/local/share/jupyterhub/static/extra-assets
 
-
+custom:
+  template-repo: 'https://github.com/scottyhq/pangeo-custom-jupyterhub-templates'
+  static-webdir: '/usr/local/share/jupyterhub/static'
 
 homeDirectories:
   nfs:
