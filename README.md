@@ -7,11 +7,13 @@ Changing the image will typically take ~20 minutes, and changing a Helm config v
 
 # Clusters
 
-Name  | Staging URL | Production URL
--- |- |-
-dev | http://dev.pangeo.io | http://hub.pangeo.io
-ocean | http://staging.ocean.pangeo.io | http://ocean.pangeo.io
-nasa | http://staging.nasa.pangeo.io | http://nasa.pangeo.io
+Name   | Cloud: region      |  Staging URL                    | Production URL
+--     |-                    |-                                |-
+dev    | GCP: us-central1-b | http://staging.hub.pangeo.io    | http://hub.pangeo.io
+ocean  | GCP: us-central1-b | http://staging.ocean.pangeo.io  | http://ocean.pangeo.io
+hydro  | GCP: us-central1-b | http://staging.hydro.pangeo.io  | http://hydro.pangeo.io
+nasa   | AWS: us-east-1     | http://staging.nasa.pangeo.io   | http://nasa.pangeo.io
+icesat | AWS: us-west-2     | http://staging.icesat.pangeo.io | http://icesat.pangeo.io
 
 # Build Status
 
@@ -46,7 +48,7 @@ Once you have a cluster created, you can begin customizing the configuration.
 * Configure the `hubploy.yaml` config file.
 * Configure the JupyterHub config files. These are found in `deployments/foobar/config`.
 * Configure the deployment secrets found in `deployments/foobar/config`.
-  * `gcloud-service-key.json`: a service account key for gcloud. This will be slightly different when AWS support is added.
+  * `gcloud-service-key.json`: a service account key for gcloud. This is slightly different when AWS.
   * prod/staging.yaml: These files hold the JupyterHub secretes described here: 
 * Configure your deployments image. This is found in `deployments/foobar/image`.
   * Edit the files in the binder directory to change the contents of the user Docker image. The specification for these files comes from [repo2docker](https://repo2docker.readthedocs.io/en/latest/).
