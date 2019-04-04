@@ -2,8 +2,9 @@
 #   jupyterhub:
 #     proxy:
 #       https:
-#         enabled: false
 #         hosts:
-#         - hub.pangeo.io
+#         - hydro.pangeo.io
 #         letsencrypt:
 #           contactEmail: jhamman@ucar.edu
+#       service:
+#         loadBalancerIP: 35.238.0.56

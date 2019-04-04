@@ -7,4 +7,3 @@ pangeo:
         - hub.pangeo.io
         letsencrypt:
           contactEmail: dludwig@anaconda.com
-
