@@ -9,3 +9,6 @@ pangeo:
           contactEmail: scottyh@uw.edu
       service:
         loadBalancerIP: a056536ae571b11e9a9ef06d2bcc51c9-236223839.us-west-2.elb.amazonaws.com
+    auth:
+      github:
+        callbackUrl: "https://icesat2.pangeo.io/hub/oauth_callback"

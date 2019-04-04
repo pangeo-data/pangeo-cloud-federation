@@ -26,7 +26,6 @@ pangeo:
         guarantee: 4G
     auth:
       github:
-        callbackUrl: "https://staging.icesat2.pangeo.io/hub/oauth_callback"
         orgWhitelist:
           - "ICESAT-2HackWeek"
           - "pangeo-data"
