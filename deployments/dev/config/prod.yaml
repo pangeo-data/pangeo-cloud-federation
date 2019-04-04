@@ -6,4 +6,6 @@ pangeo:
         hosts:
         - hub.pangeo.io
         letsencrypt:
-          contactEmail: dludwig@anaconda.com
+          contactEmail: jhamman@ucar.edu
+      service:
+        loadBalancerIP: 35.238.205.43
