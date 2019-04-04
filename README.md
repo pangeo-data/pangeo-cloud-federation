@@ -1,62 +1,72 @@
-# About
-
-This repository contains the reproducible configuration for deploying a Pangeo
-instance on Google Kubernetes Engine.
-
+This repository manages the continuous deployment of the [Pangeo](http://pangeo.io/) Cloud Federation
+JupyterHub Kubernetes clusters using [hubploy](https://github.com/yuvipanda/hubploy).
 It contains scripts to automatically redeploy when the image definition or
 chart parameters are changed.
 
+Changing the image will typically take ~20 minutes, and changing a Helm config variable ~1 minute.
+
+# Clusters
+
+Name  | Staging URL | Production URL
+-- |- |-
+dev | http://dev.pangeo.io | http://hub.pangeo.io
+ocean | http://staging.ocean.pangeo.io | http://ocean.pangeo.io
+nasa | http://staging.nasa.pangeo.io | http://nasa.pangeo.io
+
+# Build Status
+
+Branch | Build
+-- |-
+staging | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging)
+prod | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod)
+
 # Setup
+
+## Setup a Kubernetes Cluster
 
 The first step to using this automation is to create a Kubernetes cluster and
 install the server-side component Tiller on it (used for deploying applications
-with the Helm tool). Scripts to do so can be found here:
-https://github.com/pangeo-data/pangeo/tree/master/gce/setup-guide
-
-* Modify the script `gce-pangeo-environment.sh` with the parameters for your deployment
-* Run the following scripts:
-```
-. gce-pangeo-environment.sh
-./1_create_cluster.sh
-./2_configure_kubernetes.sh
-```
+with the Helm tool). Scripts to do so using Google Cloud Platform can be found [here](https://github.com/pangeo-data/pangeo/tree/master/gce/setup-guide). For other cloud providers (e.g. AWS, Azure), follow the [Zero-to-JupyterHub](https://zero-to-jupyterhub.readthedocs.io/en/latest/create-k8s-cluster.html) guide.
 
 ## Install git-crypt
 
 You will need to install
 [`git-crypt`](https://www.agwa.name/projects/git-crypt/). `git-crypt` is used
-to encrypt the secrets that are used for deploying your cluster. Please read this [HOW GIT-CRYPT WORKS](https://www.agwa.name/projects/git-crypt/) if new to it. 
+to encrypt the secrets that are used for deploying your cluster. Please read this [HOW GIT-CRYPT WORKS](https://www.agwa.name/projects/git-crypt/) if new to it.
 
 # Configure this repository
 
 Once you have a cluster created, you can begin customizing the configuration.
 
 * Create a fork of this repository in GitHub. (Note: the default branch is staging)
-* Copy the deployments/example.pangeo.io directory to your desired name
-  * `cp -r example.pangeo.io newname.pangeo.io`
-* Regenerate the git-crypt key. This will be used to encrypt the secrets
-that are used for your deployment.
-  * `git crypt init`
-* Create a CircleCI job for the repo. 
-  * Log in or Sign up [here](https://circleci.com). Go to [dashboard](https://circleci.com/dashboard). 
-  * Click add project under your github account name. 
-  * Click Set Up Project for the example.pangeo.io-deploy repo. Click Linux. Click Start building at bottom. 
-  * You will need to add the below environmental variables to your CircleCI configuration:
+* Unlock the encrypted secrets using git-crypt
+  * `git-crypt unlock /path/to/encryption.key`
+* Copy the deployments/dev directory to your desired name (we'll use `foobar` as our deployment name from here on)
+  * `cp -r dev foobar`
+* Configure the `hubploy.yaml` config file.
+* Configure the JupyterHub config files. These are found in `deployments/foobar/config`.
+* Configure the deployment secrets found in `deployments/foobar/config`.
+  * `gcloud-service-key.json`: a service account key for gcloud. This will be slightly different when AWS support is added.
+  * prod/staging.yaml: These files hold the JupyterHub secretes described here: 
+* Configure your deployments image. This is found in `deployments/foobar/image`.
+  * Edit the files in the binder directory to change the contents of the user Docker image. The specification for these files comes from [repo2docker](https://repo2docker.readthedocs.io/en/latest/).
+  * Add or modify the README.md and Jupyter notebooks. These will be in each user's home directory.
 
-| Name | Description |
-| ---- | ----------- |
-| GCR_READWRITE_KEY | The JSON output of `gcloud iam service-accounts keys create` (ask Pangeo administrator to configure this) |
-| GIT_CRYPT_KEY | The base64 encoded output of `git crypt export-key key.txt` Then run `base64 key.txt` to get pipe the key to standard output. Copy past into the env var. Delete `key.txt` afterwards!|
-| GKE_CLUSTER | The name that your cluster was created with |
-| GOOGLE_PROJECT | The identifier of the project where your cluster was created |
-| GOOGLE_REGION | The Google compute region where your cluster is located (e.g. us-central1) |
-| GOOGLE_ZONE | The Google compute zone where your cluster is located (e.g. us-central1-b) |
-| IMAGE_NAME | The container registry image to build and use for your notebook and worker containers (e.g. us.gcr.io/pangeo-181919/example-pangeo-io-notebook). See [documentation](https://cloud.google.com/container-registry/) for setting up with your own project. Note: you need write permisson for this project. You will also have to give permisson (Storage Admin, Kubernetes Engine Admin, and Viewer) to the circleCI service account on the container registry ([see doc](https://cloud.google.com/container-registry/docs/access-control)). Then enable the registry API [here](https://console.cloud.google.com/flows/enableapi?apiid=containerregistry.googleapis.com&redirect=https://cloud.google.com/container-registry/docs/quickstart&_ga=2.12214260.-1113544925.1533776076)|
-| DEPLOYMENT | The name of the directory in `deployments` you wish to deploy (e.g., example.pangeo.io) |
+## Push your setup to GitHub and let HubPloy do the rest
 
-* Make a commit to test if the job succeeded on circleCI. If it failed troubleshoot it. 
+* Make a commit to and push to your fork. Issue a Pull Request to this repo's `staging` branch.  
 
 # Common Issues
 
-* `Error: could not find a ready tiller pod` Some times it takes a while to download the new tiller image, wait and try again.
-* `Error: UPGRADE FAILED: "example.pangeo.io-staging" has no deployed releases` If your first deploy of an application fails. Run `helm delete polar.pangeo.io-staging --purge` anywhere you have run `gcloud container clusters get-credentials`
+* `Error: could not find a ready tiller pod`
+  * Some times it takes a while to download the new tiller image, wait and try again.
+* `Error: UPGRADE FAILED: "example.pangeo.io-staging" has no deployed releases`
+  * If your first deploy of an application fails. Run `helm delete dev-staging --purge` anywhere you have run `gcloud container clusters get-credentials`
+
+# Related Projects
+
+- [Pangeo](http://pangeo.io/): main website for the Pangeo project.
+- [Pangeo Helm Chart](https://github.com/pangeo-data/helm-chart): A simple helm chart that wraps the jupyterhub helm chart to support horizontal compute scaling with Dask.
+- [Zero to JupyterHub](https://zero-to-jupyterhub.readthedocs.io/en/latest/): A tutorial to help install and manage JupyterHub on a cloud with Kubernetes.
+- [HubPloy](https://hubploy.readthedocs.io/en/latest/): a suite of commandline tools & a python library for continuous deployment of JupyterHub on Kubernetes (with Zero to JupyterHub)
+- [Repo2Docker](https://repo2docker.readthedocs.io/en/latest/): a tool to build, run, and push Docker images from source code repositories that run via a Jupyter server.

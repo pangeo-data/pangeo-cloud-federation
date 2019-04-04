@@ -1,25 +1,110 @@
 version: 2
 jobs:
-  deploy:
+  build:
     docker:
-      - image: buildpack-deps:bionic-scm
-    working_directory: ~/repo
+      - image: circleci/python:3.7.2
 
+    working_directory: ~/repo
     steps:
       - run:
           name: Install base apt packages
           command: |
-            apt-get update --yes
-            apt-get install --yes python3 python3-venv git-crypt
-
+            sudo apt-get update --yes -qq
+            sudo apt-get install --yes -qq git-crypt jq golang-go
       - checkout
-
-      # Download and cache dependencies
+      - run:
+          name: Pull Submodules
+          command: |
+            git submodule init
+            git submodule update --remote
       - restore_cache:
           keys:
-          - v1-dependencies-gcloud-212-{{ checksum "requirements.txt" }}
+          - v2-dependencies-{{ checksum "requirements.txt" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-gcloud-212-
+          - v2-dependencies-
+      - run:
+          name: install dependencies
+          command: |
+            python3 --version
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install --upgrade -r requirements.txt
+            # See https://github.com/pangeo-data/pangeo-cloud-federation/issues/120
+            # Until https://github.com/jupyter/repo2docker/pull/605
+            pip install --upgrade git+https://github.com/yuvipanda/repo2docker@d040bfa57addd7252afbfe0a4863f119bca9ab8a
+
+            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
+            echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+
+      - setup_remote_docker
+      - save_cache:
+          paths:
+            - ./venv
+          key: v2-dependencies-{{ checksum "requirements.txt" }}
+      - run:
+          name: Determine range of commits we are building
+          command: |
+              # CircleCI doesn't have equivalent to Travis' COMMIT_RANGE
+              COMMIT_RANGE=$(./.circleci/get-commit-range.py)
+              echo ${COMMIT_RANGE}
+              echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
+      
+      - run:
+          name: Test building dev.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build dev --commit-range ${COMMIT_RANGE}
+
+      - run:
+          name: Test building ocean.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build ocean --commit-range ${COMMIT_RANGE}
+
+      - run:
+          name: Test building hydro.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build hydro --commit-range ${COMMIT_RANGE}
+
+      - run:
+          name: Test building nasa.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build nasa --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
+      
+      - run:
+          name: Test building icesat2.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build icesat2 --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
+
+  deploy:
+    docker:
+      - image: circleci/python:3.7.2
+    working_directory: ~/repo
+    steps:
+      - run:
+          name: Install base apt packages
+          command: |
+            sudo apt-get update -qq --yes
+            sudo apt-get install -qq --yes git-crypt golang-go
+      - checkout
+      # Download and cache dependencies
+      - run:
+          name: Pull Submodules
+          command: |
+            git submodule init
+            git submodule update --remote
+      - restore_cache:
+          keys:
+          - v2-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v2-dependencies-gcloud-226-
 
       - run:
           name: install dependencies
@@ -27,39 +112,32 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
-            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-212.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
+
+            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
+            curl -sSL https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/aws-iam-authenticator > venv/bin/aws-iam-authenticator
+            chmod +x venv/bin/aws-iam-authenticator
+            # https://github.com/awslabs/amazon-ecr-credential-helper/issues/101
+            export GOPATH=$PWD/venv
+            go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
+
+            # Can be removed once https://github.com/docker/docker-py/issues/2225 is merged and released
+            pip install --upgrade git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf
+
+            # See https://github.com/pangeo-data/pangeo-cloud-federation/issues/120
+            # Until https://github.com/jupyter/repo2docker/pull/605
+            pip install --upgrade git+https://github.com/yuvipanda/repo2docker@d040bfa57addd7252afbfe0a4863f119bca9ab8a
+
             # Be careful with quote ordering here. ${PATH} must not be expanded
-            echo 'export PATH="~/repo/venv/bin:~/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+            # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
+            # Always use full PATHs in PATH!
+            echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+
+      - setup_remote_docker
 
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-gcloud-212-{{ checksum "requirements.txt" }}
-
-      - setup_remote_docker
-
-      - run:
-          name: Authenticate to Google
-          command: |
-            echo ${GCR_READWRITE_KEY} > ${HOME}/gcloud-service-key.json
-            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-            rm ${HOME}/gcloud-service-key.json
-            gcloud --quiet config set project ${GOOGLE_PROJECT}
-            gcloud --quiet config set compute/zone ${GOOGLE_ZONE}
-            gcloud --quiet beta container clusters get-credentials ${GKE_CLUSTER} --zone=${GOOGLE_ZONE}
-
-      - run:
-          name: Build primary image if needed
-          command: |
-            hubploy-image-builder \
-              --push \
-              --registry-url https://us.gcr.io \
-              --registry-username _json_key \
-              --registry-password "${GCR_READWRITE_KEY}" \
-              --repo2docker \
-              deployments/${DEPLOYMENT}/image/ ${IMAGE_NAME}
-          environment:
-            PYTHONIOENCODING: utf-8
+          key: v2-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
 
       - run:
           name: Unlock our secrets
@@ -69,33 +147,96 @@ jobs:
             rm ~/repo/key
 
       - run:
-          name: Install helm
+          name: Build dev.pangeo.io image if needed
+          when: always
           command: |
-            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-linux-amd64.tar.gz | \
+            hubploy build dev --check-registry --push
+
+      - run:
+          name: Build ocean.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build ocean --check-registry --push
+
+      - run:
+          name: Build hydro.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build hydro --check-registry --push
+
+      - run:
+          name: Build nasa.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build nasa --check-registry --push
+          environment:
+            PYTHONIOENCODING: utf-8
+      
+      - run:
+          name: Build icesat2.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build icesat2 --check-registry --push
+          environment:
+            PYTHONIOENCODING: utf-8
+
+
+      - run:
+          name: Install helm
+          when: always
+          command: |
+            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.0-linux-amd64.tar.gz | \
               tar -xzf -
-            mv linux-amd64/helm /usr/local/bin
+            sudo mv linux-amd64/helm /usr/local/bin
             helm init --client-only
-            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
-            helm repo add pangeo https://pangeo-data.github.io/helm-chart/
+            helm repo add pangeo-data https://pangeo-data.github.io/helm-chart/
             helm repo update
 
       - run:
-          name: Deploy hub
+          name: Deploy dev.pangeo.io
+          when: always
           command: |
-            hubploy-helm-deploy ${DEPLOYMENT} pangeo/pangeo ${CIRCLE_BRANCH} \
-              --namespace ${CIRCLE_BRANCH} \
-              --set jupyterhub.singleuser.image.name=${IMAGE_NAME} \
-              --version v0.1.1-69b4a02
+            hubploy deploy dev pangeo-deploy ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy ocean.pangeo.io
+          when: always
+          command: |
+            hubploy deploy ocean pangeo-deploy ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy hydro.pangeo.io
+          when: always
+          command: |
+            hubploy deploy hydro pangeo-deploy ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy nasa.pangeo.io
+          when: always
+          command: |
+            hubploy deploy nasa pangeo-deploy ${CIRCLE_BRANCH}
+      
+      - run:
+          name: Deploy icesat2.pangeo.io
+          when: always
+          command: |
+            hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH}
+
+
 
 workflows:
   version: 2
-  deploy:
+  build-and-deploy:
     jobs:
-    - deploy:
-        # Only run this post merge
-        filters:
-          branches:
-            only:
-            - develop
-            - staging
-            - prod
+      - build:
+          filters:
+            branches:
+              ignore:
+                - staging
+                - prod
+      - deploy:
+          filters:
+            branches:
+              only:
+                - staging
+                - prod

@@ -1,0 +1,51 @@
+pangeo:
+  jupyterhub:
+    singleuser:
+      storage:
+        dynamic:
+          storageClass: gp2
+      cloudMetadata:
+        enabled: true
+      cpu:
+        limit: 4
+        guarantee: 1
+      memory:
+        limit: 14G
+        guarantee: 4G
+    auth:
+      github:
+        org_whitelist:
+          - pangeo-data
+      admin:
+        access: true
+        users:
+          - scottyhq
+          - jhamman
+          - apawloski
+          - amanda-tan
+    hub:
+      extraConfig:
+        customPodHook: |
+          c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
+          c.JupyterHub.template_vars = {
+            'pangeo_hub_title': 'nasa.pangeo.io',
+            'pangeo_hub_subtitle': 'a community hub for research using NASA data stored on AWS',
+            'pangeo_welcome': """Welcome to nasa.pangeo.io. This hub lives in Amazon Web Services (AWS) region <code>us1-east</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a>. This hub supported by a grant from the National Aeronautics and Space Administration (NASA award number 80NSSC18M0157) and cloud credits from AWS. The hub's configuration is stored in the github repository <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">https://github.com/pangeo-data/pangeo-cloud-federation/</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation//issues">github issue tracker</a>."""
+          }
+
+      extraVolumes:
+        - name: custom-templates
+          gitRepo:
+            repository: "https://github.com/pangeo-data/pangeo-custom-jupyterhub-templates.git"
+            revision: "0c799bb2f880c8b516dcf90e2a90328078d60c25"
+      extraVolumeMounts:
+        - mountPath: /usr/local/share/jupyterhub/custom_templates
+          name: custom-templates
+          subPath: "pangeo-custom-jupyterhub-templates/templates"
+        - mountPath: /usr/local/share/jupyterhub/static/extra-assets
+          name: custom-templates
+          subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
+
+homeDirectories:
+  nfs:
+    enabled: false

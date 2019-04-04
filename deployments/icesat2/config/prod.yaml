@@ -1,0 +1,9 @@
+# pangeo:
+#   jupyterhub:
+#     proxy:
+#       https:
+#         enabled: false
+#         hosts:
+#         - icesat2.pangeo.io
+#         letsencrypt:
+#           contactEmail: scottyh@uw.edu

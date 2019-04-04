@@ -1,2 +1,3 @@
-git+https://github.com/dsludwig/hubploy.git
-git+https://github.com/dsludwig/repo2docker.git
+git+https://github.com/scottyhq/hubploy
+pygithub
+awscli

@@ -1,0 +1,10 @@
+pangeo:
+  jupyterhub:
+    proxy:
+      https:
+        hosts:
+        - staging.hub.pangeo.io
+        letsencrypt:
+          contactEmail: jhamman@ucar.edu
+      service:
+        loadBalancerIP: 35.232.186.70
