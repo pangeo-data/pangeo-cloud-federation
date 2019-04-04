@@ -3,7 +3,7 @@ pangeo:
     proxy:
       https:
         hosts:
-        - ocean2.ocean.pangeo.io
+        - ocean2.pangeo.io
         letsencrypt:
           contactEmail: raphael.dussin@gmail.com
       service:
