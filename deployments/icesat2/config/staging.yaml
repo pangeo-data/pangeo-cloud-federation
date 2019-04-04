@@ -4,7 +4,7 @@ pangeo:
     proxy:
       https:
         hosts:
-        - staging.icesat2.pangeo.io
+        - icesat2.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
       service:
