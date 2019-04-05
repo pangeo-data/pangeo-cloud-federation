@@ -89,6 +89,9 @@ pangeo:
         - mountPath: /usr/local/share/jupyterhub/static/extra-assets
           name: custom-templates
           subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
+    proxy:
+      nodeSelector:
+        cloud.google.com/gke-nodepool: default-pool
 
 homeDirectories:
   nfs:
