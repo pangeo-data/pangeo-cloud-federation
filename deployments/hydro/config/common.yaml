@@ -29,6 +29,8 @@ pangeo:
           - bartnijssen
           - arbennett
     hub:
+      nodeSelector:
+        cloud.google.com/gke-nodepool: default-pool
       extraConfig:
         profile_list: |
           c.KubeSpawner.profile_list = [
