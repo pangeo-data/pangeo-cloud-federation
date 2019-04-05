@@ -29,6 +29,13 @@ pangeo:
           - bartnijssen
           - arbennett
     hub:
+      resources:
+        requests:
+          cpu: "0.5"
+          memory: 1Gi
+        limits:
+          cpu: "1.25"
+          memory: 1Gi
       nodeSelector:
         cloud.google.com/gke-nodepool: default-pool
       extraConfig:
