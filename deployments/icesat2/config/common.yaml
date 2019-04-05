@@ -18,6 +18,8 @@ pangeo:
           subPath: "home/icesat2.pangeo.io/{username}"
       cloudMetadata:
         enabled: true
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: test 
       cpu:
         limit: 4
         guarantee: 1
