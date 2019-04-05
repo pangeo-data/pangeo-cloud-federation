@@ -2,7 +2,7 @@ pangeo:
   jupyterhub:
     proxy:
       https:
-        enabled: false
+        enabled: true
         hosts:
         - hub.pangeo.io
         letsencrypt:
