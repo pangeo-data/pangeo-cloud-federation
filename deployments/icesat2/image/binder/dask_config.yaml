@@ -13,6 +13,8 @@ kubernetes:
   worker-template:
     metadata:
     spec:
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: dask-worker
       restartPolicy: Never
       containers:
       - args:
