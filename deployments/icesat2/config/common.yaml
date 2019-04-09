@@ -19,13 +19,13 @@ pangeo:
       cloudMetadata:
         enabled: true
       nodeSelector:
-        alpha.eksctl.io/nodegroup-name: test 
+        alpha.eksctl.io/nodegroup-name: user-notebook
       cpu:
         limit: 4
-        guarantee: 1
+        guarantee: 4
       memory:
-        limit: 14G
-        guarantee: 4G
+        limit: 15G
+        guarantee: 15G
     auth:
       github:
         orgWhitelist:
@@ -33,6 +33,7 @@ pangeo:
           - "pangeo-data"
       scopes:
         - "read:user"
+        - "read:org"
       admin:
         access: true
         users:
@@ -41,6 +42,15 @@ pangeo:
           - apawloski
           - amanda-tan
     hub:
+      resources:
+        requests:
+          cpu: "0.5"
+          memory: 1Gi
+        limits:
+          cpu: "1.25"
+          memory: 1Gi
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: ng-680864af
       extraConfig:
         cloneRepo: |
           # Hack solution for branding
