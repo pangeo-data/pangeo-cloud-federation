@@ -22,10 +22,10 @@ pangeo:
         alpha.eksctl.io/nodegroup-name: user-notebook
       cpu:
         limit: 4
-        guarantee: 4
+        guarantee: 3
       memory:
-        limit: 15G
-        guarantee: 15G
+        limit: 16G
+        guarantee: 14G
     auth:
       github:
         orgWhitelist:
