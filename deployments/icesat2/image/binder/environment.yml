@@ -1,4 +1,4 @@
-name: esip-tech-dive
+name: icesat2
 channels:
   - conda-forge
 dependencies:
@@ -28,6 +28,7 @@ dependencies:
   - jupyterlab=0.35.4
   - libgdal=2.4
   - boto3=1.9
+  - awscli=1.16
   - hvplot=0.4
   - geoviews-core=1.6
   - ipyleaflet=0.10
@@ -37,5 +38,6 @@ dependencies:
   - geopandas=0.4
   - rasterio=1.0
   - pip:
+    - rio-cogeo
     - sat-search==0.2.0
     - dask-labextension==0.3.1
