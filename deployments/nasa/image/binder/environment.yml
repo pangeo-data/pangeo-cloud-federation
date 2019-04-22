@@ -1,39 +1,15 @@
-name: esip-tech-dive
+name: icesat2
 channels:
   - conda-forge
 dependencies:
-  - conda=4.6.3
-  - nomkl
-  - s3fs=0.2.0
-  - gcsfs=0.2.0
-  - intake=0.4.1
-  - intake-xarray=0.3.0
-  - msgpack-python=0.6.1
-  - curl=7.64
-  - python=3.6
-  - xarray=0.11.3
-  - zarr=2.2.0 
-  - h5py=2.9.0
-  - h5netcdf=0.6.2
-  - dask=1.1
-  - distributed=1.25.2
-  - dask-kubernetes=0.7.0
-  - matplotlib=3.0
-  - nbserverproxy=0.8.8
-  - jupyter=1.0.0
-  - ipywidgets=7.4.2
-  - graphviz=2.38
-  - jupyterlab=0.35.4
-  - libgdal=2.4.0
-  - boto3=1.9.91
-  - hvplot=0.4.0
-  - geoviews-core=1.6.2
-  - ipyleaflet=0.8.1
-  - datashader=0.6.9
-  - requests=2.21.0
-  - pandas=0.24.1
-  - geopandas=0.4.0
-  - rasterio=1.0.18
+  - conda 
+  - ipykernel 
+  - nb_conda_kernels 
+  - curl
+  - libgdal 
+  - boto3 
+  - awscli
+  - geopandas 
   - pip:
-    - sat-search==0.2.0
-    - dask-labextension==0.3.1
+    - rio-cogeo
+    - sat-search
