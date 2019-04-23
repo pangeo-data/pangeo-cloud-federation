@@ -1,39 +1,16 @@
+# Leave commented for first build, then uncomment and add loadBalancerIP
 pangeo:
   jupyterhub:
-    singleuser:
-      image:
-        name: pangeo/pangeo-notebook
-
-        tag: 2019.03.12
-      cpu:
-        limit: 4
-        guarantee: 1
-      memory:
-        limit: 15G
-        guarantee: 4G
-      defaultUrl: "/lab"
-
-      # storage:
-      #   extraVolumes:
-      #   - name: s3
-      #     flexVolume:
-      #       driver: "informaticslab/pysssix-flex-volume"
-      #       options:
-      #         readonly: "true"
-      #   extraVolumeMounts:
-      #   - name: s3
-      #     mountPath: /s3
-  
+    proxy:
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: hub
+      https:
+        hosts:
+        - staging.nasa.pangeo.io
+        letsencrypt:
+          contactEmail: scottyh@uw.edu
+      service:
+        loadBalancerIP: a7e74bdca654d11e9aa8d024800b3463-192714893.us-east-1.elb.amazonaws.com
     auth:
-      admin:
-        access: true
-        users:
-          - jhamman
-#     proxy:
-#       https:
-#         hosts:
-#         - nasa.pangeo.io
-#         letsencrypt:
-#           contactEmail: jhamman@ucar.edu
-#       service:
-#         loadBalancerIP: a3eb5aaf845de11e983870aa51f3ebfd-714384854.us-east-1.elb.amazonaws.com
+      github:
+        callbackUrl: "https://staging.nasa.pangeo.io/hub/oauth_callback"
