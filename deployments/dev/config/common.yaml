@@ -24,22 +24,62 @@ pangeo:
       memory:
         limit: 14G
         guarantee: 4G
-    extraConfig:
+    hub:
+      resources:
+        requests:
+          cpu: "0.5"
+          memory: 1Gi
+        limits:
+          cpu: "1.25"
+          memory: 1Gi
+      nodeSelector:
+        cloud.google.com/gke-nodepool: default-pool
+      extraConfig:
         profile_list: |
           c.KubeSpawner.profile_list = [
             {
-                'display_name': 'base-notebook - small (n1-highmem-2 | 2 cores, 12GB)',
+                'display_name': 'small (n1-highmem-2 | 2 cores, 12GB)',
                 'kubespawner_override': {
-                    'image': 'pangeo/base-notebook:latest',
+                    'cpu_limit': 2,
+                    'cpu_guarantee': 2,
+                    'mem_limit': '12G',
+                    'mem_guarantee': '12G',
                 }
             },
             {
-                'display_name': 'pangeo-notebook - small (n1-highmem-2 | 2 cores, 12GB)',
+                'display_name': 'standard (n1-highmem-4 | 4 cores, 24GB)',
                 'kubespawner_override': {
-                    'image': 'pangeo/pangeo-notebook:latest',
+                    'cpu_limit': 4,
+                    'cpu_guarantee': 4,
+                    'mem_limit': '24G',
+                    'mem_guarantee': '24G',
                 }
-            },
+            }
           ]
+
+        customPodHook: |
+          c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
+          c.JupyterHub.template_vars = {
+            'pangeo_hub_title': 'hub.pangeo.io',
+            'pangeo_hub_subtitle': 'a community hub for geoscience research',
+            'pangeo_welcome': """Welcome to hub.pangeo.io. This hub lives in Google Cloud region <code>us-central1-b</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and supported by a grant from the National Science Foundation (NSF award 1740648), which includes a direct award of cloud credits from Google Cloud. The hub's configuration is stored in the github repository <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">https://github.com/pangeo-data/pangeo-cloud-federation/</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation//issues">github issue tracker</a>."""
+          }
+
+      extraVolumes:
+        - name: custom-templates
+          gitRepo:
+            repository: "https://github.com/pangeo-data/pangeo-custom-jupyterhub-templates.git"
+            revision: "0c799bb2f880c8b516dcf90e2a90328078d60c25"
+      extraVolumeMounts:
+        - mountPath: /usr/local/share/jupyterhub/custom_templates
+          name: custom-templates
+          subPath: "pangeo-custom-jupyterhub-templates/templates"
+        - mountPath: /usr/local/share/jupyterhub/static/extra-assets
+          name: custom-templates
+          subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
+    proxy:
+      nodeSelector:
+        cloud.google.com/gke-nodepool: default-pool
     auth:
       github:
         orgWhitelist:
@@ -63,10 +103,6 @@ pangeo:
           - jacobtomlinson
           - dsludwig
           - rsignell-usgs
-    scheduling:
-      userScheduler:
-        enabled: true
-        replicas: 2
 homeDirectories:
   nfs:
     enabled: true

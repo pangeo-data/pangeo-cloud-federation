@@ -48,7 +48,7 @@ jobs:
               COMMIT_RANGE=$(./.circleci/get-commit-range.py)
               echo ${COMMIT_RANGE}
               echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
-      
+
       - run:
           name: Test building dev.pangeo.io image if needed
           when: always
@@ -74,7 +74,7 @@ jobs:
             hubploy build nasa --commit-range ${COMMIT_RANGE}
           environment:
             PYTHONIOENCODING: utf-8
-      
+
       - run:
           name: Test building icesat2.pangeo.io image if needed
           when: always
@@ -171,7 +171,7 @@ jobs:
             hubploy build nasa --check-registry --push
           environment:
             PYTHONIOENCODING: utf-8
-      
+
       - run:
           name: Build icesat2.pangeo.io image if needed
           when: always
@@ -215,7 +215,7 @@ jobs:
           when: always
           command: |
             hubploy deploy nasa pangeo-deploy ${CIRCLE_BRANCH}
-      
+
       - run:
           name: Deploy icesat2.pangeo.io
           when: always

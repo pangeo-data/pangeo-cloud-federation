@@ -1,9 +1,16 @@
+# Leave commented for first build, then uncomment and add loadBalancerIP
 pangeo:
   jupyterhub:
     proxy:
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: ng-680864af
       https:
-        enabled: false
         hosts:
         - icesat2.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
+      service:
+        loadBalancerIP: aa19367a4573811e9a9ef06d2bcc51c9-1125496385.us-west-2.elb.amazonaws.com
+    auth:
+      github:
+        callbackUrl: "https://icesat2.pangeo.io/hub/oauth_callback"

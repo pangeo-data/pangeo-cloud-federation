@@ -2,6 +2,8 @@
 pangeo:
   jupyterhub:
     proxy:
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: ng-680864af
       https:
         hosts:
         - staging.icesat2.pangeo.io
@@ -9,3 +11,6 @@ pangeo:
           contactEmail: scottyh@uw.edu
       service:
         loadBalancerIP: a070b2175523111e9924302ea5ee1624-1148941357.us-west-2.elb.amazonaws.com
+    auth:
+      github:
+        callbackUrl: "https://staging.icesat2.pangeo.io/hub/oauth_callback"

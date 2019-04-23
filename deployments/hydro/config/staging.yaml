@@ -8,3 +8,8 @@ pangeo:
           contactEmail: jhamman@ucar.edu
       service:
         loadBalancerIP: 35.238.0.56
+    hub:
+      resources:
+        requests:
+          cpu: "0.25"
+          memory: 0.5Gi

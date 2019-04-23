@@ -18,20 +18,22 @@ pangeo:
           subPath: "home/icesat2.pangeo.io/{username}"
       cloudMetadata:
         enabled: true
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: user-notebook
       cpu:
         limit: 4
-        guarantee: 1
+        guarantee: 3
       memory:
-        limit: 14G
-        guarantee: 4G
+        limit: 16G
+        guarantee: 14G
     auth:
       github:
-        callbackUrl: "https://staging.icesat2.pangeo.io/hub/oauth_callback"
         orgWhitelist:
           - "ICESAT-2HackWeek"
           - "pangeo-data"
       scopes:
         - "read:user"
+        - "read:org"
       admin:
         access: true
         users:
@@ -39,6 +41,40 @@ pangeo:
           - jhamman
           - apawloski
           - amanda-tan
+    hub:
+      resources:
+        requests:
+          cpu: "0.5"
+          memory: 1Gi
+        limits:
+          cpu: "1.25"
+          memory: 1Gi
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: ng-680864af
+      extraConfig:
+        cloneRepo: |
+          # Hack solution for branding
+          import os, shutil
+          repo = 'https://github.com/scottyhq/pangeo-custom-jupyterhub-templates'
+          webdir = '/usr/local/share/jupyterhub/static'
+          dst = '/srv/jupyterhub/style'
+          shutil.rmtree(dst, ignore_errors=True)
+          os.system(f'git clone {repo} {dst}')
+          os.system(f'cp -rf {dst}/extra-assets {webdir}')
+        customPodHook: |
+          c.JupyterHub.template_paths = ['/srv/jupyterhub/style/templates']
+          c.JupyterHub.template_vars = {
+            'pangeo_hub_title': 'icesat2.pangeo.io',
+            'pangeo_hub_subtitle': 'a community hub for icesat2 hackweek',
+            'pangeo_welcome': """Welcome to icesat2.pangeo.io, the computational environment for <a href="https://icesat-2hackweek.github.io">Icesat-2 Hackweek</a>! This hub lives in AWS region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. Access is currently limited to the <a href="https://github.com/ICESAT-2HackWeek">ICESAT-2HackWeek GitHub Organization</a>. The hub's configuration is stored in this <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">github repository</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation/issues">github issue tracker</a>."""
+          }
+      extraVolumes:
+        - name: custom-assets
+          emptyDir: {}
+      extraVolumeMounts:
+        - name: custom-assets
+          mountPath: /usr/local/share/jupyterhub/static/extra-assets
+
 homeDirectories:
   nfs:
     enabled: true

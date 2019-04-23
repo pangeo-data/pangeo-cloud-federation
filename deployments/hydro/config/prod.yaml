@@ -2,10 +2,9 @@ pangeo:
   jupyterhub:
     proxy:
       https:
-        enabled: true
         hosts:
-        - hub.pangeo.io
+        - hydro.pangeo.io
         letsencrypt:
           contactEmail: jhamman@ucar.edu
       service:
-        loadBalancerIP: 35.238.205.43
+        loadBalancerIP: 104.154.138.46

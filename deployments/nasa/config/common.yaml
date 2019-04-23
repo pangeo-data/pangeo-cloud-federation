@@ -1,21 +1,39 @@
 pangeo:
   jupyterhub:
     singleuser:
+      initContainers:
+        - name: volume-mount-hack
+          image: busybox
+          command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - name: home
+              mountPath: /home/jovyan
+              subPath: "home/nasa.pangeo.io/{username}"
       storage:
-        dynamic:
-          storageClass: gp2
+        type: static
+        static:
+          pvcName: home-nfs
+          subPath: "home/nasa.pangeo.io/{username}"
       cloudMetadata:
         enabled: true
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: user-notebook
       cpu:
         limit: 4
-        guarantee: 1
+        guarantee: 3
       memory:
-        limit: 14G
-        guarantee: 4G
+        limit: 16G
+        guarantee: 14G
     auth:
       github:
-        org_whitelist:
-          - pangeo-data
+        orgWhitelist:
+          - "ICESAT-2HackWeek"
+          - "pangeo-data"
+      scopes:
+        - "read:user"
+        - "read:org"
       admin:
         access: true
         users:
@@ -23,6 +41,41 @@ pangeo:
           - jhamman
           - apawloski
           - amanda-tan
+    hub:
+      resources:
+        requests:
+          cpu: "0.5"
+          memory: 1Gi
+        limits:
+          cpu: "1.25"
+          memory: 1Gi
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: hub
+      extraConfig:
+        cloneRepo: |
+          # Hack solution for branding
+          import os, shutil
+          repo = 'https://github.com/scottyhq/pangeo-custom-jupyterhub-templates'
+          webdir = '/usr/local/share/jupyterhub/static'
+          dst = '/srv/jupyterhub/style'
+          shutil.rmtree(dst, ignore_errors=True)
+          os.system(f'git clone {repo} {dst}')
+          os.system(f'cp -rf {dst}/extra-assets {webdir}')
+        customPodHook: |
+          c.JupyterHub.template_paths = ['/srv/jupyterhub/style/templates']
+          c.JupyterHub.template_vars = {
+            'pangeo_hub_title': 'nasa.pangeo.io',
+            'pangeo_hub_subtitle': 'a community hub for the NASA ACCESS project',
+            'pangeo_welcome': """Welcome to nasa.pangeo.io! This hub lives in AWS region <code>us-east-1</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. Access is currently limited to the <a href="https://github.com/pangeo-data">Pangeo GitHub Organization</a>. The hub's configuration is stored in this <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">github repository</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation/issues">github issue tracker</a>."""
+          }
+      extraVolumes:
+        - name: custom-assets
+          emptyDir: {}
+      extraVolumeMounts:
+        - name: custom-assets
+          mountPath: /usr/local/share/jupyterhub/static/extra-assets
+
 homeDirectories:
   nfs:
-    enabled: false
+    enabled: true
+    serverIP: fs-545941b4.efs.us-east-1.amazonaws.com
