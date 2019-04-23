@@ -78,6 +78,4 @@ pangeo:
 homeDirectories:
   nfs:
     enabled: true
-    serverPath: "/homes"
     serverIP: fs-545941b4.efs.us-east-1.amazonaws.com
-    serverName: pangeo-efs
