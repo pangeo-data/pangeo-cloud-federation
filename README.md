@@ -9,11 +9,11 @@ Changing the image will typically take ~20 minutes, and changing a Helm config v
 
 Name   | Cloud: region      |  Staging URL                    | Production URL
 --     |-                    |-                                |-
-dev    | GCP: us-central1-b | http://staging.hub.pangeo.io    | http://hub.pangeo.io
-ocean  | GCP: us-central1-b | http://staging.ocean.pangeo.io  | http://ocean.pangeo.io
-hydro  | GCP: us-central1-b | http://staging.hydro.pangeo.io  | http://hydro.pangeo.io
-nasa   | AWS: us-east-1     | http://staging.nasa.pangeo.io   | http://nasa.pangeo.io
-icesat | AWS: us-west-2     | http://staging.icesat.pangeo.io | http://icesat.pangeo.io
+dev    | GCP: us-central1-b | https://staging.hub.pangeo.io    | https://hub.pangeo.io
+ocean  | GCP: us-central1-b | https://staging.ocean.pangeo.io  | https://ocean.pangeo.io
+hydro  | GCP: us-central1-b | https://staging.hydro.pangeo.io  | https://hydro.pangeo.io
+nasa   | AWS: us-east-1     | https://staging.nasa.pangeo.io   | https://nasa.pangeo.io
+icesat | AWS: us-west-2     | https://staging.icesat.pangeo.io | https://icesat.pangeo.io
 
 # Build Status
 
