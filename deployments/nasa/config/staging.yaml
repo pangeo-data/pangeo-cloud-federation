@@ -2,8 +2,6 @@
 pangeo:
   jupyterhub:
     proxy:
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: hub
       https:
         hosts:
         - staging.nasa.pangeo.io
