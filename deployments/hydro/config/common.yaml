@@ -69,7 +69,7 @@ pangeo:
                     'image': 'pangeo/pangeo-notebook',
 
                 }
-            }
+            },
             {
                 'display_name': 'R Env - standard (n1-highmem-4 | 4 cores, 24GB)',
                 'kubespawner_override': {
