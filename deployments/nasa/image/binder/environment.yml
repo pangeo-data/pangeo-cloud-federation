@@ -2,14 +2,42 @@ name: icesat2
 channels:
   - conda-forge
 dependencies:
-  - conda 
-  - ipykernel 
-  - nb_conda_kernels 
-  - curl
-  - libgdal 
-  - boto3 
-  - awscli
-  - geopandas 
+  - conda=4.6
+  - ipykernel=5.1
+  - nb_conda_kernels=2.2
+  - nomkl
+  - s3fs=0.2
+  - gcsfs=0.2
+  - intake=0.4
+  - intake-xarray=0.3
+  - msgpack-python=0.6
+  - curl=7.64
+  - python=3.6
+  - xarray=0.12
+  - zarr=2.2
+  - h5py=2.9
+  - h5netcdf=0.7
+  - dask=1.1
+  - distributed=1.25
+  - dask-kubernetes=0.7
+  - matplotlib=3.0
+  - nbserverproxy=0.8.8
+  - jupyter=1.0.0
+  - ipywidgets=7.4
+  - graphviz=2.38
+  - jupyterlab=0.35.4
+  - libgdal=2.4
+  - boto3=1.9
+  - awscli=1.16
+  - hvplot=0.4
+  - geoviews-core=1.6
+  - ipyleaflet=0.10
+  - datashader=0.6
+  - requests=2.21
+  - pandas=0.24
+  - geopandas=0.4
+  - rasterio=1.0
   - pip:
     - rio-cogeo
-    - sat-search
+    - sat-search==0.2.0
+    - dask-labextension==0.3.1
