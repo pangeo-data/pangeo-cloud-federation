@@ -41,7 +41,16 @@ pangeo:
           - jhamman
           - apawloski
           - amanda-tan
+    proxy:
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: hub
     hub:
+      db:
+        type: sqlite-pvc
+        pvc:
+          selector:
+            matchLabels:
+              type: nfs
       resources:
         requests:
           cpu: "0.5"
