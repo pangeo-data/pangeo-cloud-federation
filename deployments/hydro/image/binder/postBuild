@@ -1,9 +1,11 @@
 #!/bin/bash
 
-git clone --single-branch -b develop https://github.com/ncar/summa.git
+git clone -b develop https://github.com/ncar/summa.git
 
 cd summa
-git checkout -b whw2019 b074b0
+git checkout -b cewa564_pangeo b074b0
+# Add the commit from Andrew that sets the time offset to 0
+git cherry-pick 3516fe2
 
 export F_MASTER=${PWD}
 export FC="gfortran"

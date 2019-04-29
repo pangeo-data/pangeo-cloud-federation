@@ -10,12 +10,30 @@ pangeo:
           volumeMounts:
             - name: home
               mountPath: /home/jovyan
-              subPath: "home/nasa.pangeo.io/{username}"
+              subPath: "nasa.pangeo.io/home/{username}"
+      lifecycleHooks:
+        postStart:
+          exec:
+            command:
+              - "sh"
+              - "-c"
+              - >
+                echo "envs_dirs:\n  - /home/jovyan/my-conda-envs/\n" > /home/jovyan/.condarc
+      extraEnv:
+        CHOWN_HOME: 'yes'
+        EXAMPLES_GIT_URL: https://github.com/pangeo-data/pangeo-example-notebooks
       storage:
         type: static
         static:
           pvcName: home-nfs
-          subPath: "home/nasa.pangeo.io/{username}"
+          subPath: "nasa.pangeo.io/home/{username}"
+        # extraVolumes:
+        # - name: jupyterhub-shared
+        #   persistentVolumeClaim:
+        #     claimName: jupyterhub-shared-volume
+        # extraVolumeMounts:
+        #   - name: jupyterhub-shared
+        #     mountPath: /home/shared
       cloudMetadata:
         enabled: true
       nodeSelector:
@@ -26,6 +44,18 @@ pangeo:
       memory:
         limit: 16G
         guarantee: 14G
+      profileList:
+        - display_name: "Default environment (m5.2xlarge | 4 cores, 16Gb)"
+          description: "NASA environment extending pangeo-notebook"
+          default: true
+        - display_name: "Ames Stereo pipeline (m5.2xlarge | 4 cores, 16Gb)"
+          description: "NASA environment + ASP"
+          kubespawner_override:
+            image: pangeo/pangeo-notebook:latest
+        - display_name: "Pangeo-notebook (m5.2xlarge | 4 cores, 16Gb)"
+          description: "latest pangeo-notebook from pangeo stacks"
+          kubespawner_override:
+            image: pangeo/pangeo-notebook:latest
     auth:
       github:
         orgWhitelist:
@@ -45,12 +75,6 @@ pangeo:
       nodeSelector:
         alpha.eksctl.io/nodegroup-name: hub
     hub:
-      db:
-        type: sqlite-pvc
-        pvc:
-          selector:
-            matchLabels:
-              type: nfs
       resources:
         requests:
           cpu: "0.5"
@@ -83,6 +107,7 @@ pangeo:
       extraVolumeMounts:
         - name: custom-assets
           mountPath: /usr/local/share/jupyterhub/static/extra-assets
+
 
 homeDirectories:
   nfs:
