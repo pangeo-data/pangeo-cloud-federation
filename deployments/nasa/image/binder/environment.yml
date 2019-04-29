@@ -37,6 +37,10 @@ dependencies:
   - pandas=0.24
   - geopandas=0.4
   - rasterio=1.0
+  - pyresample
+  - geocube
+  - rioxarray
+  - regionmask
   - pip:
     - rio-cogeo
     - sat-search==0.2.0
