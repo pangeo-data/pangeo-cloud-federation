@@ -37,7 +37,12 @@ dependencies:
   - pandas=0.24
   - geopandas=0.4
   - rasterio=1.0
+  - pyresample
+  - geocube
+  - rioxarray
+  - regionmask
   - pip:
     - rio-cogeo
     - sat-search==0.2.0
     - dask-labextension==0.3.1
+    - git+https://github.com/pangeo-data/intake-stac.git
