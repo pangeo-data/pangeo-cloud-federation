@@ -1,0 +1,33 @@
+# This configuration is necessary to mount an nfs shared data folder
+# kubectl apply -f shared-data-nfs.yaml --namespace nasa-prod
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nasa-shared-nfs
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  # mountOptions:
+  #   - dir_mode=0777
+  #   - file_mode=0777
+  #   - uid=1000
+  #   - gid=1000
+  nfs:
+    server: fs-545941b4.efs.us-east-1.amazonaws.com
+    path: "/"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-nfs
+spec:
+  accessModes:
+    - ReadWriteMany
+  # Match name of PV
+  volumeName: nasa-shared-nfs
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 1Mi
