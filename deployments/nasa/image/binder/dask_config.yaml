@@ -35,6 +35,16 @@ kubernetes:
           requests:
             cpu: 1
             memory: 7G
+        volumeMounts:
+          - name: nfs
+            mountPath: /home/jovyan
+            subPath: "nasa.pangeo.io/home/${JUPYTERHUB_USER}"
+      volumes:
+        - name: nfs
+          persistentVolumeClaim:
+            claimName: home-nfs
+
+
 
 labextension:
   factory:
