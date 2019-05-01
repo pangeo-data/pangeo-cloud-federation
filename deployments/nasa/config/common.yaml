@@ -4,13 +4,26 @@ pangeo:
       initContainers:
         - name: volume-mount-hack
           image: busybox
-          command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+          command:
+            - "sh"
+            - "-c"
+            - >
+              id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan ;
+              id && chown 1000:1000 /srv/data/shared && ls -lhd /srv/data/shared ;
           securityContext:
             runAsUser: 0
           volumeMounts:
             - name: home
               mountPath: /home/jovyan
               subPath: "nasa.pangeo.io/home/{username}"
+              # Alternatively, ssh into node and chown once
+            - name: jupyterhub-shared
+              mountPath: /srv/data/shared
+              subPath: "nasa.pangeo.io/shared"
+      extraVolumes:
+        - name: jupyterhub-shared
+          persistentVolumeClaim:
+            claimName: data-nfs
       lifecycleHooks:
         postStart:
           exec:
@@ -18,22 +31,25 @@ pangeo:
               - "sh"
               - "-c"
               - >
-                echo "envs_dirs:\n  - /home/jovyan/my-conda-envs/\n" > /home/jovyan/.condarc
+                echo "envs_dirs:\n  - /home/jovyan/my-conda-envs/\ncreate_default_packages:\n  - ipykernel\n" > /home/jovyan/.condarc ;
+                ln -s /srv/data/shared shared-data ;
       extraEnv:
-        CHOWN_HOME: 'yes'
         EXAMPLES_GIT_URL: https://github.com/pangeo-data/pangeo-example-notebooks
       storage:
         type: static
         static:
           pvcName: home-nfs
           subPath: "nasa.pangeo.io/home/{username}"
-        # extraVolumes:
-        # - name: jupyterhub-shared
-        #   persistentVolumeClaim:
-        #     claimName: jupyterhub-shared-volume
-        # extraVolumeMounts:
-        #   - name: jupyterhub-shared
-        #     mountPath: /home/shared
+        #requires having run config/shared-data-nfs.yaml
+        extraVolumeMounts:
+          - name: jupyterhub-shared
+            mountPath: /srv/data/shared
+            subPath: "nasa.pangeo.io/shared"
+        extraVolumes:
+          - name: jupyterhub-shared
+            persistentVolumeClaim:
+              claimName: data-nfs
+
       cloudMetadata:
         enabled: true
       nodeSelector:
@@ -48,10 +64,6 @@ pangeo:
         - display_name: "Default environment (m5.2xlarge | 4 cores, 16Gb)"
           description: "NASA environment extending pangeo-notebook"
           default: true
-        - display_name: "Ames Stereo pipeline (m5.2xlarge | 4 cores, 16Gb)"
-          description: "NASA environment + ASP"
-          kubespawner_override:
-            image: pangeo/pangeo-notebook:latest
         - display_name: "Pangeo-notebook (m5.2xlarge | 4 cores, 16Gb)"
           description: "latest pangeo-notebook from pangeo stacks"
           kubespawner_override:
