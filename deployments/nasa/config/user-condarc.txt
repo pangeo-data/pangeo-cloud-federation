@@ -1,0 +1,14 @@
+# Override Dockerfile conda settings - put this in /home/jovyan/.condarc
+channel_priority: strict
+channels:
+  - conda-forge
+  - defaults
+auto_update_conda: true
+show_channel_urls: true
+update_dependencies: true
+auto_activate_base: false
+envs_dirs:
+  - /home/jovyan/my-conda-envs/
+create_default_packages:
+  - ipykernel
+  - blas=*=openblas
