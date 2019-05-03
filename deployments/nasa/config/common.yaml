@@ -25,13 +25,14 @@ pangeo:
           persistentVolumeClaim:
             claimName: data-nfs
       lifecycleHooks:
+        # NOTE: requires user-condarc manually be put on efs drive, should automate this
         postStart:
           exec:
             command:
               - "sh"
               - "-c"
               - >
-                echo "envs_dirs:\n  - /home/jovyan/my-conda-envs/\ncreate_default_packages:\n  - ipykernel\n" > /home/jovyan/.condarc ;
+                cp /home/jovyan/shared/user-condarc.txt  /home/jovyan/.condarc ;
                 test -d /home/jovyan/shared || ln -sf /srv/shared /home/jovyan/shared ;
       extraEnv:
         #PATH: '{PATH}:/srv/shared/bin' #Not sure how to append to path...
@@ -69,6 +70,10 @@ pangeo:
           description: "latest pangeo-notebook from pangeo stacks"
           kubespawner_override:
             image: pangeo/pangeo-notebook:latest
+        - display_name: "AmesStereoPipeline *experimental* (m5.2xlarge | 4 cores, 16Gb)"
+          description: "Pangeo-notebook + ASP Daily Build 2019.04.29"
+          kubespawner_override:
+            image: scottyhq/pangeo-nasa-asp:2019.04.29
     auth:
       github:
         orgWhitelist:
