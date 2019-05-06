@@ -13,8 +13,6 @@ kubernetes:
   worker-template:
     metadata:
     spec:
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: dask-worker
       restartPolicy: Never
       containers:
       - args:
@@ -23,7 +21,7 @@ kubernetes:
           - '2'
           - --no-bokeh
           - --memory-limit
-          - 7GB
+          - 12GB
           - --death-timeout
           - '60'
         image: ${JUPYTER_IMAGE_SPEC}
@@ -31,10 +29,10 @@ kubernetes:
         resources:
           limits:
             cpu: "1.75"
-            memory: 7G
+            memory: 12G
           requests:
             cpu: 1
-            memory: 7G
+            memory: 12G
 
 labextension:
   factory:
