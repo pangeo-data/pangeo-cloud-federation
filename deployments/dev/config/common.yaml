@@ -32,8 +32,6 @@ pangeo:
         limits:
           cpu: "1.25"
           memory: 1Gi
-      nodeSelector:
-        cloud.google.com/gke-nodepool: default-pool
       extraConfig:
         profile_list: |
           c.KubeSpawner.profile_list = [
@@ -77,9 +75,6 @@ pangeo:
         - mountPath: /usr/local/share/jupyterhub/static/extra-assets
           name: custom-templates
           subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
-    proxy:
-      nodeSelector:
-        cloud.google.com/gke-nodepool: default-pool
     auth:
       github:
         orgWhitelist:
