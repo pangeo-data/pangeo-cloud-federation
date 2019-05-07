@@ -24,6 +24,10 @@ pangeo:
       memory:
         limit: 14G
         guarantee: 4G
+    scheduling:
+      userPods:
+        nodeAffinity:
+          matchNodePurpose: require
     hub:
       resources:
         requests:
