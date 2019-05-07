@@ -1,5 +1,12 @@
 pangeo:
   jupyterhub:
+    scheduling:
+      userPods:
+        nodeAffinity:
+          matchNodePurpose: require
+      corePods:
+        nodeAffinity:
+          matchNodePurpose: require
     singleuser:
       initContainers:
         - name: volume-mount-hack
@@ -24,10 +31,6 @@ pangeo:
       memory:
         limit: 14G
         guarantee: 4G
-    scheduling:
-      userPods:
-        nodeAffinity:
-          matchNodePurpose: require
     hub:
       resources:
         requests:
