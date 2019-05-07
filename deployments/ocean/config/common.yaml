@@ -1,5 +1,12 @@
 pangeo:
   jupyterhub:
+    scheduling:
+      userPods:
+        nodeAffinity:
+          matchNodePurpose: require
+      corePods:
+        nodeAffinity:
+          matchNodePurpose: require
     singleuser:
       initContainers:
         - name: volume-mount-hack
