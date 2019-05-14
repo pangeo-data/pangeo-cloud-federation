@@ -21,7 +21,7 @@ kubernetes:
           - '2'
           - --no-bokeh
           - --memory-limit
-          - 12GB
+          - "11.5GB"
           - --death-timeout
           - '60'
         image: ${JUPYTER_IMAGE_SPEC}
@@ -29,10 +29,10 @@ kubernetes:
         resources:
           limits:
             cpu: "1.75"
-            memory: 12G
+            memory: "11.5G"
           requests:
-            cpu: 1
-            memory: 12G
+            cpu: "1.75"
+            memory: "11.5G"
 
 labextension:
   factory:
