@@ -1,9 +1,9 @@
 # This configuration is necessary to mount an nfs shared data folder for all users
-# kubectl apply -f shared-nfs.yaml --namespace nasa-prod
+# kubectl apply -f shared-nfs-prod.yaml --namespace nasa-prod
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nasa-shared-nfs
+  name: nasa-prod-shared-nfs
 spec:
   capacity:
     storage: 1Mi
@@ -26,7 +26,7 @@ spec:
   accessModes:
     - ReadWriteMany
   # Match name of PV
-  volumeName: nasa-shared-nfs
+  volumeName: nasa-prod-shared-nfs
   storageClassName: ""
   resources:
     requests:
