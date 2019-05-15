@@ -14,5 +14,5 @@ mkdir -p ${KERNEL_PYTHON_PREFIX}/etc/dask
 cp binder/dask_config.yaml ${KERNEL_PYTHON_PREFIX}/etc/dask/dask.yaml
 
 # conda config for user-created environments
-cp binder/user-condarc.txt ${KERNEL_PYTHON_PREFIX}/.condarc
+cp binder/user-condarc.txt ${KERNEL_PYTHON_PREFIX}/user-condarc.txt
 #EOF
