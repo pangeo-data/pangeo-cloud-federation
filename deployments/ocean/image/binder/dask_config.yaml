@@ -28,10 +28,10 @@ kubernetes:
         name: dask-${JUPYTERHUB_USER}
         resources:
           limits:
-            cpu: "1.75"
+            cpu: 16
             memory: "11.5G"
           requests:
-            cpu: "1.75"
+            cpu: 1
             memory: "11.5G"
 
 labextension:
