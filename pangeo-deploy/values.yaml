@@ -37,10 +37,12 @@ pangeo:
         enabled: false
 
     scheduling:
-        userScheduler:
-          enabled: false
-        userPlaceholder:
-          enabled: false
+      userScheduler:
+        enabled: true
+      podPriority:
+        enabled: true
+      userPlaceholder:
+        enabled: false
 
 homeDirectories:
   nfs:
