@@ -37,8 +37,6 @@ pangeo:
         enabled: false
 
     scheduling:
-        userScheduler:
-          enabled: false
         userPlaceholder:
           enabled: false
 
