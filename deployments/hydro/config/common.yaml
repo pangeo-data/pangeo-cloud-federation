@@ -71,7 +71,7 @@ pangeo:
                     'cpu_guarantee': 4,
                     'mem_limit': '24G',
                     'mem_guarantee': '24G',
-                    'image': 'pangeo/pangeo-notebook:2019.05.17',
+                    'image': 'pangeo/pangeo-notebook:latest',
                 }
             },
             {
