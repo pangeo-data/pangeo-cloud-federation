@@ -19,7 +19,7 @@ dependencies:
   - h5netcdf=0.7
   - dask=1.1
   - distributed=1.25
-  - dask-kubernetes=0.7
+  - dask-kubernetes=0.8
   - matplotlib=3.0
   - nbserverproxy=0.8.8
   - jupyter=1.0.0
