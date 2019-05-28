@@ -77,6 +77,7 @@ pangeo:
     auth:
       github:
         orgWhitelist:
+          - "escience-pangeo"
           - "ICESAT-2HackWeek"
           - "pangeo-data"
       scopes:
