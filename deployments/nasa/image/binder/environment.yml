@@ -46,3 +46,4 @@ dependencies:
     - sat-search==0.2.0
     - dask-labextension==0.3.1
     - git+https://github.com/pangeo-data/intake-stac.git
+    - nbgitpuller
