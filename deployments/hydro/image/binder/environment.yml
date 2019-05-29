@@ -20,3 +20,4 @@ dependencies:
   - pip:
     - git+https://github.com/arbennett/pysumma.git@CEWA564_2019
     - hs_restclient
+    - nbgitpuller
