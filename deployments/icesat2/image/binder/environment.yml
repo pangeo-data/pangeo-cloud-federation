@@ -3,6 +3,8 @@ channels:
   - conda-forge
 dependencies:
   - conda=4.6
+  - ipympl=0.2
+  - seaborn=0.9
   - ipykernel=5.1
   - nb_conda_kernels=2.2
   - nomkl
