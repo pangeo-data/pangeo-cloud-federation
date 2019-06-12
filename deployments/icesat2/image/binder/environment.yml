@@ -3,6 +3,9 @@ channels:
   - conda-forge
 dependencies:
   - conda=4.6
+  - joblib=0.13
+  - astropy=3.2
+  - basemap=1.2
   - ipympl=0.2
   - seaborn=0.9
   - ipykernel=5.1
