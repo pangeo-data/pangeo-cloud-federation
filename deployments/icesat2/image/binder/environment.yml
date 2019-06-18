@@ -46,11 +46,13 @@ dependencies:
   - pandas=0.24
   - geopandas=0.5
   - rasterio=1.0
+  - pip
   - pip:
     - rio-cogeo
     - sat-search==0.2.0
     - dask-labextension==0.3.1
     - nbgitpuller
     - matplotlib-scalebar==0.5.1
+    - git+https://github.com/HDFGroup/h5pyd.git
 # not yet working, need to incorporate pip --pre option
 #    - git+https://github.com/jupyterlab/jupyterlab.git@v1.0.0a8 
