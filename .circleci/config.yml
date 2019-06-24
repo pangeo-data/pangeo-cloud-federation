@@ -140,11 +140,18 @@ jobs:
           key: v2-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
 
       - run:
-          name: Unlock our secrets
+          name: Unlock default secrets
           command: |
-            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-            git crypt unlock ~/repo/key
-            rm ~/repo/key
+            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/default.key
+            git crypt unlock ~/repo/default.key
+            rm ~/repo/default.key
+
+      - run:
+          name: Unlock ooi secrets
+          command: |
+            echo "${OOI_GIT_CRYPT_KEY}" | base64 -d > ~/repo/ooi.key
+            git crypt unlock ~/repo/ooi.key
+            rm ~/repo/ooi.key
 
       - run:
           name: Build dev.pangeo.io image if needed
