@@ -195,6 +195,14 @@ jobs:
           environment:
             PYTHONIOENCODING: utf-8
 
+      - run:
+          name: Build ooi.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build ooi --check-registry --push
+          environment:
+            PYTHONIOENCODING: utf-8
+
 
       - run:
           name: Install helm
