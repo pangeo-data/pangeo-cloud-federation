@@ -83,13 +83,13 @@ jobs:
           environment:
             PYTHONIOENCODING: utf-8
 
-      - run:
-          name: Test building ooi.pangeo.io image if needed
-          when: always
-          command: |
-            hubploy build ooi --commit-range ${COMMIT_RANGE}
-          environment:
-            PYTHONIOENCODING: utf-8
+      #- run:
+      #    name: Test building ooi.pangeo.io image if needed
+      #    when: always
+      #    command: |
+      #      hubploy build ooi --commit-range ${COMMIT_RANGE}
+      #    environment:
+      #      PYTHONIOENCODING: utf-8
 
   deploy:
     docker:
