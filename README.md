@@ -40,16 +40,17 @@ to encrypt the secrets that are used for deploying your cluster. Please read thi
 
 Once you have a cluster created, you can begin customizing the configuration.
 
-* Create a fork of this repository in GitHub. (Note: the default branch is staging)
-* Unlock the encrypted secrets using git-crypt
-  * `git-crypt unlock /path/to/encryption.key`
-* Copy the deployments/dev directory to your desired name (we'll use `foobar` as our deployment name from here on)
+* Create a fork of this repository in GitHub and clone your fork. (Note: the default branch is staging.)
+* Request a git-crypt symmetric key from the maintainers of this repo to be used for your deployment secrets files.
+* Initialize git-crypt using the unlock command.
+  * `git-crypt unlock /path/to/your.key`
+* Copy the deployments/dev directory to a directory with your deployment name (we'll use `foobar` as our deployment name from here on).
   * `cp -r dev foobar`
-* Configure the `hubploy.yaml` config file.
+* Add your deployment's secrets directory to .gitattributes.
 * Configure the JupyterHub config files. These are found in `deployments/foobar/config`.
+* Configure the `hubploy.yaml` config file.
 * Configure the deployment secrets found in `deployments/foobar/config`.
-  * `gcloud-service-key.json`: a service account key for gcloud. This is slightly different when AWS.
-  * prod/staging.yaml: These files hold the JupyterHub secretes described here: 
+  * Information on what needs to be in hubploy.yaml and in the secrets directory can be found [here](docs/readme-secrets.md).
 * Configure your deployments image. This is found in `deployments/foobar/image`.
   * Edit the files in the binder directory to change the contents of the user Docker image. The specification for these files comes from [repo2docker](https://repo2docker.readthedocs.io/en/latest/).
   * Add or modify the README.md and Jupyter notebooks. These will be in each user's home directory.
