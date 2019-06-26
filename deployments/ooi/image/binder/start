@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+export DASK_ROOT_CONFIG=/srv/repo/binder/dask_config.yaml
+
+cd ${HOME}
+
+exec "$@"
