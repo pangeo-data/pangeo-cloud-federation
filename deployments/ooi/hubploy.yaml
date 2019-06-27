@@ -12,5 +12,5 @@ cluster:
   provider: azure
   azure:
     resource_group: ooicloud
-    cluster: ooicloud
+    cluster: ooicloudtest
     auth_file: azure-auth.yaml
