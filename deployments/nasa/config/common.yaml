@@ -71,9 +71,9 @@ pangeo:
           kubespawner_override:
             image: pangeo/pangeo-notebook:latest
         - display_name: "AmesStereoPipeline *experimental* (m5.2xlarge | 4 cores, 16Gb)"
-          description: "Pangeo-notebook + ASP Daily Build 2019.04.29"
+          description: "Pangeo-notebook + ASP Daily Build 2019.07.03"
           kubespawner_override:
-            image: scottyhq/pangeo-nasa-asp:2019.04.29
+            image: scottyhq/pangeo-nasa-asp:2019.07.03
     auth:
       github:
         orgWhitelist:
