@@ -4,13 +4,13 @@ images:
   registry:
     provider: azure
     azure:
-      resource_group: ooicloud
+      resource_group: ooi-pangeo
       registry: ooicloud
       auth_file: azure-auth.yaml
 
 cluster:
   provider: azure
   azure:
-    resource_group: ooicloud
+    resource_group: ooi-pangeo
     cluster: ooicloudtest
     auth_file: azure-auth.yaml
