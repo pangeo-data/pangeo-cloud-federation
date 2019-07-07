@@ -1,3 +1,4 @@
+sudo
 graphviz
 vim
 nano
