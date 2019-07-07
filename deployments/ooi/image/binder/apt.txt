@@ -2,3 +2,4 @@ sudo
 graphviz
 vim
 nano
+man-db
