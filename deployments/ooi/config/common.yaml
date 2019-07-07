@@ -19,21 +19,25 @@ pangeo:
       #      mountPath: /home/jovyan
       #      subPath: "home/hub.pangeo.io/{username}"
       storage:
-        capacity: 40Gi
-        dynamic:
-          pvcNameTemplate: claim-{username}{servername}
-          storageAccessModes:
-          - ReadWriteOnce
-          storageClass: null
-          volumeNameTemplate: volume-{username}{servername}
-        extraLabels: {}
-        extraVolumeMounts: []
-        extraVolumes: []
-        homeMountPath: /home/jovyan
+        type: static
         static:
-          pvcName: null
-          subPath: '{username}'
-        type: dynamic
+          pvcName: home-nfs
+          subPath: "home/hub.pangeo.io/{username}"
+      #  capacity: 40Gi
+      #  dynamic:
+      #    pvcNameTemplate: claim-{username}{servername}
+      #    storageAccessModes:
+      #    - ReadWriteOnce
+      #    storageClass: null
+      #    volumeNameTemplate: volume-{username}{servername}
+      #  extraLabels: {}
+      #  extraVolumeMounts: []
+      #  extraVolumes: []
+      #  homeMountPath: /home/jovyan
+      #  static:
+      #    pvcName: null
+      #    subPath: '{username}'
+      #  type: dynamic
       cloudMetadata:
         enabled: true
       #cpu:
