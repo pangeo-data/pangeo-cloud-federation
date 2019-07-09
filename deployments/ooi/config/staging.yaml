@@ -4,8 +4,8 @@ pangeo:
       https:
         enabled: false
         #hosts:
-        #- hub.pangeo.io
+        #- staging.ooi.pangeo.io
         #letsencrypt:
         #  contactEmail: tjcrone@gmail.com
-      #service:
-        #loadBalancerIP: 35.238.205.43
+      service:
+        loadBalancerIP: 40.121.196.15
