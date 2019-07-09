@@ -8,4 +8,5 @@ pangeo:
         #letsencrypt:
         #  contactEmail: tjcrone@gmail.com
       service:
-        loadBalancerIP: 40.121.196.15
+        annotations: {'service.beta.kubernetes.io/azure-load-balancer-resource-group': 'ooi-pangeo'}
+        loadBalancerIP: 13.92.63.24
