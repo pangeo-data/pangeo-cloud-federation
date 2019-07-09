@@ -8,21 +8,21 @@ pangeo:
     #    nodeAffinity:
     #      matchNodePurpose: require
     singleuser:
-      #initContainers:
-      #  - name: volume-mount-hack
-      #    image: busybox
-      #    command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
-      #    securityContext:
-      #      runAsUser: 0
-      #    volumeMounts:
-      #    - name: home
-      #      mountPath: /home/jovyan
-      #      subPath: "home/hub.pangeo.io/{username}"
+      initContainers:
+        - name: volume-mount-hack
+          image: busybox
+          command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+          - name: home
+            mountPath: /home/jovyan
+            subPath: "home/{username}"
       storage:
         type: static
         static:
           pvcName: home-nfs
-          subPath: "home/hub.pangeo.io/{username}"
+          subPath: "home/{username}"
       #  capacity: 40Gi
       #  dynamic:
       #    pvcNameTemplate: claim-{username}{servername}
