@@ -4,8 +4,9 @@ pangeo:
       https:
         enabled: false
         #hosts:
-        #- hub.pangeo.io
+        #- ooi.pangeo.io
         #letsencrypt:
         #  contactEmail: tjcrone@gmail.com
-      #service:
-        #loadBalancerIP: 35.238.205.43
+      service:
+        annotations: {'service.beta.kubernetes.io/azure-load-balancer-resource-group': 'ooi-pangeo'}
+        loadBalancerIP: 23.96.23.164
