@@ -25,7 +25,7 @@ pangeo:
           subPath: "home/{username}"
         homeMountPath: /home/jovyan
       cloudMetadata:
-        enabled: true
+        enabled: false
       #cpu:
         #limit: 4
         #guarantee: 1
