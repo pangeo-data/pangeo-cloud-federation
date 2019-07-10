@@ -66,7 +66,7 @@ pangeo:
           #]
 
         #customPodHook: |
-        #  c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
+          #c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
           #c.JupyterHub.template_vars = {
           #  'pangeo_hub_title': 'hub.pangeo.io',
           #  'pangeo_hub_subtitle': 'a community hub for geoscience research',
@@ -86,17 +86,18 @@ pangeo:
       #    name: custom-templates
       #    subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
     auth:
-      #github:
-      #  orgWhitelist:
+      github:
+        orgWhitelist:
+          - ooicloud
       #    - pangeo-data
       #    - pydata
       #    - dask
       #    - xarray-dev
       #    - jupyterhub
       #    - informatics-lab
-      #scopes:
-      #  - "read:org"
-      #  - "read:user"
+      scopes:
+        - "read:org"
+        - "read:user"
       admin:
         access: true
         users:
