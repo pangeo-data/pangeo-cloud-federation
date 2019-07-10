@@ -32,7 +32,7 @@ pangeo:
       #memory:
         #limit: 14G
         #guarantee: 4G
-    #hub:
+    hub:
       #resources:
         #requests:
           #cpu: "0.5"
@@ -40,7 +40,9 @@ pangeo:
         #limits:
           #cpu: "1.25"
           #memory: 1Gi
-      #extraConfig:
+      extraConfig:
+        azure: |
+          c.KubeSpawner.start_timeout = 60 * 14 # 14-minute timeout for Azure
         #profile_list: |
           #c.KubeSpawner.profile_list = [
           #  {
