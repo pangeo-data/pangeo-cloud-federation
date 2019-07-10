@@ -28,11 +28,11 @@ kubernetes:
         name: dask-${JUPYTERHUB_USER}
         resources:
           limits:
-            cpu: 2
-            memory: "7G"
-          requests:
             cpu: 1
-            memory: "7G"
+            memory: "2G"
+          #requests:
+          #  cpu: 1
+          #  memory: "7G"
 
 labextension:
   factory:
