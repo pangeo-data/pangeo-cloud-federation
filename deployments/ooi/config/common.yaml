@@ -26,12 +26,12 @@ pangeo:
         homeMountPath: /home/jovyan
       cloudMetadata:
         enabled: false
-      #cpu:
-        #limit: 4
-        #guarantee: 1
-      #memory:
-        #limit: 14G
-        #guarantee: 4G
+      cpu:
+        limit: 4
+        guarantee: 1.6
+      memory:
+        limit: 14G
+        guarantee: 1G
     hub:
       #resources:
         #requests:
@@ -41,20 +41,20 @@ pangeo:
           #cpu: "1.25"
           #memory: 1Gi
       extraConfig:
-        azure: |
-          c.KubeSpawner.start_timeout = 60 * 14 # 14-minute timeout for Azure
-        profile_list: |
-          c.KubeSpawner.profile_list = [
-            {
-                'display_name': 'minimal (0.2 Cores, 1 GB RAM)',
-                'kubespawner_override': {
-                    'cpu_limit': 0.2,
-                    'cpu_guarantee': 0.2,
-                    'mem_limit': '1G',
-                    'mem_guarantee': '1G',
-                }
-            }
-          ]
+        #azure: |
+        #  c.KubeSpawner.start_timeout = 60 * 14 # 14-minute timeout for Azure
+        #profile_list: |
+        #  c.KubeSpawner.profile_list = [
+        #    {
+        #        'display_name': 'minimal (0.2 Cores, 1 GB RAM)',
+        #        'kubespawner_override': {
+        #            'cpu_limit': 0.2,
+        #            'cpu_guarantee': 0.2,
+        #            'mem_limit': '1G',
+        #            'mem_guarantee': '1G',
+        #        }
+        #    }
+        #  ]
           #  {
           #      'display_name': 'small (n1-highmem-2 | 2 cores, 12GB)',
           #      'kubespawner_override': {
