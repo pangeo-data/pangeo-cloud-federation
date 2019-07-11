@@ -41,8 +41,8 @@ pangeo:
           #cpu: "1.25"
           #memory: 1Gi
       extraConfig:
-        #azure: |
-        #  c.KubeSpawner.start_timeout = 60 * 14 # 14-minute timeout for Azure
+        azure: |
+          c.KubeSpawner.start_timeout = 60 * 20 # 20-minute timeout for Azure (!)
         #profile_list: |
         #  c.KubeSpawner.profile_list = [
         #    {
