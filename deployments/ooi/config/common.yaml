@@ -1,13 +1,15 @@
 pangeo:
   jupyterhub:
-    scheduling:
-      userPods:
-        nodeAffinity:
-          matchNodePurpose: require
-      corePods:
-        nodeAffinity:
-          matchNodePurpose: require
+    #scheduling:
+      #userPods:
+        #nodeAffinity:
+        #  matchNodePurpose: require
+      #corePods:
+        #nodeAffinity:
+          #matchNodePurpose: require
     singleuser:
+      nodeSelector:
+        agentpool: notebook
       initContainers:
         - name: volume-mount-hack
           image: busybox
@@ -33,6 +35,8 @@ pangeo:
         limit: 14G
         guarantee: 1G
     hub:
+      nodeSelector:
+        agentpool: nodepool1
       #resources:
         #requests:
           #cpu: "0.5"
