@@ -1,6 +1,9 @@
 pangeo:
   jupyterhub:
-    #scheduling:
+    scheduling:
+      userPlaceholder:
+        enabled: false
+        #replicas: 2
       #userPods:
         #nodeAffinity:
         #  matchNodePurpose: require
