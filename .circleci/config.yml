@@ -82,6 +82,17 @@ jobs:
             hubploy build icesat2 --commit-range ${COMMIT_RANGE}
           environment:
             PYTHONIOENCODING: utf-8
+      
+      - run:
+          name: Test building esip.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build esip --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
+
+      # This is currently disabled becauses it always runs, because the Azure
+      # container registry is not open to annonymous read access. This can be changed
 
       # This is currently disabled becauses it always runs, because the Azure
       # container registry is not open to annonymous read access. This can be changed
@@ -198,6 +209,14 @@ jobs:
             hubploy build icesat2 --check-registry --push
           environment:
             PYTHONIOENCODING: utf-8
+      
+      - run:
+          name: Build esip.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build esip --check-registry --push
+          environment:
+            PYTHONIOENCODING: utf-8
 
       - run:
           name: Build ooi.pangeo.io image if needed
@@ -248,6 +267,12 @@ jobs:
           when: always
           command: |
             hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH}
+      
+      - run:
+          name: Deploy esip.pangeo.io
+          when: always
+          command: |
+            hubploy deploy esip pangeo-deploy ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy ooi.pangeo.io
