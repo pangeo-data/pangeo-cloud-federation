@@ -7,12 +7,13 @@ Changing the image will typically take ~20 minutes, and changing a Helm config v
 
 # Clusters
 
-Name   | Cloud: region      |  Staging URL                    | Production URL
---     |-                    |-                                |-
+Name   | Cloud: region      |  Staging URL                     | Production URL
+--     |-                   |-                                 |-
 dev    | GCP: us-central1-b | https://staging.hub.pangeo.io    | https://hub.pangeo.io
 ocean  | GCP: us-central1-b | https://staging.ocean.pangeo.io  | https://ocean.pangeo.io
 hydro  | GCP: us-central1-b | https://staging.hydro.pangeo.io  | https://hydro.pangeo.io
 nasa   | AWS: us-east-1     | https://staging.nasa.pangeo.io   | https://nasa.pangeo.io
+esip   | AWS: us-west-2     | https://staging.esip.pangeo.io   | https://esip.pangeo.io
 icesat | AWS: us-west-2     | https://staging.icesat.pangeo.io | https://icesat.pangeo.io
 
 # Build Status
@@ -46,7 +47,7 @@ Once you have a cluster created, you can begin customizing the configuration.
   * `git-crypt unlock /path/to/your.key`
 * Copy the deployments/dev directory to a directory with your deployment name (we'll use `foobar` as our deployment name from here on).
   * `cp -r dev foobar`
-* Add your deployment's secrets directory to .gitattributes.
+* **Add your deployment's secrets directory to .gitattributes.** IMPORTANT: before pushing to GitHub ensure encryption with `git-crypt status | grep secrets`
 * Configure the JupyterHub config files. These are found in `deployments/foobar/config`.
 * Configure the `hubploy.yaml` config file.
 * Configure the deployment secrets found in `deployments/foobar/config`.
