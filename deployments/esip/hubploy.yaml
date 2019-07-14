@@ -13,5 +13,5 @@ cluster:
   aws:
     project: 783380859522
     service_key: aws-config.txt
-    cluster: pangeo-nasa
+    cluster: pangeo-esip
     zone: us-west-2
