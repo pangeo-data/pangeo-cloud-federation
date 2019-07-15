@@ -60,3 +60,5 @@ dependencies:
   - pip:
     - regionmask
     - rio-cogeo
+    # HDF Group h5pyd tool for reading HSDS
+    - git+https://github.com/HDFGroup/h5pyd.git
