@@ -17,7 +17,7 @@ dependencies:
   - keras
   - pytorch-cpu
   # pyviz
-  - holoviews
+  - holoviews=1.12.1
   - panel
   - geoviews
   - hvplot
@@ -51,6 +51,7 @@ dependencies:
   - lz4
   - gcsfs
   - s3fs
+  - fsspec
   # jupyter-related
   - ipyleaflet
   # xarray-related
