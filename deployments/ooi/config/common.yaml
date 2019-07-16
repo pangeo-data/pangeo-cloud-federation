@@ -12,7 +12,7 @@ pangeo:
           #matchNodePurpose: require
     singleuser:
       nodeSelector:
-        agentpool: notebook
+        agentpool: nodepool1
       initContainers:
         - name: volume-mount-hack
           image: busybox
