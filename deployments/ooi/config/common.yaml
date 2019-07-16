@@ -38,6 +38,8 @@ pangeo:
         limit: 14G
         guarantee: 1G
     hub:
+      db:
+        type: sqlite-memory
       #nodeSelector:
       #  agentpool: nodepool1
       #resources:
