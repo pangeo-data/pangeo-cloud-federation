@@ -11,8 +11,8 @@ pangeo:
         #nodeAffinity:
           #matchNodePurpose: require
     singleuser:
-      nodeSelector:
-        agentpool: nodepool1
+      #nodeSelector:
+      #  agentpool: nodepool1
       initContainers:
         - name: volume-mount-hack
           image: busybox
@@ -38,8 +38,8 @@ pangeo:
         limit: 14G
         guarantee: 1G
     hub:
-      nodeSelector:
-        agentpool: nodepool1
+      #nodeSelector:
+      #  agentpool: nodepool1
       #resources:
         #requests:
           #cpu: "0.5"
