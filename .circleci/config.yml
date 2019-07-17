@@ -29,9 +29,6 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
-            # See https://github.com/pangeo-data/pangeo-cloud-federation/issues/120
-            # Until https://github.com/jupyter/repo2docker/pull/605
-            pip install --upgrade git+https://github.com/yuvipanda/repo2docker@d040bfa57addd7252afbfe0a4863f119bca9ab8a
 
             curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
             echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
@@ -137,18 +134,12 @@ jobs:
             pip install --upgrade -r requirements.txt
 
             curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
-            curl -sSL https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/aws-iam-authenticator > venv/bin/aws-iam-authenticator
+            curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/aws-iam-authenticator > venv/bin/aws-iam-authenticator
             chmod +x venv/bin/aws-iam-authenticator
             # https://github.com/awslabs/amazon-ecr-credential-helper/issues/101
+            # Can simplify to sudo apt install amazon-ecr-credential-helper if running Ubuntu 19.04 and newer
             export GOPATH=$PWD/venv
             go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
-
-            # Can be removed once https://github.com/docker/docker-py/issues/2225 is merged and released
-            pip install --upgrade git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf
-
-            # See https://github.com/pangeo-data/pangeo-cloud-federation/issues/120
-            # Until https://github.com/jupyter/repo2docker/pull/605
-            pip install --upgrade git+https://github.com/yuvipanda/repo2docker@d040bfa57addd7252afbfe0a4863f119bca9ab8a
 
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
@@ -231,7 +222,7 @@ jobs:
           name: Install helm
           when: always
           command: |
-            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.0-linux-amd64.tar.gz | \
+            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.14.2-linux-amd64.tar.gz | \
               tar -xzf -
             sudo mv linux-amd64/helm /usr/local/bin
             helm init --client-only
