@@ -31,6 +31,7 @@ dependencies:
   - netcdf4
   - h5py
   - h5netcdf
+  - siphon
   # geoscience-related
   - climlab
   - metpy
@@ -60,3 +61,4 @@ dependencies:
   - pip:
     - regionmask
     - rio-cogeo
+    - git+https://github.com/HDFGroup/h5pyd.git
