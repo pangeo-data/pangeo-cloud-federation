@@ -67,6 +67,7 @@ pangeo:
         orgWhitelist:
           - "ESIPFed"
           - "pangeo-data"
+          - "cdi-workshops"
       scopes:
         - "read:user"
         - "user:email"
