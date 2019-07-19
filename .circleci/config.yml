@@ -244,41 +244,41 @@ jobs:
           command: |
             hubploy deploy dev pangeo-deploy ${CIRCLE_BRANCH}
 
-      - run:
-          name: Deploy ocean.pangeo.io
-          when: always
-          command: |
-            hubploy deploy ocean pangeo-deploy ${CIRCLE_BRANCH}
+      #- run:
+      #    name: Deploy ocean.pangeo.io
+      #    when: always
+      #    command: |
+      #      hubploy deploy ocean pangeo-deploy ${CIRCLE_BRANCH}
 
-      - run:
-          name: Deploy hydro.pangeo.io
-          when: always
-          command: |
-            hubploy deploy hydro pangeo-deploy ${CIRCLE_BRANCH}
+      #- run:
+      #    name: Deploy hydro.pangeo.io
+      #    when: always
+      #    command: |
+      #      hubploy deploy hydro pangeo-deploy ${CIRCLE_BRANCH}
 
-      - run:
-          name: Deploy nasa.pangeo.io
-          when: always
-          command: |
-            hubploy deploy nasa pangeo-deploy ${CIRCLE_BRANCH}
+      #- run:
+      #    name: Deploy nasa.pangeo.io
+      #    when: always
+      #    command: |
+      #      hubploy deploy nasa pangeo-deploy ${CIRCLE_BRANCH}
 
-      - run:
-          name: Deploy icesat2.pangeo.io
-          when: always
-          command: |
-            hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH}
-      
-      - run:
-          name: Deploy esip.pangeo.io
-          when: always
-          command: |
-            hubploy deploy esip pangeo-deploy ${CIRCLE_BRANCH}
+      #- run:
+      #    name: Deploy icesat2.pangeo.io
+      #    when: always
+      #    command: |
+      #      hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH}
+      #
+      #- run:
+      #    name: Deploy esip.pangeo.io
+      #    when: always
+      #    command: |
+      #      hubploy deploy esip pangeo-deploy ${CIRCLE_BRANCH}
 
-      - run:
-          name: Deploy ooi.pangeo.io
-          when: always
-          command: |
-            hubploy deploy ooi pangeo-deploy ${CIRCLE_BRANCH}
+      #- run:
+      #    name: Deploy ooi.pangeo.io
+      #    when: always
+      #    command: |
+      #      hubploy deploy ooi pangeo-deploy ${CIRCLE_BRANCH}
 
 
 workflows:
