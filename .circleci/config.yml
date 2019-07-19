@@ -82,6 +82,29 @@ jobs:
             hubploy build icesat2 --commit-range ${COMMIT_RANGE}
           environment:
             PYTHONIOENCODING: utf-8
+      
+      - run:
+          name: Test building esip.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build esip --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
+
+      # This is currently disabled becauses it always runs, because the Azure
+      # container registry is not open to annonymous read access. This can be changed
+
+      # This is currently disabled becauses it always runs, because the Azure
+      # container registry is not open to annonymous read access. This can be changed
+      # but it will take some changes to our Azure account to allow this feature in
+      # preview mode.
+      #- run:
+      #    name: Test building ooi.pangeo.io image if needed
+      #    when: always
+      #    command: |
+      #      hubploy build ooi --commit-range ${COMMIT_RANGE}
+      #    environment:
+      #      PYTHONIOENCODING: utf-8
 
   deploy:
     docker:
@@ -140,11 +163,18 @@ jobs:
           key: v2-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
 
       - run:
-          name: Unlock our secrets
+          name: Unlock default secrets
           command: |
-            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-            git crypt unlock ~/repo/key
-            rm ~/repo/key
+            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/default.key
+            git crypt unlock ~/repo/default.key
+            rm ~/repo/default.key
+
+      - run:
+          name: Unlock ooi secrets
+          command: |
+            echo "${OOI_GIT_CRYPT_KEY}" | base64 -d > ~/repo/ooi.key
+            git crypt unlock ~/repo/ooi.key
+            rm ~/repo/ooi.key
 
       - run:
           name: Build dev.pangeo.io image if needed
@@ -177,6 +207,22 @@ jobs:
           when: always
           command: |
             hubploy build icesat2 --check-registry --push
+          environment:
+            PYTHONIOENCODING: utf-8
+      
+      - run:
+          name: Build esip.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build esip --check-registry --push
+          environment:
+            PYTHONIOENCODING: utf-8
+
+      - run:
+          name: Build ooi.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build ooi --check-registry --push
           environment:
             PYTHONIOENCODING: utf-8
 
@@ -221,7 +267,18 @@ jobs:
           when: always
           command: |
             hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH}
+      
+      - run:
+          name: Deploy esip.pangeo.io
+          when: always
+          command: |
+            hubploy deploy esip pangeo-deploy ${CIRCLE_BRANCH}
 
+      - run:
+          name: Deploy ooi.pangeo.io
+          when: always
+          command: |
+            hubploy deploy ooi pangeo-deploy ${CIRCLE_BRANCH}
 
 
 workflows:

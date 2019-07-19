@@ -1,3 +1,4 @@
-git+https://github.com/scottyhq/hubploy
+git+https://github.com/tjcrone/hubploy
 pygithub
 awscli
+azure-cli

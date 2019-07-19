@@ -1,5 +1,12 @@
 pangeo:
   jupyterhub:
+    scheduling:
+      userPods:
+        nodeAffinity:
+          matchNodePurpose: require
+      corePods:
+        nodeAffinity:
+          matchNodePurpose: require
     singleuser:
       initContainers:
         - name: volume-mount-hack
@@ -15,38 +22,25 @@ pangeo:
           volumeMounts:
             - name: home
               mountPath: /home/jovyan
-              subPath: "nasa.pangeo.io/home/{username}"
+              subPath: "esip.pangeo.io/home/{username}"
               # Alternatively, ssh into node and chown once
             - name: jupyterhub-shared
               mountPath: /srv/shared
-              subPath: "nasa.pangeo.io/shared"
+              subPath: "esip.pangeo.io/shared"
       extraVolumes:
         - name: jupyterhub-shared
           persistentVolumeClaim:
             claimName: data-nfs
-      lifecycleHooks:
-        # NOTE: requires user-condarc manually be put on efs drive, should automate this
-        postStart:
-          exec:
-            command:
-              - "sh"
-              - "-c"
-              - >
-                cp /home/jovyan/shared/user-condarc.txt  /home/jovyan/.condarc ;
-                test -d /home/jovyan/shared || ln -sf /srv/shared /home/jovyan/shared ;
-      extraEnv:
-        #PATH: '{PATH}:/srv/shared/bin' #Not sure how to append to path...
-        EXAMPLES_GIT_URL: https://github.com/pangeo-data/pangeo-example-notebooks
       storage:
         type: static
         static:
           pvcName: home-nfs
-          subPath: "nasa.pangeo.io/home/{username}"
+          subPath: "esip.pangeo.io/home/{username}"
         #requires having run config/shared--nfs.yaml
         extraVolumeMounts:
           - name: jupyterhub-shared
             mountPath: /srv/shared
-            subPath: "nasa.pangeo.io/shared"
+            subPath: "esip.pangeo.io/shared"
         extraVolumes:
           - name: jupyterhub-shared
             persistentVolumeClaim:
@@ -54,8 +48,6 @@ pangeo:
 
       cloudMetadata:
         enabled: true
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: user-notebook
       cpu:
         limit: 4
         guarantee: 3
@@ -64,35 +56,27 @@ pangeo:
         guarantee: 14G
       profileList:
         - display_name: "Default environment (m5.2xlarge | 4 cores, 16Gb)"
-          description: "NASA environment extending pangeo-notebook"
+          description: "ESIP environment extending pangeo base-notebook"
           default: true
         - display_name: "Pangeo-notebook (m5.2xlarge | 4 cores, 16Gb)"
           description: "latest pangeo-notebook from pangeo stacks"
           kubespawner_override:
             image: pangeo/pangeo-notebook:latest
-        - display_name: "AmesStereoPipeline *experimental* (m5.2xlarge | 4 cores, 16Gb)"
-          description: "Pangeo-notebook + ASP Daily Build 2019.07.03"
-          kubespawner_override:
-            image: scottyhq/pangeo-nasa-asp:2019.07.03
     auth:
       github:
         orgWhitelist:
-          - "escience-pangeo"
-          - "ICESAT-2HackWeek"
+          - "ESIPFed"
           - "pangeo-data"
+          - "cdi-workshops"
       scopes:
         - "read:user"
+        - "user:email"
         - "read:org"
       admin:
         access: true
         users:
           - scottyhq
-          - jhamman
-          - apawloski
-          - amanda-tan
-    proxy:
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: hub
+          - rsignell-usgs
     hub:
       resources:
         requests:
@@ -101,8 +85,6 @@ pangeo:
         limits:
           cpu: "1.25"
           memory: 1Gi
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: hub
       extraConfig:
         cloneRepo: |
           # Hack solution for branding
@@ -116,9 +98,9 @@ pangeo:
         customPodHook: |
           c.JupyterHub.template_paths = ['/srv/jupyterhub/style/templates']
           c.JupyterHub.template_vars = {
-            'pangeo_hub_title': 'nasa.pangeo.io',
-            'pangeo_hub_subtitle': 'a community hub for the NASA ACCESS project',
-            'pangeo_welcome': """Welcome to nasa.pangeo.io! This hub lives in AWS region <code>us-east-1</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. Access is currently limited to the <a href="https://github.com/pangeo-data">Pangeo GitHub Organization</a>. The hub's configuration is stored in this <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">github repository</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation/issues">github issue tracker</a>."""
+            'pangeo_hub_title': 'esip.pangeo.io',
+            'pangeo_hub_subtitle': 'a community hub for ESIP',
+            'pangeo_welcome': """Welcome to esip.pangeo.io! This hub lives in AWS region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. Access is currently limited to the <a href="https://github.com/pangeo-data">Pangeo GitHub Organization</a>. The hub's configuration is stored in this <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">github repository</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation/issues">github issue tracker</a>."""
           }
       extraVolumes:
         - name: custom-assets
@@ -129,6 +111,6 @@ pangeo:
 
 
 homeDirectories:
-  nfs:
-    enabled: true
-    serverIP: fs-545941b4.efs.us-east-1.amazonaws.com
+ nfs:
+   enabled: true
+   serverIP: fs-699c01c2.efs.us-west-2.amazonaws.com

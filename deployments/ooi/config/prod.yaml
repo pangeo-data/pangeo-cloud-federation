@@ -1,0 +1,11 @@
+pangeo:
+  jupyterhub:
+    proxy:
+      https:
+        enabled: false
+        #hosts:
+        #- hub.pangeo.io
+        #letsencrypt:
+        #  contactEmail: tjcrone@gmail.com
+      #service:
+        #loadBalancerIP: 35.238.205.43

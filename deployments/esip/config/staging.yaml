@@ -1,0 +1,14 @@
+# Leave commented for first build, then uncomment and add loadBalancerIP
+pangeo:
+  jupyterhub:
+    proxy:
+      https:
+        hosts:
+        - staging.esip.pangeo.io
+        letsencrypt:
+          contactEmail: rsignell@usgs.gov
+      service:
+        loadBalancerIP: a4407c88ba5e011e98d2e0e9ff0b5f55-2048625117.us-west-2.elb.amazonaws.com
+    auth:
+      github:
+        callbackUrl: "https://staging.esip.pangeo.io/hub/oauth_callback"

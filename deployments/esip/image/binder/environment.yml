@@ -1,0 +1,64 @@
+name: esip
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6
+  # core scipy packages
+  - numpy
+  - scipy
+  - matplotlib
+  - pandas
+  - xarray
+  # data science stuff
+  - scikit-image
+  - scikit-learn
+  - dask-ml
+  - tensorflow
+  - keras
+  - pytorch-cpu
+  # pyviz
+  - holoviews=1.12.1
+  - panel
+  - geoviews
+  - hvplot
+  - geoviews
+  - datashader
+  # geospatial
+  - iris
+  - cartopy
+  - geopandas
+  - rasterio
+  - netcdf4
+  - h5py
+  - h5netcdf
+  - siphon
+  # geoscience-related
+  - climlab
+  - metpy
+  - satpy
+  - gsw
+  - eofs
+  - esmpy
+  - xesmf
+  - windspharm
+  # intake-related
+  - intake
+  - intake-xarray
+  - intake-esm
+  # zarr-related
+  - zarr
+  - numcodecs
+  - python-blosc
+  - lz4
+  - gcsfs
+  - s3fs
+  - fsspec
+  # jupyter-related
+  - ipyleaflet
+  # xarray-related
+  - xgcm
+  - xrft
+  - pip:
+    - regionmask
+    - rio-cogeo
+    - git+https://github.com/HDFGroup/h5pyd.git
