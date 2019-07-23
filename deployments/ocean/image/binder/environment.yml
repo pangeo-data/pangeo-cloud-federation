@@ -4,6 +4,7 @@ channels:
 dependencies:
   - xhistogram
   - xmitgcm>=0.4.1
+  - fsspec
   - pip:
     - dask-labextension==0.3.1
     - nbgitpuller
