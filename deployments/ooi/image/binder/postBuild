@@ -1,4 +1,5 @@
 #!/bin/bash
 
+mkdir ${HOME}/.config/dask
 cp binder/dask_config.yaml ${HOME}/.config/dask/config.yaml
 jupyter labextension install dask-labextension
