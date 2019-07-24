@@ -1,4 +1,3 @@
-apt-utils
 graphviz
 vim
 nano
