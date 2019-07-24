@@ -14,34 +14,27 @@ kubernetes:
     metadata:
     spec:
       restartPolicy: Never
+      nodeSelector:
+      agentpool: "notebook"
       containers:
       - args:
           - dask-worker
           - --nthreads
-          - '2'
+          - '1'
           - --no-bokeh
           - --memory-limit
-          - "7GB"
+          - "2GB"
           - --death-timeout
           - '60'
         image: ${JUPYTER_IMAGE_SPEC}
         name: dask-${JUPYTERHUB_USER}
         resources:
           limits:
-            cpu: 1
+            cpu: 0.4
             memory: "2G"
-          #requests:
-          #  cpu: 1
-          #  memory: "7G"
-      nodeSelector:
-        kubernetes.io/role: agent
-        beta.kubernetes.io/os: linux
-        type: virtual-kubelet
-      tolerations:
-      - key: virtual-kubelet.io/provider
-        operator: Exists
-      - key: azure.com/aci
-        effect: NoSchedule
+          requests:
+            cpu: 0.4
+            memory: "2G"
 
 labextension:
   factory:
