@@ -14,8 +14,8 @@ kubernetes:
     metadata:
     spec:
       restartPolicy: Never
-      nodeSelector:
-      agentpool: "notebook"
+      #nodeSelector:
+      #agentpool: "notebook"
       containers:
       - args:
           - dask-worker

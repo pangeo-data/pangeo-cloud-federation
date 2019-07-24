@@ -11,7 +11,7 @@ pangeo:
         #nodeAffinity:
           #matchNodePurpose: require
     singleuser:
-      nodeSelector: {agentpool: notebook}
+      #nodeSelector: {agentpool: notebook}
       initContainers:
         - name: volume-mount-hack
           image: busybox
@@ -39,7 +39,7 @@ pangeo:
     hub:
       #db:
       #  type: sqlite-memory
-      nodeSelector: {agentpool: nodepool1}
+      #nodeSelector: {agentpool: nodepool1}
       #resources:
         #requests:
           #cpu: "0.5"
