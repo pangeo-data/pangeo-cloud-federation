@@ -1,4 +1,3 @@
 graphviz
 vim
 nano
-man-db
