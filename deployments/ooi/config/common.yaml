@@ -3,7 +3,7 @@ pangeo:
     scheduling:
       userPlaceholder:
         enabled: true
-        replicas: 3
+        replicas: 1
       #userPods:
         #nodeAffinity:
         #  matchNodePurpose: require
