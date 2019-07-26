@@ -1,5 +1,12 @@
 pangeo:
   jupyterhub:
+    scheduling:
+      userPods:
+        nodeAffinity:
+          matchNodePurpose: require
+      corePods:
+        nodeAffinity:
+          matchNodePurpose: require
     singleuser:
       initContainers:
         - name: volume-mount-hack
@@ -54,8 +61,6 @@ pangeo:
 
       cloudMetadata:
         enabled: true
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: user-notebook
       cpu:
         limit: 4
         guarantee: 3
@@ -82,17 +87,14 @@ pangeo:
           - "pangeo-data"
       scopes:
         - "read:user"
+        - "user:email"
         - "read:org"
       admin:
         access: true
         users:
           - scottyhq
           - jhamman
-          - apawloski
           - amanda-tan
-    proxy:
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: hub
     hub:
       resources:
         requests:
@@ -101,8 +103,6 @@ pangeo:
         limits:
           cpu: "1.25"
           memory: 1Gi
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: hub
       extraConfig:
         cloneRepo: |
           # Hack solution for branding
