@@ -31,16 +31,6 @@ pangeo:
         - name: jupyterhub-shared
           persistentVolumeClaim:
             claimName: data-nfs
-      lifecycleHooks:
-        # NOTE: requires user-condarc manually be put on efs drive, should automate this
-        postStart:
-          exec:
-            command:
-              - "sh"
-              - "-c"
-              - >
-                cp /home/jovyan/shared/user-condarc.txt  /home/jovyan/.condarc ;
-                test -d /home/jovyan/shared || ln -sf /srv/shared /home/jovyan/shared ;
       extraEnv:
         #PATH: '{PATH}:/srv/shared/bin' #Not sure how to append to path...
         EXAMPLES_GIT_URL: https://github.com/pangeo-data/pangeo-example-notebooks
