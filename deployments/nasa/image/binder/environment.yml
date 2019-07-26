@@ -23,6 +23,7 @@ dependencies:
   - ipywidgets=7.5
   - graphviz=2.40
   - jupyterlab=1.0
+  - jupyterhub=1.0
   - libgdal=2.4
   - boto3=1.9
   - awscli=1.16
