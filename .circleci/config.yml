@@ -222,7 +222,7 @@ jobs:
           name: Install helm
           when: always
           command: |
-            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.14.2-linux-amd64.tar.gz | \
+            curl https://get.helm.sh/helm-v2.14.2-linux-amd64.tar.gz | \
               tar -xzf -
             sudo mv linux-amd64/helm /usr/local/bin
             helm init --client-only
