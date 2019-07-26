@@ -1,49 +1,46 @@
-name: icesat2
+name: nasa
 channels:
   - conda-forge
 dependencies:
-  - conda=4.6
+  - python=3.7
+  - conda=4.7
+  - nomkl
   - ipykernel=5.1
   - nb_conda_kernels=2.2
-  - nomkl
-  - s3fs=0.2
-  - gcsfs=0.2
-  - intake=0.4
+  - fsspec=0.3
+  - s3fs=0.3
+  - gcsfs=0.3
+  - intake=0.5
   - intake-xarray=0.3
-  - msgpack-python=0.6
-  - curl=7.64
-  - python=3.6
   - xarray=0.12
-  - zarr=2.2
+  - zarr=2.3
   - h5py=2.9
   - h5netcdf=0.7
-  - dask=1.1
-  - distributed=1.25
-  - dask-kubernetes=0.8
-  - matplotlib=3.0
-  - nbserverproxy=0.8.8
-  - jupyter=1.0.0
-  - ipywidgets=7.4
-  - graphviz=2.38
-  - jupyterlab=0.35.4
+  - dask=2.1
+  - distributed=2.1
+  - dask-kubernetes=0.9
+  - matplotlib=3.1
+  - jupyter=1.0
+  - jupyter-server-proxy=1.1
+  - ipywidgets=7.5
+  - graphviz=2.40
+  - jupyterlab=1.0
   - libgdal=2.4
   - boto3=1.9
   - awscli=1.16
   - hvplot=0.4
   - geoviews-core=1.6
-  - ipyleaflet=0.10
-  - datashader=0.6
-  - requests=2.21
-  - pandas=0.24
-  - geopandas=0.4
+  - ipyleaflet=0.11
+  - datashader=0.7
+  - requests=2.22
+  - pandas=0.25
+  - geopandas=0.5
   - rasterio=1.0
-  - pyresample
-  - geocube
-  - rioxarray
-  - regionmask
+  - rio-cogeo=1.1
+  - sat-search=0.2
+  - sat-stac
+  - nbgitpuller=0.6
+  - pip=19.2
   - pip:
-    - rio-cogeo
-    - sat-search==0.2.0
     - dask-labextension==0.3.1
     - git+https://github.com/pangeo-data/intake-stac.git
-    - nbgitpuller

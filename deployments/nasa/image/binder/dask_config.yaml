@@ -11,10 +11,10 @@ distributed:
 
 kubernetes:
   name: dask-{JUPYTERHUB_USER}-{uuid}
+  env:
+    NB_PYTHON_PREFIX: ${NB_PYTHON_PREFIX}
   worker-template:
     spec:
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: dask-worker
       restartPolicy: Never
       containers:
         - name: dask-${JUPYTERHUB_USER}
