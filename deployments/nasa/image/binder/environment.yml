@@ -3,8 +3,6 @@ channels:
   - conda-forge
 dependencies:
   - python=3.7
-  - conda=4.7
-  - nomkl
   - ipykernel=5.1
   - nb_conda_kernels=2.2
   - fsspec=0.3

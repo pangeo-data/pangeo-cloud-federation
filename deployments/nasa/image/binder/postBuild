@@ -11,6 +11,6 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager \
 mkdir -p ${KERNEL_PYTHON_PREFIX}/etc/dask
 cp binder/dask_config.yaml ${KERNEL_PYTHON_PREFIX}/etc/dask/dask.yaml
 
-# conda config for user-created environments
+# put conda config for user-created environments in convenient place
 cp binder/user-condarc.txt ${KERNEL_PYTHON_PREFIX}/user-condarc.txt
 #EOF
