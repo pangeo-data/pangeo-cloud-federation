@@ -1,5 +1,9 @@
 pangeo:
   jupyterhub:
+    scheduling:
+      userPlaceholder:
+        enabled: true
+        replicas: 4
     proxy:
       https:
         enabled: false

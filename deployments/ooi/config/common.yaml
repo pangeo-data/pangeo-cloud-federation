@@ -1,9 +1,6 @@
 pangeo:
   jupyterhub:
-    scheduling:
-      userPlaceholder:
-        enabled: true
-        replicas: 1
+    #scheduling:
       #userPods:
         #nodeAffinity:
         #  matchNodePurpose: require
@@ -124,6 +121,7 @@ pangeo:
           - jhamman
           - rabernat
           - yuvipanda
+
 homeDirectories:
   nfs:
     enabled: true
