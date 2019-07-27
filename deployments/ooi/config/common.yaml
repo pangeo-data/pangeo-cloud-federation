@@ -3,7 +3,7 @@ pangeo:
     scheduling:
       userPlaceholder:
         enabled: true
-        replicas: 1
+        replicas: 32
       #userPods:
         #nodeAffinity:
         #  matchNodePurpose: require
@@ -31,11 +31,11 @@ pangeo:
       cloudMetadata:
         enabled: false
       cpu:
-        limit: 4
-        guarantee: 1.6
+        limit: 0.425
+        guarantee: 0.2
       memory:
-        limit: 14G
-        guarantee: 1G
+        limit: 1.25G
+        guarantee: 0.65G
     hub:
       #db:
       #  type: sqlite-memory
