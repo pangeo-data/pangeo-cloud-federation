@@ -1,4 +1,5 @@
-git+https://github.com/tjcrone/hubploy
+git+https://github.com/yuvipanda/hubploy
+jupyter-repo2docker
 pygithub
 awscli
 azure-cli

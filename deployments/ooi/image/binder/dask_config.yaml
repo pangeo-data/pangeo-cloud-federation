@@ -10,29 +10,37 @@ distributed:
       limit: 5s
 
 kubernetes:
+  name: dask-{JUPYTERHUB_USER}-{uuid}
   worker-template:
-    metadata:
     spec:
       restartPolicy: Never
       containers:
-      - args:
-          - dask-worker
-          - --nthreads
-          - '2'
-          - --no-bokeh
-          - --memory-limit
-          - "7GB"
-          - --death-timeout
-          - '60'
-        image: ${JUPYTER_IMAGE_SPEC}
-        name: dask-${JUPYTERHUB_USER}
-        resources:
-          limits:
-            cpu: 2
-            memory: "7G"
-          requests:
-            cpu: 1
-            memory: "7G"
+        - name: dask-${JUPYTERHUB_USER}
+          image: ${JUPYTER_IMAGE_SPEC}
+          args:
+            - dask-worker
+            - --nthreads
+            - '1'
+            - --no-dashboard
+            - --memory-limit
+            - 1.25GB
+            - --death-timeout
+            - '60'
+          resources:
+            limits:
+              cpu: "0.4"
+              memory: 1.25G
+            requests:
+              cpu: "0.4"
+              memory: 1.25G
+          volumeMounts:
+            - name: nfs
+              mountPath: /home/jovyan
+              subPath: "home/${JUPYTERHUB_USER}"
+      volumes:
+        - name: nfs
+          persistentVolumeClaim:
+            claimName: home-nfs
 
 labextension:
   factory:

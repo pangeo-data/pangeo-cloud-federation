@@ -12,5 +12,5 @@ cluster:
   provider: azure
   azure:
     resource_group: ooi-pangeo
-    cluster: ooicloudtest
+    cluster: ooi-pangeo
     auth_file: azure-auth.yaml

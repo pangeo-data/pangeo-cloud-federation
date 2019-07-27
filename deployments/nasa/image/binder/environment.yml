@@ -3,8 +3,6 @@ channels:
   - conda-forge
 dependencies:
   - python=3.7
-  - conda=4.7
-  - nomkl
   - ipykernel=5.1
   - nb_conda_kernels=2.2
   - fsspec=0.3
@@ -25,6 +23,7 @@ dependencies:
   - ipywidgets=7.5
   - graphviz=2.40
   - jupyterlab=1.0
+  - jupyterhub=1.0
   - libgdal=2.4
   - boto3=1.9
   - awscli=1.16
