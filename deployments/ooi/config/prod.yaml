@@ -6,11 +6,11 @@ pangeo:
         replicas: 4
     proxy:
       https:
-        enabled: false
-        #hosts:
-        #- ooi.pangeo.io
-        #letsencrypt:
-        #  contactEmail: tjcrone@gmail.com
+        enabled: true
+        hosts:
+        - ooi.pangeo.io
+        letsencrypt:
+          contactEmail: tjcrone@gmail.com
       service:
         annotations: {'service.beta.kubernetes.io/azure-load-balancer-resource-group': 'ooi-pangeo'}
         loadBalancerIP: 23.96.23.164
