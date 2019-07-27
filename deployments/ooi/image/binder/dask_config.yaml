@@ -33,6 +33,14 @@ kubernetes:
             requests:
               cpu: "0.4"
               memory: 1.25G
+          volumeMounts:
+            - name: nfs
+              mountPath: /home/jovyan
+              subPath: "home/${JUPYTERHUB_USER}"
+      volumes:
+        - name: nfs
+          persistentVolumeClaim:
+            claimName: home-nfs
 
 labextension:
   factory:
