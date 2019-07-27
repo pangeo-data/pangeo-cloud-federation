@@ -2,6 +2,7 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
+  - pip
   - pip:
     - dask-labextension==0.3.1
     - nbgitpuller
