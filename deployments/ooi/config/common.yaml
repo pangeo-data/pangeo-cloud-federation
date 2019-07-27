@@ -91,9 +91,9 @@ pangeo:
         customPodHook: |
           c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
           c.JupyterHub.template_vars = {
-            'pangeo_hub_title': 'ooi..pangeo.io',
-            'pangeo_hub_subtitle': 'a community hub for geoscience research',
-            'pangeo_welcome': """Welcome to ooi.pangeo.io. This Pangeo deployment lives in Azure Cloud region <code>eastus</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and supported by a grant from Microsoft Corporation. The hub's configuration is stored in the github repository <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">https://github.com/pangeo-data/pangeo-cloud-federation/</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation//issues">github issue tracker</a>."""
+            'pangeo_hub_title': 'ooi.pangeo.io',
+            'pangeo_hub_subtitle': 'a community hub for geoscience research using OOI data',
+            'pangeo_welcome': """Welcome to ooi.pangeo.io. This Pangeo deployment lives in Azure Cloud region <code>eastus</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by a grant from Microsoft and the National Science Foundation. The hub's configuration is stored in the github repository <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">https://github.com/pangeo-data/pangeo-cloud-federation/</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation/issues">this GitHub issue tracker</a>. To discuss OOI-specific issues related to this Pangeo deployment, please use the <a href="https://github.com/ooicloud/ooi-pangeo/issues">OOI Pangeo GitHub issue tracker</a>."""
           }
       extraVolumes:
         - name: custom-templates
