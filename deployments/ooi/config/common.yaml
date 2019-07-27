@@ -3,7 +3,7 @@ pangeo:
     scheduling:
       userPlaceholder:
         enabled: true
-        replicas: 16
+        replicas: 8
       #userPods:
         #nodeAffinity:
         #  matchNodePurpose: require
@@ -40,13 +40,13 @@ pangeo:
       #db:
       #  type: sqlite-memory
       #nodeSelector: {agentpool: nodepool1}
-      #resources:
-        #requests:
-          #cpu: "0.5"
-          #memory: 1Gi
-        #limits:
-          #cpu: "1.25"
-          #memory: 1Gi
+      resources:
+        requests:
+          cpu: 0.4
+          memory: 1.25G
+        limits:
+          cpu: 0.8
+          memory: 2.5G
       extraConfig:
         azure: |
           c.KubeSpawner.start_timeout = 60 * 20 # 20-minute timeout for Azure (!)
@@ -112,12 +112,6 @@ pangeo:
       github:
         orgWhitelist:
           - ooicloud
-      #    - pangeo-data
-      #    - pydata
-      #    - dask
-      #    - xarray-dev
-      #    - jupyterhub
-      #    - informatics-lab
       scopes:
         - "read:org"
         - "read:user"
