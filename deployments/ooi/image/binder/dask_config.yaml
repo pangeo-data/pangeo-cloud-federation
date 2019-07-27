@@ -20,19 +20,19 @@ kubernetes:
           args:
             - dask-worker
             - --nthreads
-            - '2'
+            - '1'
             - --no-dashboard
             - --memory-limit
-            - 1GB
+            - 1.25GB
             - --death-timeout
             - '60'
           resources:
             limits:
               cpu: "0.4"
-              memory: 1G
+              memory: 1.25G
             requests:
               cpu: "0.4"
-              memory: 1G
+              memory: 1.25G
 
 labextension:
   factory:
