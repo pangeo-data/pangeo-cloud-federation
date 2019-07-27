@@ -3,7 +3,7 @@ pangeo:
     scheduling:
       userPlaceholder:
         enabled: true
-        replicas: 32
+        replicas: 16
       #userPods:
         #nodeAffinity:
         #  matchNodePurpose: require
@@ -31,11 +31,11 @@ pangeo:
       cloudMetadata:
         enabled: false
       cpu:
-        limit: 0.425
-        guarantee: 0.2
+        limit: 0.8
+        guarantee: 0.4
       memory:
-        limit: 1.25G
-        guarantee: 0.65G
+        limit: 2.5G
+        guarantee: 1.25G
     hub:
       #db:
       #  type: sqlite-memory
@@ -50,38 +50,45 @@ pangeo:
       extraConfig:
         azure: |
           c.KubeSpawner.start_timeout = 60 * 20 # 20-minute timeout for Azure (!)
-        #profile_list: |
-        #  c.KubeSpawner.profile_list = [
-        #    {
-        #        'display_name': 'minimal (0.2 Cores, 1 GB RAM)',
-        #        'kubespawner_override': {
-        #            'cpu_limit': 0.2,
-        #            'cpu_guarantee': 0.2,
-        #            'mem_limit': '1G',
-        #            'mem_guarantee': '1G',
-        #        }
-        #    }
-        #  ]
-          #  {
-          #      'display_name': 'small (n1-highmem-2 | 2 cores, 12GB)',
-          #      'kubespawner_override': {
-          #          'cpu_limit': 2,
-          #          'cpu_guarantee': 2,
-          #          'mem_limit': '12G',
-          #          'mem_guarantee': '12G',
-          #      }
-          #  },
-
-          #  {
-          #      'display_name': 'standard (n1-highmem-4 | 4 cores, 24GB)',
-          #      'kubespawner_override': {
-          #          'cpu_limit': 4,
-          #          'cpu_guarantee': 4,
-          #          'mem_limit': '24G',
-          #          'mem_guarantee': '24G',
-          #      }
-          #  }
-          #]
+        profile_list: |
+          c.KubeSpawner.profile_list = [
+            {
+                'display_name': 'minimal (0.2 Cores, 0.625 GB RAM)',
+                'kubespawner_override': {
+                    'cpu_limit': 0.4,
+                    'cpu_guarantee': 0.2,
+                    'mem_limit': '1.25G',
+                    'mem_guarantee': '0.625G',
+                }
+            },
+            {
+                'display_name': 'small (0.4 Cores, 1.25 GB RAM)',
+                'kubespawner_override': {
+                    'cpu_limit': 0.8,
+                    'cpu_guarantee': 0.4,
+                    'mem_limit': '2.5G',
+                    'mem_guarantee': '1.25G',
+                }
+            },
+            {
+                'display_name': 'medium (0.8 Cores, 2.5 GB RAM)',
+                'kubespawner_override': {
+                    'cpu_limit': 1.6,
+                    'cpu_guarantee': 0.8,
+                    'mem_limit': '5G',
+                    'mem_guarantee': '2.5G',
+                }
+            },
+            {
+                'display_name': 'large (1.6 Cores, 5 GB RAM)',
+                'kubespawner_override': {
+                    'cpu_limit': 3.2,
+                    'cpu_guarantee': 1.6,
+                    'mem_limit': '10G',
+                    'mem_guarantee': '5G',
+                }
+            }
+          ]
         customPodHook: |
           c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
           c.JupyterHub.template_vars = {
