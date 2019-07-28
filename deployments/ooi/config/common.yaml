@@ -36,8 +36,6 @@ pangeo:
         limit: 2.5G
         guarantee: 1.25G
     hub:
-      #db:
-      #  type: sqlite-memory
       #nodeSelector: {agentpool: nodepool1}
       resources:
         requests:
@@ -114,14 +112,22 @@ pangeo:
       scopes:
         - "read:org"
         - "read:user"
+      whitelist:
+        users:
+          - jhamman
+          - mrocklin
+          - rabernat
+          - scottyhq
+          - yuvipanda
       admin:
         access: true
         users:
-          - tjcrone
           - daxsoule
-          - mrocklin
           - jhamman
+          - mrocklin
           - rabernat
+          - scottyhq
+          - tjcrone
           - yuvipanda
 
 homeDirectories:
