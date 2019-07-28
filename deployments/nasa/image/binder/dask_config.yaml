@@ -11,8 +11,6 @@ distributed:
 
 kubernetes:
   name: dask-{JUPYTERHUB_USER}-{uuid}
-  env:
-    NB_PYTHON_PREFIX: ${NB_PYTHON_PREFIX}
   worker-template:
     spec:
       restartPolicy: Never
@@ -25,7 +23,7 @@ kubernetes:
             - /home/jovyan/dask-worker-space
             - --nthreads
             - '2'
-            - --no-bokeh
+            - --no-dashboard
             - --memory-limit
             - 7GB
             - --death-timeout
