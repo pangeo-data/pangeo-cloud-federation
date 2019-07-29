@@ -1,0 +1,80 @@
+#!/bin/bash
+# This script creates the OOI-Pangeo cluster on Azure. It requires shyaml
+# (https://github.com/0k/shyaml) to parse the secrets file.
+
+set -e
+
+# name things
+CLUSTERNAME="ooi-pangeo"
+RESOURCEGROUP="ooi-pangeo"
+NODERESOURCEGROUP="ooi-pangeo-nodes"
+VNET="vnet"
+SUBNET="ooi-pangeo"
+
+# read secrets
+SECRETSFILE="secrets/azure-auth.yaml"
+APPID=`shyaml get-value appId < ${SECRETSFILE}`
+PASSWORD=`shyaml get-value password < ${SECRETSFILE}`
+ACCOUNT=`shyaml get-value account < ${SECRETSFILE}`
+SUBSCRIPTION=`shyaml get-value subscription < ${SECRETSFILE}`
+
+# check login
+CURRENTACCOUNT=`az account show --query user.name --output tsv`
+if [ ${CURRENTACCOUNT} != ${ACCOUNT} ]; then
+  echo "Login to ${ACCOUNT}."
+  exit
+else
+  echo "Logged in to ${ACCOUNT}. Continuing ..."
+fi 
+
+# check if cluster already exists
+echo "Checking if cluster exists ..."
+CLUSTER=`az aks list --query [*].[name] --output table | grep "${CLUSTERNAME}" | cat`
+if [[ ${CLUSTER} == ${CLUSTERNAME} ]]; then
+  echo "Cluster exists. Not creating."
+else
+  # create cluster
+  echo "Creating cluster... "
+  az aks create \
+    --name ${CLUSTERNAME} \
+    --resource-group ${RESOURCEGROUP} \
+    --node-resource-group ${NODERESOURCEGROUP} \
+    --location "eastus" \
+    --kubernetes-version "1.14.3" \
+    --node-count 3 \
+    --node-osdisk-size 30 \
+    --node-vm-size "Standard_D2s_v3" \
+    --no-ssh-key \
+    --network-plugin "azure" \
+    --vnet-subnet-id "/subscriptions/${SUBSCRIPTION}/resourceGroups/${RESOURCEGROUP}/providers/Microsoft.Network/virtualNetworks/${VNET}/subnets/${SUBNET}" \
+    --service-cidr "10.1.0.0/16" \
+    --dns-service-ip "10.1.1.1" \
+    --docker-bridge-address "10.2.0.1/16" \
+    --skip-subnet-role-assignment \
+    --service-principal "${APPID}" \
+    --client-secret "${PASSWORD}" \
+    --enable-vmss \
+    --enable-cluster-autoscaler \
+    --min-count 3 \
+    --max-count 20 \
+    --max-pods 64 \
+    --verbose
+fi
+
+# get credentials for cluster
+echo "Getting credentials ..."
+az aks get-credentials --name ${CLUSTERNAME} --resource-group ${RESOURCEGROUP} --overwrite-existing
+
+# add ooicloud-service-principal role assignment
+echo "Adding role assignment ..."
+az role assignment create --role "Contributor" --assignee "${APPID}" --scope "/subscriptions/${SUBSCRIPTION}/resourceGroups/${RESOURCEGROUP}/providers/Microsoft.ContainerService/managedClusters/${CLUSTERNAME}"
+
+# delete dashboard
+kubectl --namespace=kube-system delete deployment kubernetes-dashboard
+
+# install tiller
+echo "Installing tiller ..."
+kubectl create serviceaccount tiller --namespace=kube-system
+kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+helm init --service-account tiller
+kubectl --namespace=kube-system patch deployment tiller-deploy --type=json --patch='[{"op": "add", "path": "/spec/template/spec/containers/0/command", "value": ["/tiller", "--listen=localhost:44134"]}]'
