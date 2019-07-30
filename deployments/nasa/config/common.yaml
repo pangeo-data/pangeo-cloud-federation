@@ -59,16 +59,21 @@ pangeo:
         guarantee: 14G
       profileList:
         - display_name: "Default environment (m5.2xlarge | 4 cores, 16Gb)"
-          description: "NASA environment extending pangeo-notebook"
+          description: "NASA environment from pangeo-cloud-federation"
           default: true
-        - display_name: "Pangeo-notebook (m5.2xlarge | 4 cores, 16Gb)"
-          description: "latest pangeo-notebook from pangeo stacks"
-          kubespawner_override:
-            image: pangeo/pangeo-notebook:latest
         - display_name: "AmesStereoPipeline *experimental* (m5.2xlarge | 4 cores, 16Gb)"
-          description: "Pangeo-notebook + ASP Daily Build 2019.07.17"
+          description: "ASP Daily Build 2019.07.17"
           kubespawner_override:
             image: scottyhq/pangeo-nasa-asp:2019.07.17
+        - display_name: "Pangeo-notebook (m5.2xlarge | 4 cores, 16Gb)"
+          description: "latest pangeo-notebook from pangeo-stacks"
+          kubespawner_override:
+            image: pangeo/pangeo-notebook:latest
+        - display_name: "Base-notebook (m5.2xlarge | 4 cores, 16Gb)"
+          description: "latest base-notebook from pangeo-stacks"
+          kubespawner_override:
+            image: pangeo/base-notebook:latest
+
     auth:
       github:
         orgWhitelist:
@@ -88,11 +93,11 @@ pangeo:
     hub:
       resources:
         requests:
-          cpu: "0.4"
-          memory: 1Gi
+          cpu: 0.45
+          memory: 1G
         limits:
-          cpu: "1.25"
-          memory: 2Gi
+          cpu: 1.25
+          memory: 2G
       extraConfig:
         cloneRepo: |
           # Hack solution for branding
