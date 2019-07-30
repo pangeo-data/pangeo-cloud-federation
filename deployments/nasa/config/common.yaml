@@ -88,11 +88,11 @@ pangeo:
     hub:
       resources:
         requests:
-          cpu: "0.5"
+          cpu: "0.4"
           memory: 1Gi
         limits:
           cpu: "1.25"
-          memory: 1Gi
+          memory: 2.5Gi
       extraConfig:
         cloneRepo: |
           # Hack solution for branding
