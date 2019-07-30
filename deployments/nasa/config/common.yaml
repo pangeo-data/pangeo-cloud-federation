@@ -66,9 +66,9 @@ pangeo:
           kubespawner_override:
             image: pangeo/pangeo-notebook:latest
         - display_name: "AmesStereoPipeline *experimental* (m5.2xlarge | 4 cores, 16Gb)"
-          description: "Pangeo-notebook + ASP Daily Build 2019.07.03"
+          description: "Pangeo-notebook + ASP Daily Build 2019.07.17"
           kubespawner_override:
-            image: scottyhq/pangeo-nasa-asp:2019.07.03
+            image: scottyhq/pangeo-nasa-asp:2019.07.17
     auth:
       github:
         orgWhitelist:
@@ -97,7 +97,7 @@ pangeo:
         cloneRepo: |
           # Hack solution for branding
           import os, shutil
-          repo = 'https://github.com/scottyhq/pangeo-custom-jupyterhub-templates'
+          repo = 'https://github.com/scottyhq/nasa-pangeo-style-template'
           webdir = '/usr/local/share/jupyterhub/static'
           dst = '/srv/jupyterhub/style'
           shutil.rmtree(dst, ignore_errors=True)
