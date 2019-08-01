@@ -61,6 +61,10 @@ pangeo:
         - display_name: "Default environment (m5.2xlarge | 4 cores, 16Gb)"
           description: "NASA environment from pangeo-cloud-federation"
           default: true
+        - display_name: "GeoHackWeek 2019 (m5.2xlarge | 4 cores, 16Gb)"
+          description: "GeoHackWeek 2019 conda environment"
+          kubespawner_override:
+            image: scottyhq/geohackweek2019:latest
         - display_name: "AmesStereoPipeline *experimental* (m5.2xlarge | 4 cores, 16Gb)"
           description: "ASP Daily Build 2019.07.17"
           kubespawner_override:
@@ -78,7 +82,7 @@ pangeo:
       github:
         orgWhitelist:
           - "escience-pangeo"
-          - "ICESAT-2HackWeek"
+          - "geohackweek"
           - "pangeo-data"
       scopes:
         - "read:user"
