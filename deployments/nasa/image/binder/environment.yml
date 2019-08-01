@@ -2,7 +2,6 @@ name: nasa
 channels:
   - conda-forge
 dependencies:
-  - python=3.7
   - ipykernel=5.1
   - nb_conda_kernels=2.2
   - fsspec=0.3
@@ -14,14 +13,9 @@ dependencies:
   - zarr=2.3
   - h5py=2.9
   - h5netcdf=0.7
-  - dask=2.1
   - distributed=2.1
-  - dask-kubernetes=0.9
   - matplotlib=3.1
-  - jupyter=1.0
-  - jupyter-server-proxy=1.1
   - ipywidgets=7.5
-  - graphviz=2.40
   - jupyterlab=1.0
   - jupyterhub=1.0
   - libgdal=2.4
@@ -38,8 +32,7 @@ dependencies:
   - rio-cogeo=1.1
   - sat-search=0.2
   - sat-stac
-  - nbgitpuller=0.6
+  - nbgitpuller=0.7
   - pip=19.2
   - pip:
-    - dask-labextension==0.3.1
     - git+https://github.com/pangeo-data/intake-stac.git
