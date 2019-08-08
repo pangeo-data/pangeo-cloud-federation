@@ -59,6 +59,7 @@ dependencies:
   # xarray-related
   - xgcm
   - xrft
+  - pip
   - pip:
     - regionmask
     - rio-cogeo
