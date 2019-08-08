@@ -28,6 +28,7 @@ dependencies:
   - cartopy
   - geopandas
   - rasterio
+  - rio-cogeo
   - netcdf4
   - h5py
   - h5netcdf
@@ -58,6 +59,7 @@ dependencies:
   # xarray-related
   - xgcm
   - xrft
+  - pip
   - pip:
     - regionmask
     - rio-cogeo

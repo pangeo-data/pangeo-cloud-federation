@@ -1,5 +1,5 @@
 git+https://github.com/yuvipanda/hubploy
-git+git://github.com/jupyter/repo2docker@bf29f66f279750bea9fd12b7dc6c7f59e2ec3a19
+git+git://github.com/jupyter/repo2docker
 pygithub
 awscli
 azure-cli
