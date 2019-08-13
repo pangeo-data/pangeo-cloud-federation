@@ -59,9 +59,13 @@ pangeo:
           description: "ESIP environment extending pangeo base-notebook"
           default: true
         - display_name: "Pangeo-notebook (m5.2xlarge | 4 cores, 16Gb)"
-          description: "latest pangeo-notebook from pangeo stacks"
+          description: "2018.08.08 pangeo-notebook from pangeo-stacks"
           kubespawner_override:
-            image: pangeo/pangeo-notebook:latest
+            image: pangeo/pangeo-notebook:2018.08.08
+        - display_name: "Base-notebook (m5.2xlarge | 4 cores, 16Gb)"
+          description: "2018.08.08 base-notebook from pangeo-stacks"
+          kubespawner_override:
+            image: pangeo/base-notebook:2018.08.08
     auth:
       github:
         orgWhitelist:
@@ -80,16 +84,16 @@ pangeo:
     hub:
       resources:
         requests:
-          cpu: "0.5"
-          memory: 1Gi
+          cpu: 0.45
+          memory: 1G
         limits:
-          cpu: "1.25"
-          memory: 1Gi
+          cpu: 1.25
+          memory: 2G
       extraConfig:
         cloneRepo: |
           # Hack solution for branding
           import os, shutil
-          repo = 'https://github.com/scottyhq/pangeo-custom-jupyterhub-templates'
+          repo = 'https://github.com/scottyhq/nasa-pangeo-style-template'
           webdir = '/usr/local/share/jupyterhub/static'
           dst = '/srv/jupyterhub/style'
           shutil.rmtree(dst, ignore_errors=True)
