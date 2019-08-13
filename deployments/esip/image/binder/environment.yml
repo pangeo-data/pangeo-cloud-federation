@@ -2,7 +2,6 @@ name: esip
 channels:
   - conda-forge
 dependencies:
-  - python=3.6
   # core scipy packages
   - numpy
   - scipy
@@ -13,8 +12,6 @@ dependencies:
   - scikit-image
   - scikit-learn
   - dask-ml
-  - tensorflow
-  - keras
   - pytorch-cpu
   # pyviz
   - holoviews=1.12.1

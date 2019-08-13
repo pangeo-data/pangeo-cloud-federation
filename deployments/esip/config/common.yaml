@@ -59,13 +59,13 @@ pangeo:
           description: "ESIP environment extending pangeo base-notebook"
           default: true
         - display_name: "Pangeo-notebook (m5.2xlarge | 4 cores, 16Gb)"
-          description: "2018.08.08 pangeo-notebook from pangeo-stacks"
+          description: "2019.08.08 pangeo-notebook from pangeo-stacks"
           kubespawner_override:
-            image: pangeo/pangeo-notebook:2018.08.08
+            image: pangeo/pangeo-notebook:2019.08.08
         - display_name: "Base-notebook (m5.2xlarge | 4 cores, 16Gb)"
-          description: "2018.08.08 base-notebook from pangeo-stacks"
+          description: "2019.08.08 base-notebook from pangeo-stacks"
           kubespawner_override:
-            image: pangeo/base-notebook:2018.08.08
+            image: pangeo/base-notebook:2019.08.08
     auth:
       github:
         orgWhitelist:
