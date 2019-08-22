@@ -119,6 +119,7 @@ pangeo:
           - rabernat
           - scottyhq
           - yuvipanda
+          - lsetiawan
       admin:
         access: true
         users:
