@@ -2,7 +2,28 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
-  - xhistogram
-  - xmitgcm>=0.4.1
-  - fsspec
+  - altair
+  - basemap
+  - cc-plugin-ncei
+  - ciso
+  - cmocean
+  - compliance-checker
+  - ctd
+  - descartes
   - erddapy
+  - folium
+  - fsspec
+  - geolinks
+  - gridgeo
+  - ioos-tools
+  - palettable
+  - pocean-core
+  - podaacpy
+  - retrying
+  - seaborn
+  - sympy
+  - unyt
+  - utide
+  - xhistogram
+  - xlrd
+  - xmitgcm>=0.4.1
