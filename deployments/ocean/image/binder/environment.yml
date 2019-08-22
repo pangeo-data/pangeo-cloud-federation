@@ -16,7 +16,6 @@ dependencies:
   - geolinks
   - gridgeo
   - ioos-tools
-  - owslib
   - palettable
   - pocean-core
   - podaacpy
