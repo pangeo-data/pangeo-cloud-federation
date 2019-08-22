@@ -10,12 +10,6 @@ jupyter labextension install @pyviz/jupyterlab_pyviz \
 mkdir -p ${KERNEL_PYTHON_PREFIX}/etc/dask
 cp binder/dask_config.yaml ${KERNEL_PYTHON_PREFIX}/etc/dask/dask.yaml
 
-# disable .condarc from repo2docker build (/srv/conda)
-mv ${CONDA_DIR}/.condarc ${CONDA_DIR}/repo2docker-condarc.txt
-
-# disable .condarc from repo2docker build (/srv/conda)
-mv ${CONDA_DIR}/.condarc ${CONDA_DIR}/repo2docker-condarc.txt
-
 # make a copy of REPO_DIR since /home/jovyan overwritten by nfs mount on pangeo jupyterhubs
 mkdir ${CONDA_DIR}/build-repo
 cp -r ${REPO_DIR} ${CONDA_DIR}/build-repo

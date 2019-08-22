@@ -88,10 +88,7 @@ jobs:
           environment:
             PYTHONIOENCODING: utf-8
 
-      # This is currently disabled becauses it always runs, because the Azure
-      # container registry is not open to annonymous read access. This can be changed
-
-      # This is currently disabled becauses it always runs, because the Azure
+      # This is currently disabled becauses it always runs and because the Azure
       # container registry is not open to annonymous read access. This can be changed
       # but it will take some changes to our Azure account to allow this feature in
       # preview mode.
