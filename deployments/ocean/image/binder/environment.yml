@@ -10,6 +10,7 @@ dependencies:
   - compliance-checker
   - ctd
   - descartes
+  - erddapy
   - folium
   - fsspec
   - geolinks
