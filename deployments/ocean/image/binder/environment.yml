@@ -18,6 +18,7 @@ dependencies:
   - owslib
   - palettable
   - pocean-core
+  - podaacpy
   - retrying
   - seaborn
   - sympy
