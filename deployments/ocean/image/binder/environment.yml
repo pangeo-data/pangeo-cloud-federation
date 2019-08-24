@@ -19,6 +19,7 @@ dependencies:
   - palettable
   - pocean-core
   - podaacpy
+  - pyoos
   - retrying
   - seaborn
   - sympy
