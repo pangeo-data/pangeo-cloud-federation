@@ -22,9 +22,12 @@ dependencies:
   - pyoos
   - retrying
   - seaborn
+  - seaborn
   - sympy
   - unyt
   - utide
+  - vega
+  - vega_datasets
   - xhistogram
   - xlrd
   - xmitgcm>=0.4.1
