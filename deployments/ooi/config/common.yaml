@@ -112,13 +112,6 @@ pangeo:
       scopes:
         - "read:org"
         - "read:user"
-      whitelist:
-        users:
-          - jhamman
-          - mrocklin
-          - rabernat
-          - scottyhq
-          - yuvipanda
       admin:
         access: true
         users:

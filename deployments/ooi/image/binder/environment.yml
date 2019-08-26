@@ -1,0 +1,8 @@
+name: pangeo
+channels:
+  - conda-forge
+dependencies:
+  - erddapy
+  - pip
+  - pip:
+    - azure
