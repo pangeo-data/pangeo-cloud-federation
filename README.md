@@ -7,14 +7,14 @@ Changing the image will typically take ~20 minutes, and changing a Helm config v
 
 # Clusters
 
-Name   | Cloud: region      |  Staging URL                     | Production URL
---     |-                   |-                                 |-
-dev    | GCP: us-central1-b | https://staging.hub.pangeo.io    | https://hub.pangeo.io
-ocean  | GCP: us-central1-b | https://staging.ocean.pangeo.io  | https://ocean.pangeo.io
-hydro  | GCP: us-central1-b | https://staging.hydro.pangeo.io  | https://hydro.pangeo.io
-nasa   | AWS: us-east-1     | https://staging.nasa.pangeo.io   | https://nasa.pangeo.io
-esip   | AWS: us-west-2     | https://staging.esip.pangeo.io   | https://esip.pangeo.io
-icesat | AWS: us-west-2     | https://staging.icesat.pangeo.io | https://icesat.pangeo.io
+Name    | Cloud: region      |  Staging URL                      | Production URL
+--      |-                   |-                                  |-
+dev     | GCP: us-central1-b | https://staging.hub.pangeo.io     | https://hub.pangeo.io
+ocean   | GCP: us-central1-b | https://staging.ocean.pangeo.io   | https://ocean.pangeo.io
+hydro   | GCP: us-central1-b | https://staging.hydro.pangeo.io   | https://hydro.pangeo.io
+nasa    | AWS: us-east-1     | https://staging.nasa.pangeo.io    | https://nasa.pangeo.io
+esip    | AWS: us-west-2     | https://staging.esip.pangeo.io    | https://esip.pangeo.io
+icesat2 | AWS: us-west-2     | https://staging.icesat2.pangeo.io | https://icesat2.pangeo.io
 
 # Build Status
 
