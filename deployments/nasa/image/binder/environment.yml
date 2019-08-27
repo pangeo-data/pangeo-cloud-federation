@@ -33,3 +33,4 @@ dependencies:
   - pip=19.2
   - pip:
     - git+https://github.com/pangeo-data/intake-stac.git
+    - git+https://github.com/dask/dask-cloudprovider.git
