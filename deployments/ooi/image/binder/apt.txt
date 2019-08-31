@@ -2,3 +2,4 @@ apt-utils
 nano
 man-db
 tree
+jq
