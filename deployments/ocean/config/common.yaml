@@ -43,6 +43,7 @@ pangeo:
                     'cpu_guarantee': 0.3,
                     'mem_limit': '4G',
                     'mem_guarantee': '1G',
+		'default': 'True'
                 }
             },
             {
