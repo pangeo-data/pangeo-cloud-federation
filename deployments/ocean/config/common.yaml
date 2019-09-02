@@ -34,46 +34,27 @@ pangeo:
           cpu: "1.25"
           memory: 1Gi
       extraConfig:
-        timeout: |
-          c.KubeSpawner.start_timeout = 60 * 20 # 20-minute timeout
         profile_list: |
           c.KubeSpawner.profile_list = [
             {
-                'display_name': 'small (n1-highmem-2 | 2 cores, 4GB) ** OceanHackWeek **',
+                'display_name': 'standard ** Research Computing Students **',
                 'kubespawner_override': {
                     'cpu_limit': 2,
-                    'cpu_guarantee': 1,
+                    'cpu_guarantee': 0.3,
                     'mem_limit': '4G',
-                    'mem_guarantee': '4G',
+                    'mem_guarantee': '1G',
+                'default': 'True'
                 }
             },
             {
-                'display_name': 'standard (n1-highmem-4 | 4 cores, 10GB)',
+                'display_name': 'large (up to 4 cores, 10GB)',
                 'kubespawner_override': {
                     'cpu_limit': 4,
                     'cpu_guarantee': 1,
                     'mem_limit': '10G',
-                    'mem_guarantee': '10G',
+                    'mem_guarantee': '4G',
                 }
             },
-            {
-                'display_name': 'large (n1-highmem-8 | 8 cores, 45GB)',
-                'kubespawner_override': {
-                    'cpu_limit': 8,
-                    'cpu_guarantee': 1,
-                    'mem_limit': '45G',
-                    'mem_guarantee': '45G',
-                }
-            },
-            {
-                'display_name': 'x-large (n1-highmem-16 | 16 cores, 96GB RAM)',
-                'kubespawner_override': {
-                    'cpu_limit': 16,
-                    'cpu_guarantee': 1,
-                    'mem_limit': '100G',
-                    'mem_guarantee': '96G',
-                }
-            }
           ]
 
         customPodHook: |
