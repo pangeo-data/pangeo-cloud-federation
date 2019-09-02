@@ -38,12 +38,12 @@ pangeo:
           c.KubeSpawner.profile_list = [
             {
                 'display_name': 'standard ** Research Computing Students **',
+                'default': 'True',
                 'kubespawner_override': {
                     'cpu_limit': 2,
                     'cpu_guarantee': 0.3,
                     'mem_limit': '4G',
                     'mem_guarantee': '1G',
-                'default': 'True'
                 }
             },
             {
