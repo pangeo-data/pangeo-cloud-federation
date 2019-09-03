@@ -26,6 +26,14 @@ pangeo:
       memory:
         limit: 16G
         guarantee: 14G
+      profileList:
+        - display_name: "Default environment (m5.2xlarge | 4 cores, 16Gb)"
+          description: "Updated environment defined in pangeo-cloud-federation"
+          default: true
+        - display_name: "IceSat-2 Hackweek 2019 Image (m5.2xlarge | 4 cores, 16Gb)"
+          description: "Copy of IceSat-2 Hackweek environment"
+          kubespawner_override:
+            image: uwhackweeks/icesat2:2019
     auth:
       github:
         orgWhitelist:
