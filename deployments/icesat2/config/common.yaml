@@ -34,6 +34,10 @@ pangeo:
           description: "Copy of IceSat-2 Hackweek environment"
           kubespawner_override:
             image: uwhackweeks/icesat2:2019
+        - display_name: "Latest Pangeo-notebook Image (m5.2xlarge | 4 cores, 16Gb)"
+          description: "The latest build of pangeo/pangeo-notebook"
+          kubespawner_override:
+            image: pangeo/pangeo-notebook:latest
     auth:
       github:
         orgWhitelist:
