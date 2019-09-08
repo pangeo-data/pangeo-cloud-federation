@@ -2,8 +2,6 @@
 pangeo:
   jupyterhub:
     proxy:
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: ng-680864af
       https:
         hosts:
         - staging.icesat2.pangeo.io
