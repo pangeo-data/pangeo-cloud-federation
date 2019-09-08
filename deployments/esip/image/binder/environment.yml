@@ -29,7 +29,13 @@ dependencies:
   - netcdf4
   - h5py
   - h5netcdf
+  # ocean/atmos stuff
   - siphon
+  - utide
+  - pocean-core
+  - owslib
+  - geolinks
+  - cftime
   # geoscience-related
   - climlab
   - metpy

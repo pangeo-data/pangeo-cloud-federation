@@ -1,25 +1,51 @@
 pangeo:
   jupyterhub:
+    scheduling:
+      userPods:
+        nodeAffinity:
+          matchNodePurpose: require
+      corePods:
+        nodeAffinity:
+          matchNodePurpose: require
     singleuser:
       initContainers:
         - name: volume-mount-hack
           image: busybox
-          command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+          command:
+            - "sh"
+            - "-c"
+            - >
+              id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan ;
+              id && chown 1000:1000 /srv/shared && ls -lhd /srv/shared ;
           securityContext:
             runAsUser: 0
           volumeMounts:
             - name: home
               mountPath: /home/jovyan
               subPath: "home/icesat2.pangeo.io/{username}"
+            - name: jupyterhub-shared
+              mountPath: /srv/shared
+              subPath: "icesat2.pangeo.io/shared"
+      extraVolumes:
+        - name: jupyterhub-shared
+          persistentVolumeClaim:
+            claimName: data-nfs
       storage:
         type: static
         static:
           pvcName: home-nfs
           subPath: "home/icesat2.pangeo.io/{username}"
+        #requires having run config/shared--nfs.yaml
+        extraVolumeMounts:
+          - name: jupyterhub-shared
+            mountPath: /srv/shared
+            subPath: "icesat2.pangeo.io/shared"
+        extraVolumes:
+          - name: jupyterhub-shared
+            persistentVolumeClaim:
+              claimName: shared-nfs
       cloudMetadata:
         enabled: true
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: user-notebook
       cpu:
         limit: 4
         guarantee: 3
@@ -34,6 +60,10 @@ pangeo:
           description: "Copy of IceSat-2 Hackweek environment"
           kubespawner_override:
             image: uwhackweeks/icesat2:2019
+        - display_name: "GeoHackWeek 2019 (m5.2xlarge | 4 cores, 16Gb)"
+          description: "GeoHackWeek 2019 conda environment"
+          kubespawner_override:
+            image: scottyhq/geohackweek2019:latest
         - display_name: "Latest Pangeo-notebook Image (m5.2xlarge | 4 cores, 16Gb)"
           description: "The latest build of pangeo/pangeo-notebook"
           kubespawner_override:
@@ -42,10 +72,12 @@ pangeo:
       github:
         orgWhitelist:
           - "escience-pangeo"
+          - "geohackweek"
           - "ICESAT-2HackWeek"
           - "pangeo-data"
       scopes:
         - "read:user"
+        - "user:email"
         - "read:org"
       admin:
         access: true
@@ -57,13 +89,11 @@ pangeo:
     hub:
       resources:
         requests:
-          cpu: "0.5"
-          memory: 1Gi
+          cpu: 0.45
+          memory: 1G
         limits:
-          cpu: "1.25"
-          memory: 1Gi
-      nodeSelector:
-        alpha.eksctl.io/nodegroup-name: ng-680864af
+          cpu: 1.25
+          memory: 2G
       extraConfig:
         cloneRepo: |
           # Hack solution for branding
