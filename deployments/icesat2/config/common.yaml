@@ -68,6 +68,10 @@ pangeo:
           description: "The latest build of pangeo/pangeo-notebook"
           kubespawner_override:
             image: pangeo/pangeo-notebook:latest
+      # until resolved: https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1393
+      prePuller:
+        continuous:
+          enabled: false
     auth:
       github:
         orgWhitelist:
