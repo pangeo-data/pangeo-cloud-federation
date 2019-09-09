@@ -29,6 +29,7 @@ dependencies:
   - netcdf4
   - h5py
   - h5netcdf
+  - folium
   # ocean/atmos stuff
   - siphon
   - utide
@@ -37,6 +38,8 @@ dependencies:
   - ioos-tools
   - geolinks
   - cftime
+  - pyoos
+  - timeout-decorator
   # geoscience-related
   - climlab
   - metpy
