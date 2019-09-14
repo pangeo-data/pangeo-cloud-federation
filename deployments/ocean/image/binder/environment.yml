@@ -32,6 +32,7 @@ dependencies:
   - xmitgcm>=0.4.1
   - datashader>=0.7  # temporary (force update from base image)
   - geoviews>=1.6.3  # temporary (force update from base image)
+  - dask>=2.3.0
   - python-wget
   - prefect
   - pip:
