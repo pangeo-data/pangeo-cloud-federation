@@ -8,6 +8,7 @@ pangeo:
         nodeAffinity:
           matchNodePurpose: require
     singleuser:
+      startTimeout: 600
       initContainers:
         - name: volume-mount-hack
           image: busybox
