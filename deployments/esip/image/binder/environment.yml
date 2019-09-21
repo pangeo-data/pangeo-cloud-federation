@@ -26,6 +26,7 @@ dependencies:
   - geopandas
   - rasterio
   - rio-cogeo
+  - rioxarray
   - netcdf4
   - h5py
   - h5netcdf
