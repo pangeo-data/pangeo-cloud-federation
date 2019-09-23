@@ -8,13 +8,14 @@ dependencies:
   - matplotlib
   - pandas
   - xarray
+  - python-gist
   # data science stuff
   - scikit-image
   - scikit-learn
   - dask-ml
   - pytorch-cpu
   # pyviz
-  - holoviews=1.12.1
+  - holoviews
   - panel
   - geoviews
   - hvplot
@@ -70,5 +71,4 @@ dependencies:
   - pip
   - pip:
     - regionmask
-    - rio-cogeo
     - git+https://github.com/HDFGroup/h5pyd.git
