@@ -8,6 +8,7 @@ dependencies:
   - matplotlib
   - pandas
   - xarray
+  - dask
   - python-gist
   # data science stuff
   - scikit-image
