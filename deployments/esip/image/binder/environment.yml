@@ -2,7 +2,7 @@ name: esip
 channels:
   - conda-forge
 dependencies:
-  # core scipy packages
+  # core scipy 
   - numpy
   - scipy
   - matplotlib
