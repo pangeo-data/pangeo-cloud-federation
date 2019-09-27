@@ -1,6 +1,6 @@
 dependencies:
 - name: pangeo
-  version: "19.07.02-37d387f"
+  version: "19.09.26-dd6574b"
   repository: https://pangeo-data.github.io/helm-chart/
   import-values:
     - child: rbac

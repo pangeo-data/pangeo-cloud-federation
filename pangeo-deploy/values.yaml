@@ -19,18 +19,12 @@ pangeo:
     # See https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/master/jupyterhub/values.yaml
 
     singleuser:
-      image:
-        name: pangeo/base-notebook
-        tag: 2019.02.01
       cpu:
         limit: 2
         guarantee: 1
       memory:
         limit: 4G
         guarantee: 2G
-      defaultUrl: "/lab"
-      cmd: jupyter-labhub
-      serviceAccountName: daskkubernetes
 
     prePuller:
       hook:
