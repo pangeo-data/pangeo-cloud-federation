@@ -92,7 +92,7 @@ pangeo:
                     'mem_limit': '15G',
                     'mem_guarantee': '15G',
                     'image': 'pangeo/ml-notebook:latest',
-                    'extra_resource_limits': {nvidia.com/gpu: "1"}
+                    'extra_resource_limits': {"nvidia.com/gpu": "1"}
                 }
             }
           ]
