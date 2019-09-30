@@ -2,7 +2,7 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
-  - conda=4.6.8
+  - conda>=4.6.8
   - python=3.7
   - numpy
   - matplotlib
