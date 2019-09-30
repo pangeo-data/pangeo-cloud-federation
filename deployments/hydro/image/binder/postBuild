@@ -1,16 +1,14 @@
 #!/bin/bash
 
-git clone -b develop https://github.com/ncar/summa.git
+git clone -b cuahsi_vu_2019 https://github.com/bartnijssen/summa.git
 
 cd summa
-git checkout -b cewa564_pangeo b074b0
-# Add the commit from Andrew that sets the time offset to 0
-git cherry-pick 3516fe2
 
 export F_MASTER=${PWD}
 export FC="gfortran"
 export FC_EXE="gfortran"
-export FC_ENV="gfortran-6-docker"
+export INCLUDES="-I/usr/include"
+export LIBRARIES="-L/usr/lib -lnetcdff -llapack -lblas"
 
 make -C build/ -f Makefile
 
