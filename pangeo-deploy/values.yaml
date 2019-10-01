@@ -38,11 +38,6 @@ pangeo:
       userPlaceholder:
         enabled: false
 
-    # See https://github.com/pangeo-data/pangeo-cloud-federation/issues/418
-    # and https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/4300ff5bb82e56eb0304f11e96e0e7138a60c7d0/jupyterhub/values.yaml#L88-L113
-    proxy:
-      rollingUpdate:
-
 homeDirectories:
   nfs:
     enabled: false
