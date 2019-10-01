@@ -2,19 +2,20 @@ name: esip
 channels:
   - conda-forge
 dependencies:
-  # core scipy packages
+  # core scipy 
   - numpy
   - scipy
   - matplotlib
   - pandas
   - xarray
+  - python-gist
   # data science stuff
   - scikit-image
   - scikit-learn
   - dask-ml
   - pytorch-cpu
   # pyviz
-  - holoviews=1.12.1
+  - holoviews
   - panel
   - geoviews
   - hvplot
@@ -26,9 +27,11 @@ dependencies:
   - geopandas
   - rasterio
   - rio-cogeo
+  - rioxarray
   - netcdf4
   - h5py
   - h5netcdf
+  - folium
   # ocean/atmos stuff
   - siphon
   - utide
@@ -37,6 +40,8 @@ dependencies:
   - ioos-tools
   - geolinks
   - cftime
+  - pyoos
+  - timeout-decorator
   # geoscience-related
   - climlab
   - metpy
@@ -66,5 +71,4 @@ dependencies:
   - pip
   - pip:
     - regionmask
-    - rio-cogeo
     - git+https://github.com/HDFGroup/h5pyd.git

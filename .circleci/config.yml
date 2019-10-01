@@ -219,11 +219,11 @@ jobs:
           name: Install helm
           when: always
           command: |
-            curl https://get.helm.sh/helm-v2.14.2-linux-amd64.tar.gz | \
+            curl https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz | \
               tar -xzf -
             sudo mv linux-amd64/helm /usr/local/bin
             helm init --client-only
-            helm repo add pangeo-data https://pangeo-data.github.io/helm-chart/
+            helm repo add pangeo https://pangeo-data.github.io/helm-chart/
             helm repo update
 
       - run:
