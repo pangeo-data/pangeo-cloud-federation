@@ -75,26 +75,21 @@ pangeo:
                 }
             },
             {
-                'display_name': 'R Env - standard (n1-highmem-4 | 4 cores, 24GB)',
+                'display_name': 'Pangeo GPU-ML Env - standard (n1-standard-4 | 4 cores, 15GB | 1 GPU)',
                 'kubespawner_override': {
-                    'cpu_limit': 4,
-                    'cpu_guarantee': 4,
-                    'mem_limit': '24G',
-                    'mem_guarantee': '24G',
-                    'image': 'jupyter/r-notebook',
-                }
-            },
-            {
-                'display_name': 'Pangeo ML Env - standard (n1-standard-4 | 4 cores, 15GB | 1 GPU)',
-                'kubespawner_override': {
-                    'cpu_limit': 4,
+                    'cpu_limit': 1,
                     'cpu_guarantee': 1,
                     'mem_limit': '2G',
                     'mem_guarantee': '2G',
                     'image': 'pangeo/ml-notebook:latest',
-                    'extra_resource_limits': {"nvidia.com/gpu": "1"}
+                    'extra_resource_limits': {"nvidia.com/gpu": "1"},
+                    # 'tolerations': [
+                    #     {'key': 'hub.jupyter.org/dedicated','operator': 'Equal','value': 'user','effect': 'NoSchedule'},
+                    #     {'key': 'hub.jupyter.org_dedicated','operator': 'Equal','value': 'user','effect': 'NoSchedule'},
+                    #     {'key': 'nvidia.com/gpu','operator': 'Equal','value': 'present','effect': 'NoSchedule'}
+                    # ],
                 }
-            }
+            },
           ]
         customPodHook: |
           c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
