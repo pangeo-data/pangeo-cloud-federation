@@ -16,12 +16,10 @@ dependencies:
   - dask-ml
   - pytorch-cpu
   # pyviz
-  - holoviews
-  - panel
-  - geoviews
-  - hvplot
-  - geoviews
-  - datashader
+  - pyviz/label/dev::hvplot
+  - pyviz/label/dev::holoviews
+  - pyviz/label/dev::panel
+  - pyviz/label/dev::datashader
   # geospatial
   - iris
   - cartopy
@@ -73,3 +71,4 @@ dependencies:
   - pip:
     - regionmask
     - git+https://github.com/HDFGroup/h5pyd.git
+    - git+https://github.com/pyviz/geoviews.git
