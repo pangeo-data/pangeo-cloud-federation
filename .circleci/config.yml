@@ -225,6 +225,7 @@ jobs:
             helm init --client-only
             helm repo add pangeo https://pangeo-data.github.io/helm-chart/
             helm repo update
+            helm dependency update
 
       - run:
           name: Deploy dev.pangeo.io
