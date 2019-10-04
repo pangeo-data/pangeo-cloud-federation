@@ -9,6 +9,7 @@ dependencies:
   - pandas
   - xarray
   - python-gist
+  - fastparquet
   # data science stuff
   - scikit-image
   - scikit-learn
