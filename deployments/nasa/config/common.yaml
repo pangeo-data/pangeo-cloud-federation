@@ -70,14 +70,15 @@ pangeo:
           description: "ASP Daily Build 2019.07.17"
           kubespawner_override:
             image: scottyhq/pangeo-nasa-asp:2019.07.17
-        - display_name: "Pangeo-notebook (m5.2xlarge | 4 cores, 16Gb)"
-          description: "latest pangeo-notebook from pangeo-stacks"
+        - display_name: "Shean Lab *experimental*"
+          description: "latest ASP image, sheanlab nodegroup"
           kubespawner_override:
-            image: pangeo/pangeo-notebook:latest
-        - display_name: "Base-notebook (m5.2xlarge | 4 cores, 16Gb)"
-          description: "latest base-notebook from pangeo-stacks"
-          kubespawner_override:
-            image: pangeo/base-notebook:latest
+            image: scottyhq/pangeo-nasa-asp:2019.07.17
+            cpu_limit: 48
+            cpu_guarantee: 46
+            mem_limit: 96G
+            mem_guarantee: 90G
+       
       # until resolved: https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1393
       prePuller:
         continuous:
