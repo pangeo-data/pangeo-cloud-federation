@@ -224,8 +224,8 @@ jobs:
             sudo mv linux-amd64/helm /usr/local/bin
             helm init --client-only
             helm repo add pangeo https://pangeo-data.github.io/helm-chart/
+            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
-            cd pangeo-deploy ; helm dependency update ; cd ../
 
       - run:
           name: Deploy dev.pangeo.io
