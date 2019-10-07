@@ -17,6 +17,6 @@ dependencies:
   - netCDF4
   - bokeh
   - pip:
-    - git+https://github.com/arbennett/pysumma.git@5862aaed5e7f1e8221ec5ef78d61a8030e3359a4
+    - git+https://github.com/arbennett/pysumma.git@4ade1ccdc423bdbcde6c4e13c71a517bfc71d792
     - hs_restclient
     - nbgitpuller
