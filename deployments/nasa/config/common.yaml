@@ -7,6 +7,10 @@ pangeo:
       corePods:
         nodeAffinity:
           matchNodePurpose: require
+    # until resolved: https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1393
+    prePuller:
+      continuous:
+        enabled: false
     singleuser:
       startTimeout: 600
       initContainers:
@@ -49,7 +53,6 @@ pangeo:
           - name: jupyterhub-shared
             persistentVolumeClaim:
               claimName: shared-nfs
-
       cloudMetadata:
         enabled: true
       cpu:
@@ -58,30 +61,6 @@ pangeo:
       memory:
         limit: 16G
         guarantee: 14G
-      profileList:
-        - display_name: "Default environment (m5.2xlarge | 4 cores, 16Gb)"
-          description: "NASA environment from pangeo-cloud-federation"
-          default: true
-        - display_name: "GeoHackWeek 2019 (m5.2xlarge | 4 cores, 16Gb)"
-          description: "GeoHackWeek 2019 conda environment"
-          kubespawner_override:
-            image: scottyhq/geohackweek2019:latest
-        - display_name: "AmesStereoPipeline *experimental* (m5.2xlarge | 4 cores, 16Gb)"
-          description: "ASP Daily Build 2019.07.17"
-          kubespawner_override:
-            image: scottyhq/pangeo-nasa-asp:2019.07.17
-        - display_name: "Pangeo-notebook (m5.2xlarge | 4 cores, 16Gb)"
-          description: "latest pangeo-notebook from pangeo-stacks"
-          kubespawner_override:
-            image: pangeo/pangeo-notebook:latest
-        - display_name: "Base-notebook (m5.2xlarge | 4 cores, 16Gb)"
-          description: "latest base-notebook from pangeo-stacks"
-          kubespawner_override:
-            image: pangeo/base-notebook:latest
-      # until resolved: https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1393
-      prePuller:
-        continuous:
-          enabled: false
     auth:
       github:
         orgWhitelist:
@@ -107,6 +86,36 @@ pangeo:
           cpu: 1.25
           memory: 2G
       extraConfig:
+        profileList: |
+          c.KubeSpawner.profile_list = [
+            {
+                'display_name': 'Default environment (m5.2xlarge | 4 cores, 16Gb)',
+                'default': 'true',
+            },
+            {
+                'display_name': 'GeoHackWeek 2019 (m5.2xlarge | 4 cores, 16Gb)',
+                'kubespawner_override': {
+                    'image': 'scottyhq/geohackweek2019:latest',
+                }
+            },
+            {
+                'display_name': 'AmesStereoPipeline *experimental* (m5.2xlarge | 4 cores, 16Gb)',
+                'kubespawner_override': {
+                    'image': 'scottyhq/pangeo-nasa-asp:2019.07.17',
+                }
+            },
+            {
+                'display_name': 'Shean Lab *experimental*',
+                'kubespawner_override': {
+                    'image': 'scottyhq/pangeo-nasa-asp:2019.07.17',
+                    'cpu_limit': 48.0,
+                    'cpu_guarantee': 46.0,
+                    'mem_limit': '96G',
+                    'mem_guarantee': '90G',
+                    'tolerations': [{'key': 'hub.jupyter.org/dedicated','operator': 'Equal','value': 'sheanlab','effect': 'NoSchedule'}],
+                }
+            },
+            ]
         cloneRepo: |
           # Hack solution for branding
           import os, shutil
