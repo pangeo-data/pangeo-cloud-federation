@@ -7,6 +7,10 @@ pangeo:
       corePods:
         nodeAffinity:
           matchNodePurpose: require
+    # until resolved: https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1393
+    prePuller:
+      continuous:
+        enabled: false
     singleuser:
       startTimeout: 600
       initContainers:
@@ -53,26 +57,6 @@ pangeo:
       memory:
         limit: 16G
         guarantee: 14G
-      profileList:
-        - display_name: "Default environment (m5.2xlarge | 4 cores, 16Gb)"
-          description: "Updated environment defined in pangeo-cloud-federation"
-          default: true
-        - display_name: "IceSat-2 Hackweek 2019 Image (m5.2xlarge | 4 cores, 16Gb)"
-          description: "Copy of IceSat-2 Hackweek environment"
-          kubespawner_override:
-            image: uwhackweeks/icesat2:2019
-        - display_name: "GeoHackWeek 2019 (m5.2xlarge | 4 cores, 16Gb)"
-          description: "GeoHackWeek 2019 conda environment"
-          kubespawner_override:
-            image: scottyhq/geohackweek2019:latest
-        - display_name: "Latest Pangeo-notebook Image (m5.2xlarge | 4 cores, 16Gb)"
-          description: "The latest build of pangeo/pangeo-notebook"
-          kubespawner_override:
-            image: pangeo/pangeo-notebook:latest
-      # until resolved: https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1393
-      prePuller:
-        continuous:
-          enabled: false
     auth:
       github:
         orgWhitelist:
@@ -100,6 +84,22 @@ pangeo:
           cpu: 1.25
           memory: 2G
       extraConfig:
+        profileList:
+          - display_name: "Default environment (m5.2xlarge | 4 cores, 16Gb)"
+            description: "Updated environment defined in pangeo-cloud-federation"
+            default: true
+          - display_name: "IceSat-2 Hackweek 2019 Image (m5.2xlarge | 4 cores, 16Gb)"
+            description: "Copy of IceSat-2 Hackweek environment"
+            kubespawner_override:
+              image: uwhackweeks/icesat2:2019
+          - display_name: "GeoHackWeek 2019 (m5.2xlarge | 4 cores, 16Gb)"
+            description: "GeoHackWeek 2019 conda environment"
+            kubespawner_override:
+              image: scottyhq/geohackweek2019:latest
+          - display_name: "Latest Pangeo-notebook Image (m5.2xlarge | 4 cores, 16Gb)"
+            description: "The latest build of pangeo/pangeo-notebook"
+            kubespawner_override:
+              image: pangeo/pangeo-notebook:latest
         cloneRepo: |
           # Hack solution for branding
           import os, shutil
