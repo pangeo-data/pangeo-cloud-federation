@@ -10,7 +10,7 @@ distributed:
       limit: 5s
 
 kubernetes:
-  name: dask-${JUPYTERHUB_USER}-
+  name: dask-{JUPYTERHUB_USER}-{uuid}
   count:
     max: 30
   worker-template:
