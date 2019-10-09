@@ -38,8 +38,8 @@ pangeo:
     hub:
       resources:
         requests:
-          cpu: "0.5"
-          memory: 1Gi
+          cpu: "0.25"
+          memory: 0.5Gi
         limits:
           cpu: "1.25"
           memory: 1Gi
@@ -83,11 +83,6 @@ pangeo:
                     'mem_guarantee': '2G',
                     'image': 'pangeo/ml-notebook:latest',
                     'extra_resource_limits': {"nvidia.com/gpu": "1"},
-                    # 'tolerations': [
-                    #     {'key': 'hub.jupyter.org/dedicated','operator': 'Equal','value': 'user','effect': 'NoSchedule'},
-                    #     {'key': 'hub.jupyter.org_dedicated','operator': 'Equal','value': 'user','effect': 'NoSchedule'},
-                    #     {'key': 'nvidia.com/gpu','operator': 'Equal','value': 'present','effect': 'NoSchedule'}
-                    # ],
                 }
             },
           ]
