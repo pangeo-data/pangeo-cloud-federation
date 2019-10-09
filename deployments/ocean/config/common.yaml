@@ -28,8 +28,8 @@ pangeo:
     hub:
       resources:
         requests:
-          cpu: "0.5"
-          memory: 1Gi
+          cpu: "0.25"
+          memory: 0.5Gi
         limits:
           cpu: "1.25"
           memory: 1Gi
