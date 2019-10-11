@@ -2,37 +2,21 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
-  - altair
-  - basemap
   - cc-plugin-ncei
   - ciso
-  - cmocean
   - compliance-checker
   - ctd
-  - descartes
-  - erddapy
-  - folium
-  - fsspec
   - geolinks
   - gridgeo
   - ioos-tools
-  - palettable
   - pocean-core
   - podaacpy
   - pyoos
   - retrying
-  - seaborn
-  - sympy
   - unyt
   - utide
-  - vega
-  - vega_datasets
-  - xhistogram
   - xlrd
   - xmitgcm>=0.4.1
-  - datashader>=0.7  # temporary (force update from base image)
-  - geoviews>=1.6.3  # temporary (force update from base image)
-  - python-wget
-  - prefect
   - pip:
-    - graphviz
+    - git+https://github.com/xgcm/xgcm.git
+    - git+https://github.com/pydata/xarray.git
