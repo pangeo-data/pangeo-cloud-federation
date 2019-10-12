@@ -38,9 +38,9 @@ pangeo:
           c.KubeSpawner.profile_list = [
             {
                 'display_name': 'standard ** Research Computing Students **',
-                'image': 'us.gcr.io/pangeo-181919/ocean-pangeo-io-notebook:634578d',
                 'default': 'True',
                 'kubespawner_override': {
+                    'image': 'us.gcr.io/pangeo-181919/ocean-pangeo-io-notebook:634578d',
                     'cpu_limit': 2,
                     'cpu_guarantee': 0.3,
                     'mem_limit': '4G',
