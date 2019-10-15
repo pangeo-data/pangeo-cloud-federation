@@ -8,7 +8,7 @@ dependencies:
   - ctd
   - geolinks
   - gridgeo
-  - intake-esm>=2019.10.15
+  - intake-esm
   - ioos-tools
   - pocean-core
   - podaacpy
