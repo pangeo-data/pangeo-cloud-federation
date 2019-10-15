@@ -22,3 +22,4 @@ dependencies:
     - git+https://github.com/intake/filesystem_spec.git@master
     - git+https://github.com/dask/gcsfs.git@master
     - intake-esm
+
