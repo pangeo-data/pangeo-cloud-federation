@@ -34,6 +34,8 @@ pangeo:
           cpu: "1.25"
           memory: 1Gi
       extraConfig:
+        image_pulls: |
+          c.KubeSpawner.start_timeout = 60 * 10  # 10-minute timeout for large image pulls
         profile_list: |
           c.KubeSpawner.profile_list = [
             {
