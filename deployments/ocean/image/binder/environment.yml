@@ -8,6 +8,7 @@ dependencies:
   - ctd
   - geolinks
   - gridgeo
+  - intake-esm
   - ioos-tools
   - pocean-core
   - podaacpy
@@ -21,4 +22,3 @@ dependencies:
     - git+https://github.com/jbusecke/xgcm.git@jbusecke_weighted_average_and_cumsum
     - git+https://github.com/intake/filesystem_spec.git@master
     - git+https://github.com/dask/gcsfs.git@master
-    - git+https://github.com/andersy005/intake-esm.git@refactor
