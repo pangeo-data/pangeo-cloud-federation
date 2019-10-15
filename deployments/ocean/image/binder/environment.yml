@@ -19,6 +19,6 @@ dependencies:
   - xlrd
   - xmitgcm>=0.4.1
   - pip:
-    - git+https://github.com/jbusecke/xgcm.git@jbusecke_weighted_average_and_cumsum
+    - git+https://github.com/xgcm/xgcm.git@master
     - git+https://github.com/intake/filesystem_spec.git@master
     - git+https://github.com/dask/gcsfs.git@master
