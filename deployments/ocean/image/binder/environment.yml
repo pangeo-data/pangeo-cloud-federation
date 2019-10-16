@@ -9,6 +9,7 @@ dependencies:
   - geolinks
   - gridgeo
   - ioos-tools
+  - nc-time-axis
   - pocean-core
   - podaacpy
   - pyoos
