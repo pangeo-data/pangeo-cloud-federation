@@ -18,9 +18,9 @@ dependencies:
   - utide
   - xlrd
   - xmitgcm>=0.4.1
+  - nbdime
   - pip:
     - git+https://github.com/xgcm/xgcm.git@master
     - git+https://github.com/intake/filesystem_spec.git@master
     - git+https://github.com/dask/gcsfs.git@master
     - intake-esm
-
