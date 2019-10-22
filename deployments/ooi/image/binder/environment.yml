@@ -6,3 +6,4 @@ dependencies:
   - pip
   - pip:
     - azure
+    - git+https://github.com/ooicloud/ooi-opendata.git@master
