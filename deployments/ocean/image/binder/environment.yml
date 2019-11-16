@@ -22,5 +22,6 @@ dependencies:
     - git+https://github.com/xgcm/xgcm.git@master
     - git+https://github.com/intake/filesystem_spec.git@master
     - git+https://github.com/dask/gcsfs.git@master
+    - git+https://github.com/intake/gdrivefs.git@master
     - git+https://github.com/NCAR/intake-esm.git
     - git+https://github.com/MITgcm/xmitgcm.git
