@@ -7,4 +7,4 @@ dependencies:
   - pip:
     - azure
     - git+https://github.com/ooicloud/ooi-opendata.git@master
-    - git+https://github.com/pydata/xarray.git@980a1d26969b603d4be61033791781abd702d02a
+    - git+https://github.com/pydata/xarray.git@0ef9aa3abae55833e4431d690bc55c5b5a44911b
