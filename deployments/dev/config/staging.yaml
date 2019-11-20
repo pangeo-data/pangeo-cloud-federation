@@ -56,3 +56,4 @@ gateway:
     type: jupyterhub
     jupyterhub:
       apiToken: <SECRET>
+      apiUrl: https://staging.hub.pangeo.io/hub/api/
