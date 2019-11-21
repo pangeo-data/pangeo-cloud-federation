@@ -2,8 +2,11 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
+  - av
   - erddapy
   - pip
   - pip:
     - azure
     - git+https://github.com/ooicloud/ooi-opendata.git@master
+    - pycamhd
+    - git+https://github.com/pydata/xarray.git@0ef9aa3abae55833e4431d690bc55c5b5a44911b
