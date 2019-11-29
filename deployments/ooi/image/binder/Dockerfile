@@ -1,5 +1,5 @@
 # Note that there must be a tag
-FROM pangeo/pangeo-notebook-onbuild:2019.10.15
+FROM pangeo/pangeo-notebook-onbuild:latest
 
 # Add NB_USER to sudo
 #USER root

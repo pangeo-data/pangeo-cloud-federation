@@ -9,5 +9,3 @@ dependencies:
     - azure
     - git+https://github.com/ooicloud/ooi-opendata.git@bad61bf649ae5b189ff14fae06b567b25a8b2e47
     - pycamhd
-    - git+https://github.com/pydata/xarray.git@0ef9aa3abae55833e4431d690bc55c5b5a44911b
-    - git+https://github.com/dask/distributed@0b68318112b13d70a9cdd741e5db00da2ec6a8f5
