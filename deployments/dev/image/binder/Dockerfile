@@ -1,2 +1,2 @@
 # Note that there must be a tag
-FROM pangeo/pangeo-notebook-onbuild:2019.09.23
+FROM pangeo/pangeo-notebook-onbuild:2019.12.04
