@@ -275,7 +275,7 @@ jobs:
             BODY="Deployment to ooi-${CIRCLE_BRANCH} failed on `date -u +'%D at %T UTC.'`"
             errormsg() { ./.circleci/send-email "${EMAIL}" "${SUBJECT}" "${BODY}"; }
             trap errormsg ERR
-            hubploy deploy ooi pangeo-deploy ${CIRCLE_BRANCH}
+            hubploy deploy ooi pangeo-deploy ${CIRCLE_BRANCH} --timeout 1200
 
 workflows:
   version: 2
