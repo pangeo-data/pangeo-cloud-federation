@@ -106,12 +106,13 @@ pangeo:
           name: custom-templates
           subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
     auth:
-      github:
-        orgWhitelist:
-          - ooicloud
-      scopes:
-        - "read:org"
-        - "read:user"
+      type: github
+      #github:
+      #  orgWhitelist:
+      #    - ooicloud
+      #scopes:
+      #  - "read:org"
+      #  - "read:user"
       admin:
         access: true
         users:
