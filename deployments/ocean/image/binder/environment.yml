@@ -25,3 +25,4 @@ dependencies:
     - git+https://github.com/intake/gdrivefs.git@master
     - git+https://github.com/NCAR/intake-esm.git
     - git+https://github.com/MITgcm/xmitgcm.git
+    - git+https://github.com/cspencerjones/xlayers.git
