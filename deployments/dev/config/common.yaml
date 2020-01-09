@@ -32,6 +32,10 @@ pangeo:
         limit: 14G
         guarantee: 4G
     hub:
+      services:
+        dask-gateway:
+          # This makes the gateway available at ${HUB_URL}/services/dask-gateway
+          url: http://web-public-dev-staging-dask-gateway
       resources:
         requests:
           cpu: "0.25"
