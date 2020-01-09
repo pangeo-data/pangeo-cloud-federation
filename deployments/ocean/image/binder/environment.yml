@@ -7,6 +7,7 @@ dependencies:
   - compliance-checker
   - ctd
   - geolinks
+  - gfortran_linux-64
   - gridgeo
   - ioos-tools
   - nc-time-axis
@@ -18,6 +19,7 @@ dependencies:
   - utide
   - xlrd
   - nbdime
+  - pip 
   - pip:
     - git+https://github.com/xgcm/xgcm.git@master
     - git+https://github.com/intake/filesystem_spec.git@master
