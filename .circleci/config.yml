@@ -49,6 +49,7 @@ jobs:
       - run:
           name: Test building dev.pangeo.io image if needed
           when: always
+          no_output_timeout: 60m
           command: |
             hubploy build dev --commit-range ${COMMIT_RANGE}
 
@@ -167,6 +168,7 @@ jobs:
       - run:
           name: Build dev.pangeo.io image if needed
           when: always
+          no_output_timeout: 60m
           command: |
             hubploy build dev --check-registry --push
 
