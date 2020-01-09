@@ -43,3 +43,9 @@ labextension:
     class: KubeCluster
     args: []
     kwargs: {}
+
+gateway:
+  address: http://34.68.195.134
+  proxy-address: tls://35.225.202.35:8786
+  auth:
+    type: jupyterhub
