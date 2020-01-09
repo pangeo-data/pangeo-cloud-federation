@@ -1,4 +1,4 @@
-git+https://github.com/tjcrone/hubploy@helm-options
+git+https://github.com/yuvipanda/hubploy
 jupyter-repo2docker>=0.10.0
 pygithub
 awscli

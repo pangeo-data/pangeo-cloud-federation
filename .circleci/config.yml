@@ -55,6 +55,7 @@ jobs:
       - run:
           name: Test building ocean.pangeo.io image if needed
           when: always
+          no_output_timeout: 60m
           command: |
             hubploy build ocean --commit-range ${COMMIT_RANGE}
 
@@ -79,7 +80,7 @@ jobs:
       #       hubploy build icesat2 --commit-range ${COMMIT_RANGE}
       #     environment:
       #       PYTHONIOENCODING: utf-8
-      
+
       # - run:
       #     name: Test building esip.pangeo.io image if needed
       #     when: always
@@ -173,6 +174,7 @@ jobs:
       - run:
           name: Build ocean.pangeo.io image if needed
           when: always
+          no_output_timeout: 60m
           command: |
             hubploy build ocean --check-registry --push
 
@@ -197,7 +199,7 @@ jobs:
       #       hubploy build icesat2 --check-registry --push
       #     environment:
       #       PYTHONIOENCODING: utf-8
-      
+
       # - run:
       #     name: Build esip.pangeo.io image if needed
       #     when: always
@@ -258,7 +260,7 @@ jobs:
       #     when: always
       #     command: |
       #       hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH}
-      
+
       # - run:
       #     name: Deploy esip.pangeo.io
       #     when: always
