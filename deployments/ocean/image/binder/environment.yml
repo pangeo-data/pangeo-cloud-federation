@@ -7,7 +7,7 @@ dependencies:
   - compliance-checker
   - ctd
   - geolinks
-  - gfortran_linux-64
+  - fortran-compiler
   - gridgeo
   - ioos-tools
   - nc-time-axis
