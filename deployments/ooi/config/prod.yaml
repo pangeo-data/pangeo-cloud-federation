@@ -4,6 +4,13 @@ pangeo:
       userPlaceholder:
         enabled: true
         replicas: 4
+        resources:
+          requests:
+            cpu: 1.6
+            memory: 5G
+          limits:
+            cpu: 3.2
+            memory: 10G
     proxy:
       https:
         enabled: true

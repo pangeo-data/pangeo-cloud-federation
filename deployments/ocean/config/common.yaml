@@ -39,10 +39,9 @@ pangeo:
         profile_list: |
           c.KubeSpawner.profile_list = [
             {
-                'display_name': 'standard ** Research Computing Students **',
+                'display_name': 'Small (1 GB - 4 GB)',
                 'default': 'True',
                 'kubespawner_override': {
-                    'image': 'us.gcr.io/pangeo-181919/ocean-pangeo-io-notebook:634578d',
                     'cpu_limit': 2,
                     'cpu_guarantee': 0.3,
                     'mem_limit': '4G',
@@ -50,7 +49,7 @@ pangeo:
                 }
             },
             {
-                'display_name': '** CMIP6 Hackathon Participants ** (up to 2 cores, 8GB)',
+                'display_name': 'Medium (4 GB - 8G GB)',
                 'kubespawner_override': {
                     'cpu_limit': 2,
                     'cpu_guarantee': 1,
@@ -59,12 +58,12 @@ pangeo:
                 }
             },
             {
-                'display_name': 'large (up to 4 cores, 10GB)',
+                'display_name': 'Large (12 GB - 16 GB)',
                 'kubespawner_override': {
                     'cpu_limit': 4,
                     'cpu_guarantee': 1,
-                    'mem_limit': '10G',
-                    'mem_guarantee': '4G',
+                    'mem_limit': '16G',
+                    'mem_guarantee': '12G',
                 }
             },
           ]
