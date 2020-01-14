@@ -19,6 +19,7 @@ dependencies:
   - utide
   - xlrd
   - nbdime
+  - xlayers
   - pip 
   - pip:
     - git+https://github.com/xgcm/xgcm.git@master
@@ -27,4 +28,3 @@ dependencies:
     - git+https://github.com/intake/gdrivefs.git@master
     - git+https://github.com/NCAR/intake-esm.git
     - git+https://github.com/MITgcm/xmitgcm.git
-    - git+https://github.com/cspencerjones/xlayers.git
