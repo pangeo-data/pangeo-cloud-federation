@@ -12,6 +12,7 @@ dependencies:
   - nc-time-axis
   - pocean-core
   - podaacpy
+  - pyarrow
   - pyoos
   - retrying
   - unyt
