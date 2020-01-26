@@ -2,23 +2,25 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
-  - cc-plugin-ncei
-  - ciso
+  - cc-plugin-ncei==2.0.2
+  - ciso==0.1.0
   - compliance-checker
-  - ctd
-  - geolinks
-  - gridgeo
-  - ioos-tools
-  - nc-time-axis
-  - pocean-core
-  - podaacpy
-  - pyarrow
-  - pyoos
-  - retrying
-  - unyt
-  - utide
-  - xlrd
-  - nbdime
+  - ctd==1.0.0
+  - geolinks==0.2.0
+  - gridgeo==1.5.2
+  - ioos-tools==1.4.0
+  - nc-time-axis==1.2.0
+  - pocean-core==1.9.3
+  - podaacpy==2.4.0
+  - pyarrow==0.15.1
+  - pyoos==0.8.4
+  - python=3.7
+  - retrying==1.3.3
+  - unyt==2.6.0
+  - utide==0.2.5
+  - xlrd==1.2.0
+  - nbdime==1.1.0
+  - pip
   - pip:
     - git+https://github.com/xgcm/xgcm.git@master
     - git+https://github.com/intake/filesystem_spec.git@master
