@@ -57,24 +57,26 @@ pangeo:
               - key: "k8s.dask.org_dedicated"
                 operator: "Equal"
                 value: "worker"
-      extraConfig: |
-        from dask_gateway_server.options import Options, Integer, Float, String
+      extraConfig:
+        # Use the mapping form, to support merging multiple values.yaml
+        optionHandler: |
+          from dask_gateway_server.options import Options, Integer, Float, String
 
-        def option_handler(options):
-            if ":" not in options.image:
-                raise ValueError("When specifying an image you must also provide a tag")
-            return {
-                "worker_cores_limit": options.worker_cores,
-                "worker_cores": min(options.worker_cores / 2, 1),
-                "worker_memory": "%fG" % options.worker_memory,
-                "image": options.image,
-            }
-        c.DaskGateway.cluster_manager_options = Options(
-            Integer("worker_cores", 2, min=1, max=4, label="Worker Cores"),
-            Float("worker_memory", 4, min=1, max=8, label="Worker Memory (GiB)"),
-            String("image", default="pangeo/base-notebook:2019.12.24", label="Image"),
-            handler=option_handler,
-        )
+          def option_handler(options):
+              if ":" not in options.image:
+                  raise ValueError("When specifying an image you must also provide a tag")
+              return {
+                  "worker_cores_limit": options.worker_cores,
+                  "worker_cores": min(options.worker_cores / 2, 1),
+                  "worker_memory": "%fG" % options.worker_memory,
+                  "image": options.image,
+              }
+          c.DaskGateway.cluster_manager_options = Options(
+              Integer("worker_cores", 2, min=1, max=4, label="Worker Cores"),
+              Float("worker_memory", 4, min=1, max=8, label="Worker Memory (GiB)"),
+              String("image", default="pangeo/base-notebook:2019.12.24", label="Image"),
+              handler=option_handler,
+          )
 
         c.UserLimits.max_cores = 100
         c.UesrLimits.max_memory = "400 GB"
