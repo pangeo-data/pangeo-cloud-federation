@@ -78,8 +78,10 @@ pangeo:
               handler=option_handler,
           )
 
-        c.UserLimits.max_cores = 100
-        c.UesrLimits.max_memory = "400 GB"
+        userLimts:
+          c.UserLimits.max_cores = 100
+          c.UserLimits.max_memory = "400 GB"
+          c.UserLimits.max_clusters = 1
 
 homeDirectories:
   nfs:
