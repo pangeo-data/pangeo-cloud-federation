@@ -50,4 +50,5 @@ gateway:
   auth:
     type: jupyterhub
   cluster:
-    image: '{JUPYTER_IMAGE_SPEC}'
+    options:
+      image: '{JUPYTER_IMAGE_SPEC}'
