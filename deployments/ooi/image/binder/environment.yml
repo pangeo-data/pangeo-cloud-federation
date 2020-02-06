@@ -92,8 +92,9 @@ dependencies:
   - pip
   - pip:
     - azure
-    - git+https://github.com/ooicloud/ooi-opendata.git@bad61bf649ae5b189ff14fae06b567b25a8b2e47
     - pycamhd
+    - git+https://github.com/ooicloud/ooi-opendata.git@bad61bf649ae5b189ff14fae06b567b25a8b2e47
+    - git+https://github.com/GenericMappingTools/pygmt
     #- intake_geopandas
     #- git+https://github.com/NCAR/intake-esm.git@master
     #- git+https://github.com/hhuangwx/cmaps.git#egg=cmaps
