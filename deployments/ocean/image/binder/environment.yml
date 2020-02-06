@@ -21,6 +21,7 @@ dependencies:
   - xlrd==1.2.0
   - xgcm==0.3.0
   - nbdime==1.1.0
+  - xlayers==0.2
   - pip
   - pip:
     - git+https://github.com/intake/filesystem_spec.git@master
