@@ -1,5 +1,6 @@
 apt-utils
 nano
+vim
 man-db
 tree
 jq

@@ -1,5 +1,8 @@
 # Note that there must be a tag
-FROM pangeo/pangeo-notebook-onbuild:latest
+FROM pangeo/base-notebook-onbuild:2019.12.21
+
+# update conda
+RUN conda update -n root conda
 
 # Add NB_USER to sudo
 #USER root

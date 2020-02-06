@@ -2,10 +2,98 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
+  # ooi
   - av
+  - gmt=6.0.0
+  # core scipy packages
+  - numpy
+  - scipy
+  - matplotlib
+  - pandas
+  - xarray
+  - sparse
+  - sympy
+  # data science stuff
+  - scikit-image
+  #- scikit-learn
+  #- dask-ml
+  #- tensorflow
+  #- keras
+  #- pytorch-cpu
+  # pyviz
+  - holoviews
+  - panel
+  - jupyter-panel-proxy
+  - geoviews
+  - hvplot
+  - geoviews
+  - datashader
+  - seaborn
+  - altair
+  - descartes
+  - folium
+  - vega
+  - vega_datasets
+  - palettable
+  - cmocean
+  # geospatial
+  - iris
+  - cartopy
+  #- basemap
+  - geopandas
+  - rasterio
+  - netcdf4
   - erddapy
+  - pydap
+  - h5py
+  - h5netcdf
+  - regionmask
+  - rio-cogeo
+  # geoscience-related
+  - climlab
+  - metpy
+  - satpy
+  - gsw
+  - eofs
+  - esmpy
+  - xesmf
+  - windspharm
+  # intake-related
+  - intake
+  - intake-xarray
+  - intake-esm
+  - fsspec
+  - intake-stac
+  - sat-stac
+  - sat-search
+  # zarr-related
+  - zarr
+  - numcodecs
+  - python-blosc
+  - lz4
+  - gcsfs>=0.5.2
+  - s3fs
+  - tiledb-py
+  # jupyter-related
+  - ipyleaflet
+  - watermark
+  # xarray-related
+  - xgcm
+  - xrft
+  - xhistogram
+  - xlrd
+  - xrviz
+  - climpred
+  - pytide
+  - pyinterp
+  # misc
+  - python-wget
+  - prefect
   - pip
   - pip:
     - azure
     - git+https://github.com/ooicloud/ooi-opendata.git@bad61bf649ae5b189ff14fae06b567b25a8b2e47
     - pycamhd
+    #- intake_geopandas
+    #- git+https://github.com/NCAR/intake-esm.git@master
+    #- git+https://github.com/hhuangwx/cmaps.git#egg=cmaps
