@@ -4,8 +4,8 @@ channels:
 dependencies:
   # ooi
   - av
+  - pycamhd
   - gmt=6.0.0
-  - python=3.8
   # core scipy packages
   - numpy
   - scipy
@@ -93,7 +93,6 @@ dependencies:
   - pip
   - pip:
     - azure
-    - pycamhd
     - git+https://github.com/ooicloud/ooi-opendata.git@bad61bf649ae5b189ff14fae06b567b25a8b2e47
     - git+https://github.com/GenericMappingTools/pygmt
     #- intake_geopandas
