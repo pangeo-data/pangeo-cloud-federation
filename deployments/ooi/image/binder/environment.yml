@@ -5,6 +5,7 @@ dependencies:
   # ooi
   - av
   - gmt=6.0.0
+  - python=3.8
   # core scipy packages
   - numpy
   - scipy
