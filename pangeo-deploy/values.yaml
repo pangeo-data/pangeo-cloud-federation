@@ -51,12 +51,15 @@ pangeo:
               - key: "k8s.dask.org_dedicated"
                 operator: "Equal"
                 value: "worker"
-        scheduler:
-          extraPodConfig:
-            tolerations:
-              - key: "k8s.dask.org_dedicated"
-                operator: "Equal"
-                value: "worker"
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                      - key: "k8s.dask.org_dedicated"
+                        operator: "Equal"
+                        value: "worker"
+
       extraConfig:
         # Use the mapping form, to support merging multiple values.yaml
         optionHandler: |
@@ -91,4 +94,3 @@ pangeo:
 homeDirectories:
   nfs:
     enabled: false
-  
