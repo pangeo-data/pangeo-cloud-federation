@@ -16,8 +16,8 @@ dependencies:
   - sympy
   # data science stuff
   - scikit-image
-  #- scikit-learn
-  #- dask-ml
+  - scikit-learn
+  - dask-ml
   #- tensorflow
   #- keras
   #- pytorch-cpu
@@ -86,7 +86,7 @@ dependencies:
   - xrviz
   - climpred
   - pytide
-  - pyinterp
+  #- pyinterp # *** This apparently causes the GMT segmentation fault ***
   # misc
   - python-wget
   - prefect
@@ -95,6 +95,6 @@ dependencies:
     - azure
     - git+https://github.com/ooicloud/ooi-opendata.git@bad61bf649ae5b189ff14fae06b567b25a8b2e47
     - git+https://github.com/GenericMappingTools/pygmt
-    #- intake_geopandas
-    #- git+https://github.com/NCAR/intake-esm.git@master
-    #- git+https://github.com/hhuangwx/cmaps.git#egg=cmaps
+    - intake_geopandas
+    - git+https://github.com/NCAR/intake-esm.git@master
+    - git+https://github.com/hhuangwx/cmaps.git#egg=cmaps
