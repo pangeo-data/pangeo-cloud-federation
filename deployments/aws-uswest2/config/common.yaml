@@ -131,7 +131,7 @@ pangeo:
                 'kubespawner_override': {
                     'mem_limit': '60G',
                     'mem_guarantee': '25G',
-                    'image': 'scottyhq:jupyter-cupy:latest',
+                    'image': 'pangeo/pangeo-ml:latest',
                     'environment': {'NVIDIA_DRIVER_CAPABILITIES': 'compute,utility'},
                     'tolerations': [{'key': 'nvidia.com/gpu','operator': 'Equal','value': 'present','effect': 'NoSchedule'}],
                     'extra_resource_limits': {"nvidia.com/gpu": "1"}
