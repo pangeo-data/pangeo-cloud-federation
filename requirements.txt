@@ -1,4 +1,4 @@
-git+https://github.com/yuvipanda/hubploy
+git+https://github.com/yuvipanda/hubploy@1767689c5277400a473b9f239a851f75051d8240
 jupyter-repo2docker>=0.10.0
 pygithub
 awscli
