@@ -91,6 +91,12 @@ pangeo:
                 'default': 'true',
             },
             {
+                'display_name': 'IceSat-2 Hackweek 2020 (4 vCPU, 16 Gb RAM)',
+                'kubespawner_override': {
+                    'image': 'uwhackweeks/icesat2:latest',
+                }
+            },
+            {
                 'display_name': 'GeoHackweek 2019 (4 vCPU, 16 Gb RAM)',
                 'kubespawner_override': {
                     'image': 'scottyhq/geohackweek2019:latest',
