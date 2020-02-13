@@ -226,10 +226,9 @@ jobs:
           name: Install helm
           when: always
           command: |
-            curl https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz | \
+            curl https://get.helm.sh/helm-v3.0.3-linux-amd64.tar.gz | \
               tar -xzf -
             sudo mv linux-amd64/helm /usr/local/bin
-            helm init --client-only
             helm repo add pangeo https://pangeo-data.github.io/helm-chart/
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo add dask-gateway https://dask.org/dask-gateway-helm-repo/
@@ -281,7 +280,7 @@ jobs:
             BODY="Deployment to ooi-${CIRCLE_BRANCH} failed on `date -u +'%D at %T UTC.'`"
             errormsg() { ./.circleci/send-email "${EMAIL}" "${SUBJECT}" "${BODY}"; }
             trap errormsg ERR
-            hubploy deploy ooi pangeo-deploy ${CIRCLE_BRANCH} --timeout 1200
+            hubploy deploy ooi pangeo-deploy ${CIRCLE_BRANCH} --timeout 1200s
 
 workflows:
   version: 2
