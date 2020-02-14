@@ -107,6 +107,7 @@ pangeo:
           subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
     auth:
       type: github
+      github:
         orgWhitelist:
           - ooicloud
       scopes:
