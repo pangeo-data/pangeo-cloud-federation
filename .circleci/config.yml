@@ -75,14 +75,14 @@ jobs:
       #     environment:
       #       PYTHONIOENCODING: utf-8
 
-       - run:
-           name: Test building aws-uswest2.pangeo.io image if needed
-           when: always
-           command: |
-             hubploy build icesat2 --commit-range ${COMMIT_RANGE}
-           environment:
-             PYTHONIOENCODING: utf-8
-      
+      - run:
+          name: Test building aws-uswest2.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build icesat2 --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
+
       # This is currently disabled becauses it always runs and because the Azure
       # container registry is not open to annonymous read access. This can be changed
       # but it will take some changes to our Azure account to allow this feature in
@@ -186,13 +186,13 @@ jobs:
       #     environment:
       #       PYTHONIOENCODING: utf-8
 
-       - run:
-           name: Build aws-uswest2.pangeo.io image if needed
-           when: always
-           command: |
-             hubploy build icesat2 --check-registry --push
-           environment:
-             PYTHONIOENCODING: utf-8
+      - run:
+          name: Build aws-uswest2.pangeo.io image if needed
+          when: always
+          command: |
+            hubploy build icesat2 --check-registry --push
+          environment:
+            PYTHONIOENCODING: utf-8
 
       - run:
           name: Build ooi.pangeo.io image if needed
@@ -240,12 +240,12 @@ jobs:
       #     command: |
       #       hubploy deploy nasa pangeo-deploy ${CIRCLE_BRANCH}
 
-       - run:
-           name: Deploy aws-uswest2.pangeo.io
-           when: always
-           command: |
-             hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH}
-      
+      - run:
+          name: Deploy aws-uswest2.pangeo.io
+          when: always
+          command: |
+            hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH}
+
       - run:
           name: Deploy ooi.pangeo.io
           when: always
