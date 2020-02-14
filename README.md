@@ -1,27 +1,21 @@
 This repository manages the continuous deployment of the [Pangeo](http://pangeo.io/) Cloud Federation
 JupyterHub Kubernetes clusters using [hubploy](https://github.com/yuvipanda/hubploy).
 It contains scripts to automatically redeploy when the image definition or
-chart parameters are changed.
+chart parameters are changed. Changing the image will typically take ~20 minutes, and changing a Helm config variable ~1 minute.
 
-Changing the image will typically take ~20 minutes, and changing a Helm config variable ~1 minute.
+Build Status | Staging | Prod
+-- | -- | --
+ | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging) | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod)
 
 # Clusters
 
-Name    | Cloud: region      |  Staging URL                      | Production URL
---      |-                   |-                                  |-
-dev     | GCP: us-central1-b | https://staging.hub.pangeo.io     | https://hub.pangeo.io
-ocean   | GCP: us-central1-b | https://staging.ocean.pangeo.io   | https://ocean.pangeo.io
-hydro   | GCP: us-central1-b | https://staging.hydro.pangeo.io   | https://hydro.pangeo.io
-nasa    | AWS: us-east-1     | https://staging.nasa.pangeo.io    | https://nasa.pangeo.io
-esip    | AWS: us-west-2     | https://staging.esip.pangeo.io    | https://esip.pangeo.io
-icesat2 | AWS: us-west-2     | https://staging.icesat2.pangeo.io | https://icesat2.pangeo.io
-
-# Build Status
-
-Branch | Build
--- |-
-staging | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging)
-prod | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod)
+Name    | Cloud: region      |  Staging URL                             | Production URL
+--      |-                   |-                                         |-
+dev     | GCP: us-central1-b | https://staging.hub.pangeo.io            | https://hub.pangeo.io
+ocean   | GCP: us-central1-b | https://staging.ocean.pangeo.io          | https://ocean.pangeo.io
+hydro   | GCP: us-central1-b | https://staging.hydro.pangeo.io          | https://hydro.pangeo.io
+aws1    | AWS: us-east-1     | https://staging.aws-useast1.pangeo.io    | https://useast1.pangeo.io
+aws2    | AWS: us-west-2     | https://staging.aws-uswest2.pangeo.io    | https://aws-uswest2.pangeo.io
 
 # Setup
 
@@ -62,8 +56,6 @@ Once you have a cluster created, you can begin customizing the configuration.
 
 # Common Issues
 
-* `Error: could not find a ready tiller pod`
-  * Some times it takes a while to download the new tiller image, wait and try again.
 * `Error: UPGRADE FAILED: "example.pangeo.io-staging" has no deployed releases`
   * If your first deploy of an application fails. Run `helm delete dev-staging --purge` anywhere you have run `gcloud container clusters get-credentials`
 
