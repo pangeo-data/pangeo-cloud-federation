@@ -87,37 +87,60 @@ pangeo:
         profileList: |
           c.KubeSpawner.profile_list = [
             {
-                'display_name': 'Default environment (4 vCPU, 16 Gb)',
+                'display_name': 'Default environment (4 vCPU, 16 Gb RAM)',
                 'default': 'true',
             },
             {
-                'display_name': 'GeoHackweek 2019 (4 vCPU, 16 Gb)',
+                'display_name': 'IceSat-2 Hackweek 2020 (4 vCPU, 16 Gb RAM)',
+                'kubespawner_override': {
+                    'image': 'uwhackweeks/icesat2:latest',
+                }
+            },
+            {
+                'display_name': 'GeoHackweek 2019 (4 vCPU, 16 Gb RAM)',
                 'kubespawner_override': {
                     'image': 'scottyhq/geohackweek2019:latest',
                 }
             },
             {
-                'display_name': 'IceSat-2 Hackweek 2019 (4 vCPU, 16 Gb)',
+                'display_name': 'IceSat-2 Hackweek 2019 (4 vCPU, 16 Gb RAM)',
                 'kubespawner_override': {
                     'image': 'uwhackweeks/icesat2:2019',
                 }
             },
             {
-                'display_name': 'Latest Pangeo-notebook Image (4 vCPU, 16 Gb)',
+                'display_name': 'Latest Pangeo-notebook Image (4 vCPU, 16 Gb RAM)',
                 'kubespawner_override': {
                     'image': 'pangeo/pangeo-notebook:latest',
                 }
             },
             {
-                'display_name': 'Latest Pangeo-base Image (4 vCPU, 16 Gb)',
+                'display_name': 'Latest Pangeo-base Image (4 vCPU, 16 Gb RAM)',
                 'kubespawner_override': {
                     'image': 'pangeo/base-notebook:latest',
                 }
             },
             {
-                'display_name': 'AmesStereoPipeline *experimental* (4 vCPU, 16 Gb)',
+                'display_name': 'AmesStereoPipeline *experimental* (4 vCPU, 16 Gb RAM)',
                 'kubespawner_override': {
                     'image': 'pangeo/pangeo-notebook:latest',
+                }
+            },
+            {
+                'display_name': 'ESIP Environment (4 vCPU, 16 Gb RAM)',
+                'kubespawner_override': {
+                    'image': 'pangeo/pangeo-esip:latest',
+                }
+            },
+            {
+                'display_name': 'Pangeo ML Env (experimental)',
+                'kubespawner_override': {
+                    'mem_limit': '60G',
+                    'mem_guarantee': '25G',
+                    'image': 'pangeo/pangeo-ml:latest',
+                    'environment': {'NVIDIA_DRIVER_CAPABILITIES': 'compute,utility'},
+                    'tolerations': [{'key': 'nvidia.com/gpu','operator': 'Equal','value': 'present','effect': 'NoSchedule'}],
+                    'extra_resource_limits': {"nvidia.com/gpu": "1"}
                 }
             },
             ]
@@ -133,9 +156,9 @@ pangeo:
         customPodHook: |
           c.JupyterHub.template_paths = ['/srv/jupyterhub/style/templates']
           c.JupyterHub.template_vars = {
-            'pangeo_hub_title': 'icesat2.pangeo.io',
-            'pangeo_hub_subtitle': 'a community hub for icesat2 hackweek',
-            'pangeo_welcome': """Welcome to icesat2.pangeo.io, the computational environment for <a href="https://icesat-2hackweek.github.io">Icesat-2 Hackweek</a>! This hub lives in AWS region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. Access is currently limited to the <a href="https://github.com/ICESAT-2HackWeek">ICESAT-2HackWeek GitHub Organization</a>. The hub's configuration is stored in this <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">github repository</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation/issues">github issue tracker</a>."""
+            'pangeo_hub_title': 'aws-uswest.pangeo.io',
+            'pangeo_hub_subtitle': 'a community hub for the pangeo project',
+            'pangeo_welcome': """Welcome to aws-uswest2.pangeo.io, the computational environment for <a href="https://icesat-2hackweek.github.io">Icesat-2 Hackweek</a>! This hub lives in AWS region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. <strong>This is a prototype and should be treated accordingly. We make no promises that the hub will remain active. Do not store passwords or sensitive data in your home directory</strong> Access is currently limited to the <a href="https://github.com/pangeo-data">Pangeo GitHub Organization members</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation/issues">github issue tracker</a>."""
           }
       extraVolumes:
         - name: custom-assets
