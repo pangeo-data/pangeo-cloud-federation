@@ -3,9 +3,9 @@ JupyterHub Kubernetes clusters using [hubploy](https://github.com/yuvipanda/hubp
 It contains scripts to automatically redeploy when the image definition or
 chart parameters are changed. Changing the image will typically take ~20 minutes, and changing a Helm config variable ~1 minute.
 
-Build Status | Staging | Prod
--- | -- | --
- | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging) | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod)
+| | Staging | Prod
+| -- | -- | --
+| Build Status  | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging) | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod)
 
 # Clusters
 
@@ -14,16 +14,14 @@ Name    | Cloud: region      |  Staging URL                             | Produc
 dev     | GCP: us-central1-b | https://staging.hub.pangeo.io            | https://hub.pangeo.io
 ocean   | GCP: us-central1-b | https://staging.ocean.pangeo.io          | https://ocean.pangeo.io
 hydro   | GCP: us-central1-b | https://staging.hydro.pangeo.io          | https://hydro.pangeo.io
-aws1    | AWS: us-east-1     | https://staging.aws-useast1.pangeo.io    | https://useast1.pangeo.io
+aws1    | AWS: us-east-1     | https://staging.aws-useast1.pangeo.io    | https://aws-useast1.pangeo.io
 aws2    | AWS: us-west-2     | https://staging.aws-uswest2.pangeo.io    | https://aws-uswest2.pangeo.io
 
 # Setup
 
 ## Setup a Kubernetes Cluster
 
-The first step to using this automation is to create a Kubernetes cluster and
-install the server-side component Tiller on it (used for deploying applications
-with the Helm tool). Scripts to do so using Google Cloud Platform can be found [here](https://github.com/pangeo-data/pangeo/tree/master/gce/setup-guide). For other cloud providers (e.g. AWS, Azure), follow the [Zero-to-JupyterHub](https://zero-to-jupyterhub.readthedocs.io/en/latest/create-k8s-cluster.html) guide.
+The first step to using this automation is to create a Kubernetes cluster. Scripts to do so using Google Cloud Platform can be found [here](https://github.com/pangeo-data/pangeo/tree/master/gce/setup-guide). For other cloud providers (e.g. AWS, Azure), follow the [Zero-to-JupyterHub](https://zero-to-jupyterhub.readthedocs.io/en/latest/create-k8s-cluster.html) guide.
 
 ## Install git-crypt
 
