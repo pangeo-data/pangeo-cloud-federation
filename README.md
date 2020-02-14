@@ -1,43 +1,32 @@
 This repository manages the continuous deployment of the [Pangeo](http://pangeo.io/) Cloud Federation
 JupyterHub Kubernetes clusters using [hubploy](https://github.com/yuvipanda/hubploy).
 It contains scripts to automatically redeploy when the image definition or
-chart parameters are changed.
-
-Changing the image will typically take ~20 minutes, and changing a Helm config variable ~1 minute.
+chart parameters are changed. Changing the image will typically take ~20 minutes, and changing a Helm config variable ~1 minute.
 
 # Clusters
 
-Name    | Cloud: region      |  Staging URL                      | Production URL
---      |-                   |-                                  |-
-dev     | GCP: us-central1-b | https://staging.hub.pangeo.io     | https://hub.pangeo.io
-ocean   | GCP: us-central1-b | https://staging.ocean.pangeo.io   | https://ocean.pangeo.io
-hydro   | GCP: us-central1-b | https://staging.hydro.pangeo.io   | https://hydro.pangeo.io
-nasa    | AWS: us-east-1     | https://staging.nasa.pangeo.io    | https://nasa.pangeo.io
-esip    | AWS: us-west-2     | https://staging.esip.pangeo.io    | https://esip.pangeo.io
-icesat2 | AWS: us-west-2     | https://staging.icesat2.pangeo.io | https://icesat2.pangeo.io
+Name    | Cloud: region      |  Staging [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging)                             | Production [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod)
+--      |-                   |-                                         |-
+dev     | GCP: us-central1-b | https://staging.hub.pangeo.io            | https://hub.pangeo.io
+ocean   | GCP: us-central1-b | https://staging.ocean.pangeo.io          | https://ocean.pangeo.io
+hydro   | GCP: us-central1-b | https://staging.hydro.pangeo.io          | https://hydro.pangeo.io
+aws1    | AWS: us-east-1     | https://staging.aws-useast1.pangeo.io    | https://aws-useast1.pangeo.io
+aws2    | AWS: us-west-2     | https://staging.aws-uswest2.pangeo.io    | https://aws-uswest2.pangeo.io
+ooi     | Azure: eastus      | https://staging.ooi.pangeo.io            | https://ooi.pangeo.io
 
-# Build Status
+## Instructions to add a new hub
 
-Branch | Build
--- |-
-staging | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging)
-prod | [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod)
+#### Setup a Kubernetes Cluster
 
-# Setup
+The first step to using this automation is to create a Kubernetes cluster. Scripts to do so using Google Cloud Platform can be found [here](https://github.com/pangeo-data/pangeo/tree/master/gce/setup-guide). For other cloud providers (e.g. AWS, Azure), follow the [Zero-to-JupyterHub](https://zero-to-jupyterhub.readthedocs.io/en/latest/create-k8s-cluster.html) guide.
 
-## Setup a Kubernetes Cluster
-
-The first step to using this automation is to create a Kubernetes cluster and
-install the server-side component Tiller on it (used for deploying applications
-with the Helm tool). Scripts to do so using Google Cloud Platform can be found [here](https://github.com/pangeo-data/pangeo/tree/master/gce/setup-guide). For other cloud providers (e.g. AWS, Azure), follow the [Zero-to-JupyterHub](https://zero-to-jupyterhub.readthedocs.io/en/latest/create-k8s-cluster.html) guide.
-
-## Install git-crypt
+#### Install git-crypt
 
 You will need to install
 [`git-crypt`](https://www.agwa.name/projects/git-crypt/). `git-crypt` is used
 to encrypt the secrets that are used for deploying your cluster. Please read this [HOW GIT-CRYPT WORKS](https://www.agwa.name/projects/git-crypt/) if new to it.
 
-# Configure this repository
+#### Configure this repository
 
 Once you have a cluster created, you can begin customizing the configuration.
 
@@ -56,18 +45,16 @@ Once you have a cluster created, you can begin customizing the configuration.
   * Edit the files in the binder directory to change the contents of the user Docker image. The specification for these files comes from [repo2docker](https://repo2docker.readthedocs.io/en/latest/).
   * Add or modify the README.md and Jupyter notebooks. These will be in each user's home directory.
 
-## Push your setup to GitHub and let HubPloy do the rest
+#### Push your setup to GitHub and let HubPloy do the rest
 
 * Make a commit to and push to your fork. Issue a Pull Request to this repo's `staging` branch.  
 
-# Common Issues
+### Troubleshooting
 
-* `Error: could not find a ready tiller pod`
-  * Some times it takes a while to download the new tiller image, wait and try again.
 * `Error: UPGRADE FAILED: "example.pangeo.io-staging" has no deployed releases`
   * If your first deploy of an application fails. Run `helm delete dev-staging --purge` anywhere you have run `gcloud container clusters get-credentials`
 
-# Related Projects
+### Related Projects
 
 - [Pangeo](http://pangeo.io/): main website for the Pangeo project.
 - [Pangeo Helm Chart](https://github.com/pangeo-data/helm-chart): A simple helm chart that wraps the jupyterhub helm chart to support horizontal compute scaling with Dask.
