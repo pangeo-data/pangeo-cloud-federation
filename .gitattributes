@@ -1,7 +1,6 @@
 deployments/ocean/secrets/** filter=git-crypt diff=git-crypt
 deployments/dev/secrets/** filter=git-crypt diff=git-crypt
-deployments/aws-uswest2/secrets/** filter=git-crypt diff=git-crypt
+deployments/icesat2/secrets/** filter=git-crypt diff=git-crypt
 deployments/hydro/secrets/** filter=git-crypt diff=git-crypt
 deployments/nasa/secrets/** filter=git-crypt diff=git-crypt
-deployments/esip/secrets/** filter=git-crypt diff=git-crypt
 deployments/ooi/secrets/** filter=git-crypt-ooi diff=git-crypt-ooi

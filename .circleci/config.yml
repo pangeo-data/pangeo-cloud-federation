@@ -79,18 +79,10 @@ jobs:
            name: Test building aws-uswest2.pangeo.io image if needed
            when: always
            command: |
-             hubploy build aws-uswest2 --commit-range ${COMMIT_RANGE}
+             hubploy build icesat2 --commit-range ${COMMIT_RANGE}
            environment:
              PYTHONIOENCODING: utf-8
       
-      # - run:
-      #     name: Test building esip.pangeo.io image if needed
-      #     when: always
-      #     command: |
-      #       hubploy build esip --commit-range ${COMMIT_RANGE}
-      #     environment:
-      #       PYTHONIOENCODING: utf-8
-
       # This is currently disabled becauses it always runs and because the Azure
       # container registry is not open to annonymous read access. This can be changed
       # but it will take some changes to our Azure account to allow this feature in
@@ -134,9 +126,6 @@ jobs:
             pip install --upgrade -r requirements.txt
 
             curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
-            # Can remove this: https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
-            curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator
-            chmod +x venv/bin/aws-iam-authenticator
             # https://github.com/awslabs/amazon-ecr-credential-helper/issues/101
             # Can simplify to sudo apt install amazon-ecr-credential-helper if running Ubuntu 19.04 and newer
             export GOPATH=$PWD/venv
@@ -201,17 +190,9 @@ jobs:
            name: Build aws-uswest2.pangeo.io image if needed
            when: always
            command: |
-             hubploy build aws-uswest2 --check-registry --push
+             hubploy build icesat2 --check-registry --push
            environment:
              PYTHONIOENCODING: utf-8
-      
-      # - run:
-      #     name: Build esip.pangeo.io image if needed
-      #     when: always
-      #     command: |
-      #       hubploy build esip --check-registry --push
-      #     environment:
-      #       PYTHONIOENCODING: utf-8
 
       - run:
           name: Build ooi.pangeo.io image if needed
@@ -263,14 +244,8 @@ jobs:
            name: Deploy aws-uswest2.pangeo.io
            when: always
            command: |
-             hubploy deploy aws-uswest2 pangeo-deploy ${CIRCLE_BRANCH}
+             hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH}
       
-      # - run:
-      #     name: Deploy esip.pangeo.io
-      #     when: always
-      #     command: |
-      #       hubploy deploy esip pangeo-deploy ${CIRCLE_BRANCH}
-
       - run:
           name: Deploy ooi.pangeo.io
           when: always
