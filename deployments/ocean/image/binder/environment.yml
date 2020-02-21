@@ -30,3 +30,4 @@ dependencies:
     - git+https://github.com/NCAR/intake-esm.git
     - git+https://github.com/MITgcm/xmitgcm.git
     - git+https://github.com/xgcm/fastjmd95.git
+    - cmip6_preprocessing
