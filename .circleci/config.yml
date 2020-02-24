@@ -243,10 +243,11 @@ jobs:
       # sleep 60 for now, but better to poll for readiness https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
       - run:
           name: Add Runner IP to EKS Kubernetes API Whitelist
+          when: always
           command: |
             RUNNERIP=`curl --silent https://checkip.amazonaws.com`
             aws --version
-            aws eks update-cluster-config --name pangeo --resources-vpc-config publicAccessCidrs=$RUNNERIP/32 > /dev/null
+            aws eks update-cluster-config --name pangeo --resources-vpc-config publicAccessCidrs=${RUNNERIP}/32 > /dev/null
             sleep 60
       - run:
           name: Deploy aws-uswest2.pangeo.io
@@ -257,7 +258,7 @@ jobs:
           name: Revert to Original EKS IP Whitelist
           when: always
           command: |
-            aws eks update-cluster-config --name pangeo --resources-vpc-config publicAccessCidrs="${AWS_IP_WHITELIST }" > /dev/null
+            aws eks update-cluster-config --name pangeo --resources-vpc-config publicAccessCidrs=${AWS_IP_WHITELIST} > /dev/null
 
       - run:
           name: Deploy ooi.pangeo.io
