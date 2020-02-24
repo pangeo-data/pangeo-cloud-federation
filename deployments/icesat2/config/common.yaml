@@ -88,10 +88,10 @@ pangeo:
           c.KubeSpawner.profile_list = [
             {
                 'display_name': 'Default environment (4 vCPU, 16 Gb RAM)',
-                'default': 'true',
             },
             {
                 'display_name': 'IceSat-2 Hackweek 2020 (4 vCPU, 16 Gb RAM)',
+                'default': 'true',
                 'kubespawner_override': {
                     'image': 'uwhackweeks/icesat2:latest',
                 }
@@ -109,6 +109,12 @@ pangeo:
                 }
             },
             {
+                'display_name': 'Latest ESIP Image (4 vCPU, 16 Gb RAM)',
+                'kubespawner_override': {
+                    'image': 'pangeo/pangeo-esip:latest',
+                }
+            },
+            {
                 'display_name': 'Latest Pangeo-notebook Image (4 vCPU, 16 Gb RAM)',
                 'kubespawner_override': {
                     'image': 'pangeo/pangeo-notebook:latest',
@@ -121,19 +127,13 @@ pangeo:
                 }
             },
             {
-                'display_name': 'AmesStereoPipeline *experimental* (4 vCPU, 16 Gb RAM)',
+                'display_name': 'AmesStereoPipeline *experimental*',
                 'kubespawner_override': {
                     'image': 'pangeo/pangeo-notebook:latest',
                 }
             },
             {
-                'display_name': 'ESIP Environment (4 vCPU, 16 Gb RAM)',
-                'kubespawner_override': {
-                    'image': 'pangeo/pangeo-esip:latest',
-                }
-            },
-            {
-                'display_name': 'Pangeo ML Env (experimental)',
+                'display_name': 'Pangeo ML Env *experimental*',
                 'kubespawner_override': {
                     'mem_limit': '60G',
                     'mem_guarantee': '25G',
@@ -143,6 +143,23 @@ pangeo:
                     'extra_resource_limits': {"nvidia.com/gpu": "1"}
                 }
             },
+            {
+                'display_name': 'PangeoDev Pangeo-Image *experimental*',
+                'kubespawner_override': {
+                    'image': 'pangeodev/pangeo-image:latest',
+                }
+            },
+            {
+                'display_name': 'PangeoDev ML-Image *experimental*',
+                'kubespawner_override': {
+                    'mem_limit': '60G',
+                    'mem_guarantee': '25G',
+                    'image': 'pangeodev/ml-image:latest',
+                    'environment': {'NVIDIA_DRIVER_CAPABILITIES': 'compute,utility'},
+                    'tolerations': [{'key': 'nvidia.com/gpu','operator': 'Equal','value': 'present','effect': 'NoSchedule'}],
+                    'extra_resource_limits': {"nvidia.com/gpu": "1"}
+                }
+            }
             ]
         cloneRepo: |
           # Hack solution for branding
