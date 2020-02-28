@@ -22,6 +22,7 @@ dependencies:
   - xgcm==0.3.0
   - nbdime==1.1.0
   - xlayers==0.2
+  - cmip6_preprocessing==0.1.1
   - pip
   - pip:
     - git+https://github.com/intake/filesystem_spec.git@master
@@ -30,4 +31,3 @@ dependencies:
     - git+https://github.com/NCAR/intake-esm.git
     - git+https://github.com/MITgcm/xmitgcm.git
     - git+https://github.com/xgcm/fastjmd95.git
-    - cmip6_preprocessing
