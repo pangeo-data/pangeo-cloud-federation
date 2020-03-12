@@ -3,12 +3,12 @@ pangeo:
     proxy:
       https:
         hosts:
-        - staging.hub.pangeo.io
+          - staging.hub.pangeo.io
         letsencrypt:
           contactEmail: jhamman@ucar.edu
+    hub:
       service:
         loadBalancerIP: 35.232.186.70
-    hub:
       resources:
         requests:
           cpu: "0.1"

@@ -7,9 +7,10 @@ pangeo:
       https:
         enabled: true
         hosts:
-        - staging.ooi.pangeo.io
+          - staging.ooi.pangeo.io
         letsencrypt:
           contactEmail: tjcrone@gmail.com
+    hub:
       service:
         annotations: {'service.beta.kubernetes.io/azure-load-balancer-resource-group': 'ooi-pangeo'}
         loadBalancerIP: 13.92.63.24

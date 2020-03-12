@@ -4,9 +4,10 @@ pangeo:
     proxy:
       https:
         hosts:
-        - nasa.pangeo.io
+          - nasa.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
+    hub:
       service:
         loadBalancerIP: a3addbd7967b511e9aa8d024800b3463-1535357642.us-east-1.elb.amazonaws.com
     auth:
