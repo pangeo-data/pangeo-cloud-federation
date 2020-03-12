@@ -19,12 +19,14 @@ dependencies:
   - unyt==2.6.0
   - utide==0.2.5
   - xlrd==1.2.0
+  - xgcm==0.3.0
   - nbdime==1.1.0
+  - xlayers==0.2
   - pip
   - pip:
-    - git+https://github.com/xgcm/xgcm.git@master
     - git+https://github.com/intake/filesystem_spec.git@master
     - git+https://github.com/dask/gcsfs.git@master
     - git+https://github.com/intake/gdrivefs.git@master
     - git+https://github.com/NCAR/intake-esm.git
     - git+https://github.com/MITgcm/xmitgcm.git
+    - git+https://github.com/xgcm/fastjmd95.git
