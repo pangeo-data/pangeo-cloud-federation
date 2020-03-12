@@ -220,19 +220,19 @@ jobs:
           name: Deploy dev.pangeo.io
           when: always
           command: |
-            hubploy deploy dev pangeo-deploy ${CIRCLE_BRANCH}
+            hubploy deploy dev pangeo-deploy ${CIRCLE_BRANCH} --force
 
       - run:
           name: Deploy ocean.pangeo.io
           when: always
           command: |
-            hubploy deploy ocean pangeo-deploy ${CIRCLE_BRANCH}
+            hubploy deploy ocean pangeo-deploy ${CIRCLE_BRANCH} --force
 
       - run:
           name: Deploy hydro.pangeo.io
           when: always
           command: |
-            hubploy deploy hydro pangeo-deploy ${CIRCLE_BRANCH}
+            hubploy deploy hydro pangeo-deploy ${CIRCLE_BRANCH} --force
 
       # - run:
       #     name: Deploy nasa.pangeo.io
@@ -255,7 +255,7 @@ jobs:
           name: Deploy aws-uswest2.pangeo.io
           when: always
           command: |
-            hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH}
+            hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH} --force
       - run:
           name: Revert to Original EKS IP Whitelist
           when: always
@@ -273,7 +273,7 @@ jobs:
             BODY="Deployment to ooi-${CIRCLE_BRANCH} failed on `date -u +'%D at %T UTC.'`"
             errormsg() { ./.circleci/send-email "${EMAIL}" "${SUBJECT}" "${BODY}"; }
             trap errormsg ERR
-            hubploy deploy ooi pangeo-deploy ${CIRCLE_BRANCH} --timeout 1200s
+            hubploy deploy ooi pangeo-deploy ${CIRCLE_BRANCH} --timeout 1200s --force
 
 workflows:
   version: 2
