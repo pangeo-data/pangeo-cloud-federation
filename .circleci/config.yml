@@ -220,19 +220,19 @@ jobs:
           name: Deploy dev.pangeo.io
           when: always
           command: |
-            hubploy deploy dev pangeo-deploy ${CIRCLE_BRANCH} --force --atomic
+            hubploy deploy dev pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail
 
       - run:
           name: Deploy ocean.pangeo.io
           when: always
           command: |
-            hubploy deploy ocean pangeo-deploy ${CIRCLE_BRANCH} --force --atomic
+            hubploy deploy ocean pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail
 
       - run:
           name: Deploy hydro.pangeo.io
           when: always
           command: |
-            hubploy deploy hydro pangeo-deploy ${CIRCLE_BRANCH} --force --atomic
+            hubploy deploy hydro pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail
 
       # - run:
       #     name: Deploy nasa.pangeo.io
@@ -250,12 +250,12 @@ jobs:
             RUNNERIP=`curl --silent https://checkip.amazonaws.com`
             aws --version
             aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${RUNNERIP}/32 > /dev/null
-            sleep 60
+            sleep 90
       - run:
           name: Deploy aws-uswest2.pangeo.io
           when: always
           command: |
-            hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH} --force --atomic
+            hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail
       - run:
           name: Revert to Original EKS IP Whitelist
           when: always
