@@ -7,7 +7,6 @@ pangeo:
           - staging.aws-uswest2.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
-    hub:
       service:
         loadBalancerIP: a070b2175523111e9924302ea5ee1624-1148941357.us-west-2.elb.amazonaws.com
     auth:

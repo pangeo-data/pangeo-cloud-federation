@@ -7,6 +7,5 @@ pangeo:
           - hub.pangeo.io
         letsencrypt:
           contactEmail: jhamman@ucar.edu
-    hub:
       service:
         loadBalancerIP: 35.238.205.43

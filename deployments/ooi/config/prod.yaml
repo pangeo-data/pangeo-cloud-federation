@@ -18,7 +18,6 @@ pangeo:
           - ooi.pangeo.io
         letsencrypt:
           contactEmail: tjcrone@gmail.com
-    hub:
       service:
         annotations: {'service.beta.kubernetes.io/azure-load-balancer-resource-group': 'ooi-pangeo'}
         loadBalancerIP: 23.96.23.164

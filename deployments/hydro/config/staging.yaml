@@ -6,9 +6,9 @@ pangeo:
           - staging.hydro.pangeo.io
         letsencrypt:
           contactEmail: jhamman@ucar.edu
-    hub:
       service:
         loadBalancerIP: 35.238.0.56
+    hub:
       resources:
         requests:
           cpu: "0.1"

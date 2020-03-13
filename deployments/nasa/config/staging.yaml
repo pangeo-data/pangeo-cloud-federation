@@ -7,7 +7,6 @@ pangeo:
           - staging.nasa.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
-    hub:
       service:
         loadBalancerIP: a7e74bdca654d11e9aa8d024800b3463-192714893.us-east-1.elb.amazonaws.com
     auth:

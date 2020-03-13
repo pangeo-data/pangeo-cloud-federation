@@ -6,6 +6,5 @@ pangeo:
           - ocean.pangeo.io
         letsencrypt:
           contactEmail: raphael.dussin@gmail.com
-    hub:
       service:
         loadBalancerIP: 34.66.6.21

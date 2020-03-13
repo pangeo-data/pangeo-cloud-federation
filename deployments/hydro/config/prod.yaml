@@ -6,6 +6,5 @@ pangeo:
           - hydro.pangeo.io
         letsencrypt:
           contactEmail: jhamman@ucar.edu
-    hub:
       service:
         loadBalancerIP: 104.154.138.46
