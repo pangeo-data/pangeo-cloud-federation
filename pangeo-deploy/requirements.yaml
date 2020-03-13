@@ -1,7 +1,0 @@
-dependencies:
-- name: pangeo
-  version: "v0.2.2-n040.h8d4d8f1"
-  repository: https://pangeo-data.github.io/helm-chart/
-  import-values:
-    - child: rbac
-      parent: rbac

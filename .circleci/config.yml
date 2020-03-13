@@ -208,7 +208,7 @@ jobs:
           name: Install helm
           when: always
           command: |
-            curl https://get.helm.sh/helm-v3.0.3-linux-amd64.tar.gz | \
+            curl https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz | \
               tar -xzf -
             sudo mv linux-amd64/helm /usr/local/bin
             helm repo add pangeo https://pangeo-data.github.io/helm-chart/
