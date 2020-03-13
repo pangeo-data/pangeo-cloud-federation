@@ -208,7 +208,7 @@ jobs:
           name: Install helm
           when: always
           command: |
-            curl https://get.helm.sh/helm-v3.0.3-linux-amd64.tar.gz | \
+            curl https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz | \
               tar -xzf -
             sudo mv linux-amd64/helm /usr/local/bin
             helm repo add pangeo https://pangeo-data.github.io/helm-chart/
@@ -220,19 +220,19 @@ jobs:
           name: Deploy dev.pangeo.io
           when: always
           command: |
-            hubploy deploy dev pangeo-deploy ${CIRCLE_BRANCH} --force
+            hubploy deploy dev pangeo-deploy ${CIRCLE_BRANCH} --force --atomic
 
       - run:
           name: Deploy ocean.pangeo.io
           when: always
           command: |
-            hubploy deploy ocean pangeo-deploy ${CIRCLE_BRANCH} --force
+            hubploy deploy ocean pangeo-deploy ${CIRCLE_BRANCH} --force --atomic
 
       - run:
           name: Deploy hydro.pangeo.io
           when: always
           command: |
-            hubploy deploy hydro pangeo-deploy ${CIRCLE_BRANCH} --force
+            hubploy deploy hydro pangeo-deploy ${CIRCLE_BRANCH} --force --atomic
 
       # - run:
       #     name: Deploy nasa.pangeo.io
@@ -255,7 +255,7 @@ jobs:
           name: Deploy aws-uswest2.pangeo.io
           when: always
           command: |
-            hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH} --force
+            hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH} --force --atomic
       - run:
           name: Revert to Original EKS IP Whitelist
           when: always

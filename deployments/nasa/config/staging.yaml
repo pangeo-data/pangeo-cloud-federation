@@ -4,7 +4,7 @@ pangeo:
     proxy:
       https:
         hosts:
-        - staging.nasa.pangeo.io
+          - staging.nasa.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
       service:

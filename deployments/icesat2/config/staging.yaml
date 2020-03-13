@@ -4,7 +4,7 @@ pangeo:
     proxy:
       https:
         hosts:
-        - staging.aws-uswest2.pangeo.io
+          - staging.aws-uswest2.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
       service:

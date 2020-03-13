@@ -3,7 +3,7 @@ pangeo:
     proxy:
       https:
         hosts:
-        - staging.hub.pangeo.io
+          - staging.hub.pangeo.io
         letsencrypt:
           contactEmail: jhamman@ucar.edu
       service:

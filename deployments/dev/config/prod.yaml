@@ -4,7 +4,7 @@ pangeo:
       https:
         enabled: true
         hosts:
-        - hub.pangeo.io
+          - hub.pangeo.io
         letsencrypt:
           contactEmail: jhamman@ucar.edu
       service:
