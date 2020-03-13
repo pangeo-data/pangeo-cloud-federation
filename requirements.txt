@@ -1,4 +1,4 @@
-git+https://github.com/jhamman/yuvipanda@d619b2da6cae00c1b14b05b176fb66a5413eb01f
+git+https://github.com/yuvipanda/hubploy@d619b2da6cae00c1b14b05b176fb66a5413eb01f
 jupyter-repo2docker>=0.10.0
 pygithub
 azure-cli
