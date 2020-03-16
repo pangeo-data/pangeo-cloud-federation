@@ -1,5 +1,12 @@
-apiVersion: v1
+apiVersion: v2
 appVersion: "1.0"
 description: A Helm chart for Kubernetes
 name: pangeo-deploy
 version: 0.1.0
+dependencies:
+  - name: pangeo
+    version: "v0.2.2-n049.h490c47a"
+    repository: https://pangeo-data.github.io/helm-chart/
+    import-values:
+      - child: rbac
+        parent: rbac

@@ -3,7 +3,7 @@ pangeo:
     proxy:
       https:
         hosts:
-        - hydro.pangeo.io
+          - hydro.pangeo.io
         letsencrypt:
           contactEmail: jhamman@ucar.edu
       service:

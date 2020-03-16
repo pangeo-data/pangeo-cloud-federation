@@ -15,7 +15,7 @@ pangeo:
       https:
         enabled: true
         hosts:
-        - ooi.pangeo.io
+          - ooi.pangeo.io
         letsencrypt:
           contactEmail: tjcrone@gmail.com
       service:
