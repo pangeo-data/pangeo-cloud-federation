@@ -42,7 +42,7 @@ pangeo:
       clusterManager:
         image:
           name: pangeo/base-notebook
-          tag: 2019.12.24
+          tag: latest
         clusterStartTimeout: 600
         workerStartTimeout: 600
         worker:
@@ -51,12 +51,22 @@ pangeo:
               - key: "k8s.dask.org_dedicated"
                 operator: "Equal"
                 value: "worker"
+                effect: "NoSchedule"
+              - key: "k8s.dask.org/dedicated"
+                operator: "Equal"
+                value: "worker"
+                effect: "NoSchedule"
         scheduler:
           extraPodConfig:
             tolerations:
-              - key: "k8s.dask.org_dedicated"
+              - key: "hub.jupyter.org_dedicated"
                 operator: "Equal"
-                value: "worker"
+                value: "user"
+                effect: "NoSchedule"
+              - key: "hub.jupyter.org/dedicated"
+                operator: "Equal"
+                value: "user"
+                effect: "NoSchedule"
       extraConfig:
         # Use the mapping form, to support merging multiple values.yaml
         optionHandler: |
@@ -74,7 +84,7 @@ pangeo:
           c.DaskGateway.cluster_manager_options = Options(
               Integer("worker_cores", 2, min=1, max=4, label="Worker Cores"),
               Float("worker_memory", 4, min=1, max=8, label="Worker Memory (GiB)"),
-              String("image", default="pangeo/base-notebook:2019.12.24", label="Image"),
+              String("image", default="pangeo/base-notebook:latest", label="Image"),
               handler=option_handler,
           )
 
@@ -91,4 +101,3 @@ pangeo:
 homeDirectories:
   nfs:
     enabled: false
-  
