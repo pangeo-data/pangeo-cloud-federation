@@ -37,10 +37,6 @@ pangeo:
         guarantee: 1.25G
     hub:
       #nodeSelector: {agentpool: nodepool1}
-      services:
-        dask-gateway:
-          # This makes the gateway available at ${HUB_URL}/services/dask-gateway
-          url: "http://web-public-ooi-staging-dask-gateway"
       resources:
         requests:
           cpu: 0.4
