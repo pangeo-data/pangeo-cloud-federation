@@ -21,3 +21,10 @@ pangeo:
       service:
         annotations: {'service.beta.kubernetes.io/azure-load-balancer-resource-group': 'ooi-pangeo'}
         loadBalancerIP: 23.96.23.164
+  dask-gateway:
+    webProxy:
+      service:
+        loadBalancerIP: 13.90.198.187
+    schedulerProxy:
+      service:
+        loadBalancerIP: 40.76.63.49
