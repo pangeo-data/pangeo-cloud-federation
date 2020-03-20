@@ -1,5 +1,10 @@
 pangeo:
   jupyterhub:
+    hub:
+      services:
+        dask-gateway:
+          # This makes the gateway available at ${HUB_URL}/services/dask-gateway
+          url: "http://web-public-ooi-prod-dask-gateway"
     scheduling:
       userPlaceholder:
         enabled: true
