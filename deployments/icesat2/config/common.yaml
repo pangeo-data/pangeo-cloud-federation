@@ -13,6 +13,9 @@ pangeo:
         enabled: false
     singleuser:
       startTimeout: 600
+      extraEnv:
+        DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
+        DASK_GATEWAY__AUTH__TYPE: "jupyterhub"
       initContainers:
         - name: volume-mount-hack
           image: busybox
