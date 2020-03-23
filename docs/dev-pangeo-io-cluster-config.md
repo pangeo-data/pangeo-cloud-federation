@@ -8,11 +8,13 @@ This document summarizes the `dev-pangeo-io-cluster` configuration and will be u
 ```bash
 $ gcloud container node-pools list --cluster dev-pangeo-io-cluster
 
-NAME            MACHINE_TYPE   DISK_SIZE_GB  NODE_VERSION
-core-pool       n1-standard-2  100           1.11.8-gke.6
-temp-dask-pool  n1-highmem-4   100           1.11.8-gke.6
-dask-pool       n1-highmem-4   100           1.11.8-gke.6
-jupyter-pool    n1-highmem-16  100           1.11.8-gke.6
+NAME                MACHINE_TYPE   DISK_SIZE_GB  NODE_VERSION
+core-pool           n1-standard-2  100           1.15.9-gke.22
+dask-pool           n1-highmem-4   100           1.15.9-gke.22
+jupyter-pool        n1-highmem-16  100           1.15.9-gke.22
+jupyter-pool-small  n1-highmem-2   100           1.15.9-gke.22
+jupyter-gpu-pool    n1-standard-4  100           1.15.9-gke.22
+scheduler-pool      n1-highmem-16  100           1.15.9-gke.22
 ```
 
 ## Node-Pool Descriptions
@@ -152,4 +154,21 @@ podIpv4CidrSize: 24
 selfLink: https://container.googleapis.com/v1/projects/pangeo-181919/zones/us-central1-b/clusters/dev-pangeo-io-cluster/nodePools/jupyter-pool
 status: RUNNING
 version: 1.11.8-gke.6
+```
+
+## Scheduler Pool
+
+A pool dedicated to schedulers was added in https://github.com/pangeo-data/pangeo-cloud-federation/pull/567.
+It was created with
+
+```
+gcloud container node-pools create scheduler-pool \
+    --cluster=dev-pangeo-io-cluster \
+    --num-nodes=0 \
+    --machine-type=n1-highmem-16 \
+    --zone=us-central1-b \
+    --enable-autoupgrade \
+    --enable-autorepair \
+    --enable-autoscaling --min-nodes=0 --max-nodes=50 \
+    --node-taints=k8s.dask.org/dedicated=scheduler:NoSchedule
 ```
