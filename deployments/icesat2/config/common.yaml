@@ -52,11 +52,11 @@ pangeo:
       cloudMetadata:
         enabled: true
       cpu:
+        guarantee: 2
         limit: 4
-        guarantee: 3
       memory:
-        limit: 16G
-        guarantee: 14G
+        guarantee: 7G
+        limit: 7G
     auth:
       github:
         orgWhitelist:
@@ -73,12 +73,10 @@ pangeo:
         users:
           - scottyhq
           - jhamman
-          - apawloski
-          - amanda-tan
     hub:
       resources:
         requests:
-          cpu: 0.45
+          cpu: 0.5
           memory: 1G
         limits:
           cpu: 1.25

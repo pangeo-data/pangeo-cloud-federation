@@ -1,14 +1,22 @@
 # Leave commented for first build, then uncomment and add loadBalancerIP
 pangeo:
   jupyterhub:
+    hub:
+      services:
+        dask-gateway:
+          # This makes the gateway available at ${HUB_URL}/services/dask-gateway
+          url: http://web-public-icesat2-prod-dask-gateway
+    singleuser:
+      extraEnv:
+        DASK_GATEWAY__ADDRESS: "http://web-public-icesat2-prod-dask-gateway/services/dask-gateway/"
+        DASK_GATEWAY__PROXY_ADDRESS: "tls://scheduler-icesat2-prod-dask-gateway:8786"
+        DASK_GATEWAY__AUTH_TYPE: "jupyterhub"
     proxy:
       https:
         hosts:
           - aws-uswest2.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
-      service:
-        loadBalancerIP: aa19367a4573811e9a9ef06d2bcc51c9-1125496385.us-west-2.elb.amazonaws.com
     auth:
       github:
         callbackUrl: "https://aws-uswest2.pangeo.io/hub/oauth_callback"
