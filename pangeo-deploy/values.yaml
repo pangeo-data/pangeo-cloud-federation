@@ -48,10 +48,6 @@ pangeo:
         worker:
           extraPodConfig:
             tolerations:
-              - key: "k8s.dask.org_dedicated"
-                operator: "Equal"
-                value: "worker"
-                effect: "NoSchedule"
               - key: "k8s.dask.org/dedicated"
                 operator: "Equal"
                 value: "worker"
@@ -59,13 +55,9 @@ pangeo:
         scheduler:
           extraPodConfig:
             tolerations:
-              - key: "hub.jupyter.org_dedicated"
+              - key: "k8s.dask.org/dedicated"
                 operator: "Equal"
-                value: "user"
-                effect: "NoSchedule"
-              - key: "hub.jupyter.org/dedicated"
-                operator: "Equal"
-                value: "user"
+                value: "scheduler"
                 effect: "NoSchedule"
       extraConfig:
         # Use the mapping form, to support merging multiple values.yaml
