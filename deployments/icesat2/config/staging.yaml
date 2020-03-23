@@ -16,8 +16,8 @@ pangeo:
           url: http://web-public-icesat2-staging-dask-gateway
     singleuser:
       extraEnv:
-        DASK_GATEWAY__ADDRESS: "http://web-public-icesat2-staging-dask-gateway/services/dask-gateway/"
-        DASK_GATEWAY__PROXY_ADDRESS: "tls://scheduler-icesat2-staging-dask-gateway:8786"
+        DASK_GATEWAY__ADDRESS: "https://staging.aws-uswest2.pangeo.io/services/dask-gateway"
+        DASK_GATEWAY__PROXY_ADDRESS: "tls://scheduler-public-icesat2-staging-dask-gateway:8786"
     proxy:
       https:
         hosts:
