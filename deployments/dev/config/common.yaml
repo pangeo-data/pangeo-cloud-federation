@@ -31,8 +31,6 @@ pangeo:
       memory:
         limit: 14G
         guarantee: 4G
-      extraEnv:
-        DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
 
     hub:
       resources:
