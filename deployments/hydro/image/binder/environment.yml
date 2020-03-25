@@ -2,11 +2,12 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
-  - pangeo-notebook==0.0.2
   - conda>=4.6.8
   - python=3.7
   - numpy
   - matplotlib
+  - dask
+  - dask-gateway
   - xarray>0.10.9
   - ipyleaflet
   - seaborn
@@ -19,3 +20,4 @@ dependencies:
   - pip:
     - git+https://github.com/arbennett/pysumma.git@706a69f1ff3a8e910ea574e133cd12a434290152
     - hs_restclient
+    - nbgitpuller
