@@ -26,6 +26,10 @@ pangeo:
         limit: 4G
         guarantee: 2G
 
+      extraEnv:
+        # The default worker image matches the singleuser image.
+        DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
+
     prePuller:
       hook:
         enabled: false
