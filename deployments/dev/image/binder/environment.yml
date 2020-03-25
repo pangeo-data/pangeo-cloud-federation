@@ -2,4 +2,4 @@ name: dev
 channels:
   - conda-forge
 dependencies:
-  - dask-gateway
+  - pangeo-notebook==0.0.2
