@@ -43,12 +43,3 @@ labextension:
     class: KubeCluster
     args: []
     kwargs: {}
-
-gateway:
-  address: https://staging.hub.pangeo.io/services/dask-gateway/
-  proxy-address: tls://35.225.202.35:8786
-  auth:
-    type: jupyterhub
-  cluster:
-    options:
-      image: '{JUPYTER_IMAGE_SPEC}'
