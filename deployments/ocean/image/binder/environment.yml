@@ -2,6 +2,7 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
+  - dask-gateway==0.6.1
   - cc-plugin-ncei==2.0.2
   - ciso==0.1.0
   - compliance-checker
