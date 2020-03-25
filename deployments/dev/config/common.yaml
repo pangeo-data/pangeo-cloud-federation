@@ -31,11 +31,10 @@ pangeo:
       memory:
         limit: 14G
         guarantee: 4G
+      extraEnv:
+        DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
+
     hub:
-      services:
-        dask-gateway:
-          # This makes the gateway available at ${HUB_URL}/services/dask-gateway
-          url: http://web-public-dev-staging-dask-gateway
       resources:
         requests:
           cpu: "0.25"
