@@ -8,3 +8,12 @@ pangeo:
           contactEmail: raphael.dussin@gmail.com
       service:
         loadBalancerIP: 34.66.6.21
+    singleuser:
+      extraEnv:
+        DASK_GATEWAY__ADDRESS: "https://ocean.pangeo.io/services/dask-gateway/"
+        DASK_GATEWAY__PROXY_ADDRESS: "tls://scheduler-public-ocean-dask-gateway:8786"
+    hub:
+      services:
+        dask-gateway:
+          # This makes the gateway available at ${HUB_URL}/services/dask-gateway
+          url: "http://web-public-ocean-dask-gateway"
