@@ -8,3 +8,12 @@ pangeo:
           contactEmail: jhamman@ucar.edu
       service:
         loadBalancerIP: 104.154.138.46
+    singleuser:
+      extraEnv:
+        DASK_GATEWAY__ADDRESS: "https://hydro.pangeo.io/services/dask-gateway/"
+        DASK_GATEWAY__PROXY_ADDRESS: "tls://scheduler-public-hydro-dask-gateway:8786"
+    hub:
+      services:
+        dask-gateway:
+          # This makes the gateway available at ${HUB_URL}/services/dask-gateway
+          url: "http://web-public-hydro-dask-gateway"
