@@ -49,7 +49,7 @@ pangeo:
           name: pangeo/base-notebook
           tag: latest
         clusterStartTimeout: 600
-        workerStartTimeout: 600
+        workerStartTimeout: 1200
         worker:
           extraPodConfig:
             tolerations:
