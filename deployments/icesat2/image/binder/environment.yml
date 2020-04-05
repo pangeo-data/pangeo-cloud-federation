@@ -8,13 +8,13 @@ dependencies:
   - s3fs
   - gcsfs
   - intake
-  - intake-stack
+  - intake-stac
   - intake-xarray
   - xarray
   - zarr
   - h5py
   - h5netcdf
-  - matplotlib-core
+  - matplotlib-base
   - ipywidgets
   - libgdal
   - boto3
