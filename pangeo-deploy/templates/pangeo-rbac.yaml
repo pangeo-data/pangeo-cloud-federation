@@ -1,0 +1,12 @@
+{{- if .Values.rbac.enabled -}}
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: pangeo
+  namespace: {{ .Release.Namespace }}
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: pangeo
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+{{- end -}}
