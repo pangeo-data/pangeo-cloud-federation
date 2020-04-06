@@ -2,6 +2,7 @@ name: nasa
 channels:
   - conda-forge
 dependencies:
+  - pangeo-notebook=2020.04.03
   - ipykernel
   - nb_conda_kernels
   - fsspec
@@ -31,5 +32,4 @@ dependencies:
   - rio-cogeo
   - sat-search
   - sat-stac
-  - nbgitpuller
   - pip
