@@ -51,7 +51,15 @@ pangeo:
         clusterStartTimeout: 600
         workerStartTimeout: 1200
         worker:
+          extraContainerConfig:
+            securityContext:
+              runAsGroup: 1000
+              runAsUser: 1000
           extraPodConfig:
+            serviceAccountName: pangeo
+            automountServiceAccountToken: true
+            securityContext:
+              fsGroup: 1000
             tolerations:
               - key: "k8s.dask.org/dedicated"
                 operator: "Equal"

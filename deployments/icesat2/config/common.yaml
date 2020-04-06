@@ -12,6 +12,7 @@ pangeo:
       continuous:
         enabled: false
     singleuser:
+      serviceAccountName: pangeo
       startTimeout: 600
       extraEnv:
         DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
@@ -88,74 +89,45 @@ pangeo:
         profileList: |
           c.KubeSpawner.profile_list = [
             {
-                'display_name': 'Default environment (4 vCPU, 16 Gb RAM)',
+                'display_name': 'Standard environment (4 vCPU, 7 Gb RAM)',
             },
             {
-                'display_name': 'IceSat-2 Hackweek 2020 (4 vCPU, 16 Gb RAM)',
+                'display_name': 'IceSat-2 Hackweek 2020 (4 vCPU, 7 Gb RAM)',
                 'default': 'true',
                 'kubespawner_override': {
                     'image': 'uwhackweeks/icesat2:latest',
                 }
             },
             {
-                'display_name': 'GeoHackweek 2019 (4 vCPU, 16 Gb RAM)',
+                'display_name': 'GeoHackweek 2019 (4 vCPU, 7 Gb RAM)',
                 'kubespawner_override': {
                     'image': 'scottyhq/geohackweek2019:latest',
                 }
             },
             {
-                'display_name': 'IceSat-2 Hackweek 2019 (4 vCPU, 16 Gb RAM)',
+                'display_name': 'IceSat-2 Hackweek 2019 (4 vCPU, 7 Gb RAM)',
                 'kubespawner_override': {
                     'image': 'uwhackweeks/icesat2:2019',
                 }
             },
             {
-                'display_name': 'Latest ESIP Image (4 vCPU, 16 Gb RAM)',
+                'display_name': 'Latest ESIP Image (4 vCPU, 7 Gb RAM)',
                 'kubespawner_override': {
                     'image': 'pangeo/pangeo-esip:latest',
                 }
             },
             {
-                'display_name': 'Latest Pangeo-notebook Image (4 vCPU, 16 Gb RAM)',
+                'display_name': 'Latest Pangeo-notebook Image (4 vCPU, 7 Gb RAM)',
                 'kubespawner_override': {
                     'image': 'pangeo/pangeo-notebook:latest',
                 }
             },
             {
-                'display_name': 'Latest Pangeo-base Image (4 vCPU, 16 Gb RAM)',
-                'kubespawner_override': {
-                    'image': 'pangeo/base-notebook:latest',
-                }
-            },
-            {
-                'display_name': 'AmesStereoPipeline *experimental*',
-                'kubespawner_override': {
-                    'image': 'pangeo/pangeo-notebook:latest',
-                }
-            },
-            {
-                'display_name': 'Pangeo ML Env *experimental*',
+                'display_name': 'Latest Pangeo ML-Image *experimental*',
                 'kubespawner_override': {
                     'mem_limit': '60G',
                     'mem_guarantee': '25G',
-                    'image': 'pangeo/pangeo-ml:latest',
-                    'environment': {'NVIDIA_DRIVER_CAPABILITIES': 'compute,utility'},
-                    'tolerations': [{'key': 'nvidia.com/gpu','operator': 'Equal','value': 'present','effect': 'NoSchedule'}],
-                    'extra_resource_limits': {"nvidia.com/gpu": "1"}
-                }
-            },
-            {
-                'display_name': 'PangeoDev Pangeo-Image *experimental*',
-                'kubespawner_override': {
-                    'image': 'pangeodev/pangeo-notebook:latest',
-                }
-            },
-            {
-                'display_name': 'PangeoDev ML-Image *experimental*',
-                'kubespawner_override': {
-                    'mem_limit': '60G',
-                    'mem_guarantee': '25G',
-                    'image': 'pangeodev/ml-notebook:latest',
+                    'image': 'pangeo/ml-notebook:latest',
                     'environment': {'NVIDIA_DRIVER_CAPABILITIES': 'compute,utility'},
                     'tolerations': [{'key': 'nvidia.com/gpu','operator': 'Equal','value': 'present','effect': 'NoSchedule'}],
                     'extra_resource_limits': {"nvidia.com/gpu": "1"}
