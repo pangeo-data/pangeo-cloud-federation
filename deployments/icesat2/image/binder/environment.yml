@@ -1,8 +1,8 @@
-name: nasa
+name: notebook
 channels:
   - conda-forge
 dependencies:
-  - pangeo-notebook=2020.04.03
+  - pangeo-notebook
   - ipykernel
   - nb_conda_kernels
   - fsspec
@@ -11,6 +11,7 @@ dependencies:
   - intake
   - intake-stac
   - intake-xarray
+  - ipyleaflet
   - xarray
   - zarr
   - h5py

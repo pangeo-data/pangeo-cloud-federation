@@ -14,9 +14,6 @@ pangeo:
     singleuser:
       serviceAccountName: pangeo
       startTimeout: 600
-      extraEnv:
-        DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
-        DASK_GATEWAY__AUTH__TYPE: "jupyterhub"
       initContainers:
         - name: volume-mount-hack
           image: busybox
@@ -89,31 +86,10 @@ pangeo:
         profileList: |
           c.KubeSpawner.profile_list = [
             {
-                'display_name': 'Standard environment (4 vCPU, 7 Gb RAM)',
-            },
-            {
                 'display_name': 'IceSat-2 Hackweek 2020 (4 vCPU, 7 Gb RAM)',
                 'default': 'true',
                 'kubespawner_override': {
                     'image': 'uwhackweeks/icesat2:latest',
-                }
-            },
-            {
-                'display_name': 'GeoHackweek 2019 (4 vCPU, 7 Gb RAM)',
-                'kubespawner_override': {
-                    'image': 'scottyhq/geohackweek2019:latest',
-                }
-            },
-            {
-                'display_name': 'IceSat-2 Hackweek 2019 (4 vCPU, 7 Gb RAM)',
-                'kubespawner_override': {
-                    'image': 'uwhackweeks/icesat2:2019',
-                }
-            },
-            {
-                'display_name': 'Latest ESIP Image (4 vCPU, 7 Gb RAM)',
-                'kubespawner_override': {
-                    'image': 'pangeo/pangeo-esip:latest',
                 }
             },
             {
@@ -123,7 +99,7 @@ pangeo:
                 }
             },
             {
-                'display_name': 'Latest Pangeo ML-Image *experimental*',
+                'display_name': 'Latest Pangeo ML-notebook *experimental*',
                 'kubespawner_override': {
                     'mem_limit': '60G',
                     'mem_guarantee': '25G',
@@ -132,7 +108,28 @@ pangeo:
                     'tolerations': [{'key': 'nvidia.com/gpu','operator': 'Equal','value': 'present','effect': 'NoSchedule'}],
                     'extra_resource_limits': {"nvidia.com/gpu": "1"}
                 }
-            }
+            },
+            {
+                'display_name': 'Latest Base-notebook (4 vCPU, 7 Gb RAM)',
+                'kubespawner_override': {
+                    'image': 'pangeo/base-notebook:latest',
+                }
+            },
+            {
+                'display_name': 'GeoHackweek 2019 (4 vCPU, 7 Gb RAM)',
+                'kubespawner_override': {
+                    'image': 'uwhackweeks/geohackweek:2019',
+                }
+            },
+            {
+                'display_name': 'IceSat-2 Hackweek 2019 (4 vCPU, 7 Gb RAM)',
+                'kubespawner_override': {
+                    'image': 'uwhackweeks/icesat2:2019',
+                }
+            },
+            {
+                'display_name': 'Standard environment (4 vCPU, 7 Gb RAM)',
+            },
             ]
         cloneRepo: |
           # Hack solution for branding
@@ -156,6 +153,18 @@ pangeo:
       extraVolumeMounts:
         - name: custom-assets
           mountPath: /usr/local/share/jupyterhub/static/extra-assets
+
+  dask-gateway:
+    gateway:
+      backend:
+        scheduler:
+        # optimized for t3.medium nodegroup
+          cores:
+            request: 0.8
+            limit: 1
+          memory:
+            request: 1G
+            limit: 2G
 
 homeDirectories:
   nfs:
