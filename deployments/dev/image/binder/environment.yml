@@ -2,4 +2,4 @@ name: dev
 channels:
   - conda-forge
 dependencies:
-  - dask-gateway
+  - dask-gateway==0.7.1
