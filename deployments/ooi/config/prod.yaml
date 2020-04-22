@@ -4,7 +4,7 @@ pangeo:
       services:
         dask-gateway:
           # This makes the gateway available at ${HUB_URL}/services/dask-gateway
-          url: "http://web-public-ooi-prod-dask-gateway"
+          url: "http://traefik-ooi-prod-dask-gateway.ooi-prod"
     scheduling:
       userPlaceholder:
         enabled: true
