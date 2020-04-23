@@ -29,7 +29,6 @@ pangeo:
       extraEnv:
         # The default worker image matches the singleuser image.
         DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
-        DASK_GATEWAY__AUTH__TYPE: "jupyterhub"
 
     prePuller:
       hook:
@@ -44,12 +43,13 @@ pangeo:
         enabled: false
   dask-gateway:
     gateway:
-      clusterManager:
-        image:
-          name: pangeo/base-notebook
-          tag: latest
-        clusterStartTimeout: 600
-        workerStartTimeout: 1200
+      image:
+        name: pangeo/base-notebook
+        tag: latest
+        # TODO: ClusterManger replacment
+        # clusterStartTimeout: 600
+        # workerStartTimeout: 1200
+      backend:
         worker:
           extraContainerConfig:
             securityContext:
@@ -60,47 +60,12 @@ pangeo:
             automountServiceAccountToken: true
             securityContext:
               fsGroup: 1000
-            tolerations:
-              - key: "k8s.dask.org/dedicated"
-                operator: "Equal"
-                value: "worker"
-                effect: "NoSchedule"
-        scheduler:
-          extraPodConfig:
-            tolerations:
-              - key: "k8s.dask.org/dedicated"
-                operator: "Equal"
-                value: "scheduler"
-                effect: "NoSchedule"
-      extraConfig:
-        # Use the mapping form, to support merging multiple values.yaml
-        optionHandler: |
-          from dask_gateway_server.options import Options, Integer, Float, String
 
-          def option_handler(options):
-              if ":" not in options.image:
-                  raise ValueError("When specifying an image you must also provide a tag")
-              return {
-                  "worker_cores_limit": options.worker_cores,
-                  "worker_cores": min(options.worker_cores / 2, 1),
-                  "worker_memory": "%fG" % options.worker_memory,
-                  "image": options.image,
-              }
-          c.DaskGateway.cluster_manager_options = Options(
-              Integer("worker_cores", 2, min=1, max=4, label="Worker Cores"),
-              Float("worker_memory", 4, min=1, max=8, label="Worker Memory (GiB)"),
-              String("image", default="pangeo/base-notebook:latest", label="Image"),
-              handler=option_handler,
-          )
-
-        userLimts: |
-          c.UserLimits.max_cores = 100
-          c.UserLimits.max_memory = "400 G"
-          c.UserLimits.max_clusters = 1
-
-        tlsURL: |
-          if isinstance(c.DaskGateway.public_connect_url, str):
-              c.DaskGateway.public_connect_url += "/services/dask-gateway"
+        # TODO: figure out a replacement
+        # userLimts: |
+        #   c.UserLimits.max_cores = 100
+        #   c.UserLimits.max_memory = "400 G"
+        #   c.UserLimits.max_clusters = 1
 
 
 homeDirectories:
