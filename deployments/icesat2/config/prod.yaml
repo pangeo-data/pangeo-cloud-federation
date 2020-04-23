@@ -5,7 +5,7 @@ pangeo:
       services:
         dask-gateway:
           # This makes the gateway available at ${HUB_URL}/services/dask-gateway
-          url: http://traefik-icesat2-prod-dask-gateway.icesat2-prod
+          url: "http://traefik-icesat2-prod-dask-gateway.icesat2-prod"
     singleuser:
       extraEnv:
         DASK_GATEWAY__ADDRESS: "https://aws-uswest2.pangeo.io/services/dask-gateway"

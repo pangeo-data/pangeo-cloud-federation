@@ -1,4 +1,0 @@
-#!/bin/bash
-
-mkdir -p ${KERNEL_PYTHON_PREFIX}/etc/dask
-cp binder/dask_config.yaml ${KERNEL_PYTHON_PREFIX}/etc/dask/dask.yaml
