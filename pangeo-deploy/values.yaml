@@ -43,9 +43,6 @@ pangeo:
         enabled: false
   dask-gateway:
     gateway:
-      image:
-        name: pangeo/base-notebook
-        tag: latest
         # TODO: ClusterManger replacment
         # clusterStartTimeout: 600
         # workerStartTimeout: 1200
