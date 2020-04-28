@@ -42,6 +42,8 @@ pangeo:
       userPlaceholder:
         enabled: false
   dask-gateway:
+    auth:
+      type: jupyterhub
     gateway:
         # TODO: ClusterManger replacment
         # clusterStartTimeout: 600
