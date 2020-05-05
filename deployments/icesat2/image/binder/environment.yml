@@ -1,8 +1,8 @@
-name: nasa
+name: notebook
 channels:
   - conda-forge
 dependencies:
-  - pangeo-notebook=2020.04.03
+  - pangeo-notebook=2020.05.04
   - ipykernel
   - nb_conda_kernels
   - fsspec

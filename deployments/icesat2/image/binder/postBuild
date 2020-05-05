@@ -7,8 +7,8 @@ jupyter labextension install --clean \
                             @jupyterlab/geojson-extension \
                             jupyter-leaflet
 
-# dask config
-mkdir ${NB_PYTHON_PREFIX}/etc/dask
-cp dask_config.yaml ${NB_PYTHON_PREFIX}/etc/dask/dask.yaml
+# extra dask config
+#mkdir ${NB_PYTHON_PREFIX}/etc/dask
+#cp dask_config.yaml ${NB_PYTHON_PREFIX}/etc/dask/dask.yaml
 
 #EOF
