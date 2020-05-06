@@ -1,37 +1,35 @@
-name: nasa
+name: notebook
 channels:
   - conda-forge
 dependencies:
-  - ipykernel=5.1
-  - nb_conda_kernels=2.2
-  - fsspec=0.4
-  - s3fs=0.3
-  - gcsfs=0.3
-  - intake=0.5
-  - intake-xarray=0.3
-  - xarray=0.12
-  - zarr=2.3
-  - h5py=2.9
-  - h5netcdf=0.7
-  - matplotlib=3.1
-  - ipywidgets=7.5
-  - libgdal=2.4
-  - boto3=1.9
-  - awscli=1.16
-  - hvplot=0.4
-  - geoviews=1.6
-  - panel=0.6
-  - ipyleaflet=0.11
-  - datashader=0.7
-  - requests=2.22
-  - pandas=0.25
-  - geopandas=0.5
-  - rasterio=1.0
-  - rio-cogeo=1.1
-  - sat-search=0.2
+  - pangeo-notebook=2020.05.04
+  - ipykernel
+  - nb_conda_kernels
+  - fsspec
+  - s3fs
+  - gcsfs
+  - intake
+  - intake-stac
+  - intake-xarray
+  - xarray
+  - zarr
+  - h5py
+  - h5netcdf
+  - matplotlib-base
+  - ipywidgets
+  - libgdal
+  - boto3
+  - awscli
+  - hvplot
+  - geoviews
+  - panel
+  - ipyleaflet
+  - datashader
+  - requests
+  - pandas
+  - geopandas
+  - rasterio
+  - rio-cogeo
+  - sat-search
   - sat-stac
-  - nbgitpuller=0.7
-  - pip=19.2
-  - pip:
-    - git+https://github.com/pangeo-data/intake-stac.git
-    - git+https://github.com/dask/dask-cloudprovider.git
+  - pip

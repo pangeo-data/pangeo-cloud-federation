@@ -11,9 +11,9 @@ pangeo:
     singleuser:
       extraEnv:
         DASK_GATEWAY__ADDRESS: "https://hydro.pangeo.io/services/dask-gateway/"
-        DASK_GATEWAY__PROXY_ADDRESS: "tls://scheduler-public-hydro-prod-dask-gateway:8786"
+        DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-hydro-prod-dask-gateway.hydro-prod:80"
     hub:
       services:
         dask-gateway:
           # This makes the gateway available at ${HUB_URL}/services/dask-gateway
-          url: "http://web-public-hydro-prod-dask-gateway"
+          url: "http://traefik-hydro-prod-dask-gateway.hydro-prod"

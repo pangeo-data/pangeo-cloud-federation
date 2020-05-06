@@ -10,7 +10,6 @@ Name    | Cloud: region      |  Staging [![CircleCI](https://circleci.com/gh/pan
 dev     | GCP: us-central1-b | https://staging.hub.pangeo.io            | https://hub.pangeo.io
 ocean   | GCP: us-central1-b | https://staging.ocean.pangeo.io          | https://ocean.pangeo.io
 hydro   | GCP: us-central1-b | https://staging.hydro.pangeo.io          | https://hydro.pangeo.io
-aws1    | AWS: us-east-1     | https://staging.aws-useast1.pangeo.io    | https://aws-useast1.pangeo.io
 aws2    | AWS: us-west-2     | https://staging.aws-uswest2.pangeo.io    | https://aws-uswest2.pangeo.io
 ooi     | Azure: eastus      | https://staging.ooi.pangeo.io            | https://ooi.pangeo.io
 

@@ -5,7 +5,7 @@ name: pangeo-deploy
 version: 0.1.0
 dependencies:
   - name: pangeo
-    version: "v0.2.2-n049.h490c47a"
+    version: "v0.2.2-n059.h1730652"
     repository: https://pangeo-data.github.io/helm-chart/
     import-values:
       - child: rbac

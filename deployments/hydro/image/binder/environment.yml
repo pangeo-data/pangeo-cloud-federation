@@ -7,7 +7,7 @@ dependencies:
   - numpy
   - matplotlib
   - dask
-  - dask-gateway
+  - dask-gateway==0.7.1
   - xarray>0.10.9
   - ipyleaflet
   - seaborn

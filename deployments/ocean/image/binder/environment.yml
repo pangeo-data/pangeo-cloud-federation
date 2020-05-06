@@ -2,7 +2,7 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
-  - dask-gateway==0.6.1
+  - dask-gateway==0.7.1
   - cc-plugin-ncei==2.0.2
   - ciso==0.1.0
   - compliance-checker
@@ -35,6 +35,7 @@ dependencies:
   - scipy==1.3.2
   - setuptools==42.0.2
   - xarray==0.14.1
+  - xcape==0.1.1
   - pip
   - pip:
     - git+https://github.com/intake/filesystem_spec.git@master
