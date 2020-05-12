@@ -99,6 +99,10 @@ pangeo:
           userdata_url: https://pangeo.auth0.com/oauth/userinfo
           userdata_method: GET
           username_key: nickname
+          scope:
+            - openid
+            - profile
+            - email
       admin:
         access: true
         users:
