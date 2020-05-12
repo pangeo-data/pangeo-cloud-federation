@@ -84,28 +84,16 @@ pangeo:
           name: custom-templates
           subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
     auth:
-      github:
-        orgWhitelist:
-          - pangeo-data
-          - pydata
-          - dask
-          - xarray-dev
-          - jupyterhub
-          - informatics-lab
-      scopes:
-        - "read:org"
-        - "read:user"
+      auth0:
+        scope:
+          - openid
+          - profile
+          - email
       admin:
         access: true
         users:
-          - mrocklin
           - jhamman
           - rabernat
-          - yuvipanda
-          - choldgraf
-          - jacobtomlinson
-          - dsludwig
-          - rsignell-usgs
 homeDirectories:
   nfs:
     enabled: true
