@@ -2,34 +2,35 @@ name: notebook
 channels:
   - conda-forge
 dependencies:
-  - pangeo-notebook=2020.05.04
-  - ipykernel
-  - nb_conda_kernels
+  - pangeo-notebook=2020.05.10
+  - awscli
+  - boto3
+  - datashader
   - fsspec
-  - s3fs
   - gcsfs
+  - geopandas
+  - geoviews
+  - h5netcdf
+  - h5py
+  - hvplot
   - intake
   - intake-stac
   - intake-xarray
-  - xarray
-  - zarr
-  - h5py
-  - h5netcdf
-  - matplotlib-base
-  - ipywidgets
-  - libgdal
-  - boto3
-  - awscli
-  - hvplot
-  - geoviews
-  - panel
+  - ipykernel
   - ipyleaflet
-  - datashader
-  - requests
+  - ipywidgets
+  - jq
+  - libgdal
+  - matplotlib-base
+  - nb_conda_kernels
   - pandas
-  - geopandas
+  - panel
+  - pip
   - rasterio
+  - requests
   - rio-cogeo
+  - s3fs
   - sat-search
   - sat-stac
-  - pip
+  - xarray
+  - zarr
