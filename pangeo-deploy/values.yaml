@@ -61,7 +61,10 @@ pangeo:
         #   c.UserLimits.max_cores = 100
         #   c.UserLimits.max_memory = "400 G"
         #   c.UserLimits.max_clusters = 1
-
+      extraConfig:
+        idle: |
+          # timeout after 30 minutes of inactivity
+          c.KubeClusterConfig.idle_timeout = 1800
 
 homeDirectories:
   nfs:
