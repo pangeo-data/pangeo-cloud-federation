@@ -20,18 +20,18 @@ pangeo:
           description: "https://github.com/ICESAT-2HackWeek/jupyter-image-2020"
           kubespawner_override:
             image: uwhackweeks/icesat2:latest
-        - display_name: "'Latest Pangeo-notebook"
+        - display_name: "Latest Pangeo-notebook"
           description: "https://github.com/pangeo-data/pangeo-docker-images/tree/master/pangeo-notebook"
           kubespawner_override:
             image: pangeo/pangeo-notebook:latest
-        - display_name: "'Latest Base-notebook"
+        - display_name: "Latest Base-notebook"
           description: "https://github.com/pangeo-data/pangeo-docker-images/tree/master/base-notebook"
           kubespawner_override:
             image: pangeo/base-notebook:latest
-        - display_name: "'Latest ML-notebook"
+        - display_name: "Latest ML-notebook"
           description: "https://github.com/pangeo-data/pangeo-docker-images/tree/master/ml-notebook"
           kubespawner_override:
-            image: pangeo/base-notebook:latest
+            image: pangeo/ml-notebook:latest
             mem_limit: 60G
             mem_guarantee: 25G
             environment: {'NVIDIA_DRIVER_CAPABILITIES': 'compute,utility'}
@@ -40,7 +40,7 @@ pangeo:
       serviceAccountName: pangeo
       startTimeout: 600
       initContainers:
-        - name: volume-mount-hack
+        - name: change-volume-mount-permissions
           image: busybox
           command:
             - "sh"
@@ -57,10 +57,6 @@ pangeo:
             - name: jupyterhub-shared
               mountPath: /srv/shared
               subPath: "icesat2.pangeo.io/shared"
-      extraVolumes:
-        - name: jupyterhub-shared
-          persistentVolumeClaim:
-            claimName: data-nfs
       storage:
         type: static
         static:
