@@ -133,7 +133,7 @@ pangeo:
       custom:
         className: oauthenticator.generic.GenericOAuthenticator
         config:
-          login_service: "auth0"
+          login_service: "Pangeo Login"
           token_url: https://pangeo.auth0.com/oauth/token
           userdata_url: https://pangeo.auth0.com/oauth/userinfo
           userdata_method: GET
