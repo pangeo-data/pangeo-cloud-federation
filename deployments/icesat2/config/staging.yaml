@@ -14,6 +14,8 @@ pangeo:
         dask-gateway:
           # This makes the gateway available at ${HUB_URL}/services/dask-gateway
           url: "http://traefik-icesat2-staging-dask-gateway.icesat2-staging"
+      extraEnv:
+        OAUTH_CALLBACK_URL: "https://staging.aws-uswest2.pangeo.io/hub/oauth_callback"
     singleuser:
       extraEnv:
         DASK_GATEWAY__ADDRESS: "https://staging.aws-uswest2.pangeo.io/services/dask-gateway"
@@ -24,6 +26,3 @@ pangeo:
           - staging.aws-uswest2.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
-    auth:
-      github:
-        callbackUrl: "https://staging.aws-uswest2.pangeo.io/hub/oauth_callback"
