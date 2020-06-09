@@ -30,6 +30,7 @@ pangeo:
         # The default worker image matches the singleuser image.
         DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
         DASK_GATEWAY__AUTH__TYPE: 'jupyterhub'
+      serviceAccountName: pangeo
 
     prePuller:
       hook:
@@ -45,6 +46,9 @@ pangeo:
   dask-gateway:
     gateway:
       backend:
+        scheduler:
+          extraPodConfig:
+            serviceAccountName: pangeo
         worker:
           extraContainerConfig:
             securityContext:
