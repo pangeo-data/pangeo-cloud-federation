@@ -81,7 +81,7 @@ pangeo:
         - name: custom-templates
           gitRepo:
             repository: "https://github.com/pangeo-data/pangeo-custom-jupyterhub-templates.git"
-            revision: "0c799bb2f880c8b516dcf90e2a90328078d60c25"
+            revision: "39962614b3df4ca86efb29712f7e67c51308d25b"
       extraVolumeMounts:
         - mountPath: /usr/local/share/jupyterhub/custom_templates
           name: custom-templates
