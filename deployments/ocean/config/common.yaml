@@ -73,14 +73,15 @@ pangeo:
           c.JupyterHub.template_vars = {
             'pangeo_hub_title': 'ocean.pangeo.io',
             'pangeo_hub_subtitle': 'a community hub for ocean, atmospheric, and climate research',
-            'pangeo_welcome': """Welcome to ocean.pangeo.io. This hub lives in Google Cloud region <code>us-central1-b</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and supported by a grant from the National Science Foundation (NSF award 1740648), which includes a direct award of cloud credits from Google Cloud. The hub's configuration is stored in the github repository <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">https://github.com/pangeo-data/pangeo-cloud-federation/</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation//issues">github issue tracker</a>."""
+            'pangeo_welcome': """Welcome to ocean.pangeo.io. This hub lives in Google Cloud region <code>us-central1-b</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and supported by a grant from the National Science Foundation (NSF award 1740648), which includes a direct award of cloud credits from Google Cloud. The hub's configuration is stored in the github repository <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">https://github.com/pangeo-data/pangeo-cloud-federation/</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation//issues">github issue tracker</a>.""",
+            'announcement': 'ocean.pangeo.io will be undergoing maintenance from June 22 through June 26. Active users of this JupyterHub must fill out <a href="https://forms.gle/je75vEPiHGkwfFVv8">this form</a> to continue using this system. Please see <a href="https://discourse.pangeo.io/t/migration-of-ocean-pangeo-io-user-accounts/644>Discourse</a> for more information.'
           }
 
       extraVolumes:
         - name: custom-templates
           gitRepo:
             repository: "https://github.com/pangeo-data/pangeo-custom-jupyterhub-templates.git"
-            revision: "0c799bb2f880c8b516dcf90e2a90328078d60c25"
+            revision: "39962614b3df4ca86efb29712f7e67c51308d25b"
       extraVolumeMounts:
         - mountPath: /usr/local/share/jupyterhub/custom_templates
           name: custom-templates
