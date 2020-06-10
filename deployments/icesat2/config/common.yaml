@@ -37,7 +37,6 @@ pangeo:
             environment: {'NVIDIA_DRIVER_CAPABILITIES': 'compute,utility'}
             tolerations: [{'key': 'nvidia.com/gpu','operator': 'Equal','value': 'present','effect': 'NoSchedule'}]
             extra_resource_limits: {"nvidia.com/gpu": "1"}
-      serviceAccountName: pangeo
       startTimeout: 600
       initContainers:
         - name: change-volume-mount-permissions
