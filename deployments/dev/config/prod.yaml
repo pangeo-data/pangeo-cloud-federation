@@ -14,6 +14,7 @@ pangeo:
       extraEnv:
         DASK_GATEWAY__ADDRESS: "https://hub.pangeo.io/services/dask-gateway/"
         DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-dev-prod-dask-gateway.dev-prod:80"
+        OAUTH_CALLBACK_URL: "https://hub.pangeo.io/hub/oauth_callback"
     hub:
       services:
         dask-gateway:
