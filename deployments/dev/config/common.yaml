@@ -88,7 +88,6 @@ pangeo:
       extraEnv:
         OAUTH2_AUTHORIZE_URL: "https://pangeo.auth0.com/authorize"
         OAUTH2_TOKEN_URL: "https://pangeo.auth0.com/oauth/token"
-        OAUTH_CALLBACK_URL: "https://staging.hub.pangeo.io/hub/oauth_callback"
 
     auth:
       type: custom
