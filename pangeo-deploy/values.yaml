@@ -66,6 +66,23 @@ pangeo:
         #   c.UserLimits.max_memory = "400 G"
         #   c.UserLimits.max_clusters = 1
       extraConfig:
+        optionHandler: |
+          from dask_gateway_server.options import Options, Integer, Float, String
+          def option_handler(options):
+              if ":" not in options.image:
+                  raise ValueError("When specifying an image you must also provide a tag")
+              return {
+                  "worker_cores_limit": options.worker_cores,
+                  "worker_cores": min(options.worker_cores / 2, 1),
+                  "worker_memory": "%fG" % options.worker_memory,
+                  "image": options.image,
+              }
+          c.Backend.cluster_options = Options(
+              Integer("worker_cores", 2, min=1, max=16, label="Worker Cores"),
+              Float("worker_memory", 4, min=1, max=32, label="Worker Memory (GiB)"),
+              String("image", default="pangeo/base-notebook:2020.04.10", label="Image"),
+              handler=option_handler,
+          )
         idle: |
           # timeout after 30 minutes of inactivity
           c.KubeClusterConfig.idle_timeout = 1800
