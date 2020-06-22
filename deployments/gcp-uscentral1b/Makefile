@@ -30,19 +30,20 @@ up:
 	gcloud container clusters create $(CLUSTER) \
 		--num-nodes=1 \
 		--zone=$(ZONE) \
+		--labels=cluster=$(CLUSTER) \
 		--cluster-version=latest \
 		--no-enable-ip-alias \
-        --no-enable-legacy-authorization \
-        --enable-autoupgrade --enable-autorepair --max-surge-upgrade=1 \
+		--no-enable-legacy-authorization \
+		--enable-autoupgrade --enable-autorepair --max-surge-upgrade=1 \
 		--machine-type=n1-standard-1 \
 		--enable-autoscaling --min-nodes=1 --max-nodes=2 \
-        --node-labels="hub.jupyter.org/nodepurpose=core"
+		--node-labels="hub.jupyter.org/nodepurpose=core"
 		--enable-autoprovisioning --autoprovisioning-config-file autoprovisioning.json \
 		--autoprovisioning-service-account=pangeo \
 		--enable-vertical-pod-autoscaling \
 		--workload-metadata=GKE_METADATA \
 		--workload-pool=$(PROJECT).svc.id.goog \
-        --enable-stackdriver-kubernetes
+		--enable-stackdriver-kubernetes
 	gcloud container clusters get-credentials $(CLUSTER) --zone=$(ZONE)
 	# kubectl create namespace $(NAMESPACE)
 	# kubectl -n $(NAMESPACE) apply -f ../../pangeo-deploy/templates/pangeo-rbac.yaml
