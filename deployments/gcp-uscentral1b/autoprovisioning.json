@@ -1,0 +1,8 @@
+{
+    "resourceLimits": [
+        { "resourceType": "cpu", "minimum": 1, "maximum": 100},
+        { "resourceType": "memory", "minimum": 1, "maximum": 1000},
+        { "resourceType": "nvidia-tesla-k80", "maximum": 1},
+        { "resourceType": "nvidia-tesla-v100", "maximum": 1}
+    ]
+}
