@@ -25,3 +25,15 @@ pangeo:
         dask-gateway:
           # This makes the gateway available at ${HUB_URL}/services/dask-gateway
           url: "http://traefik-ocean-staging-dask-gateway.ocean-staging"
+
+grafana:
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: prometheus
+          orgId: 1
+          type: prometheus
+          url: http://gcp-uscentral1b-prometheus-server
+          access: proxy
+          isDefault: true

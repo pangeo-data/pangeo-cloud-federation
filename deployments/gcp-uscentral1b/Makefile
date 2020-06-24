@@ -85,3 +85,13 @@ serviceaccount:
 	  --overwrite --namespace $(NAMESPACE) \
 		pangeo \
 		iam.gke.io/gcp-service-account=pangeo@$(PROJECT).iam.gserviceaccount.com
+
+
+print-grafana-password:
+	@kubectl get secret -n $(NAMESPACE) gcp-uscentral1b-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo 
+
+forward-grafana:
+	kubectl port-forward -n $(NAMESPACE) `kubectl -n $(NAMESPACE) get pod -l 'app.kubernetes.io/name=grafana' -o name` 3000
+
+forward-prometheus:
+	kubectl port-forward -n $(NAMESPACE) `kubectl -n $(NAMESPACE) get pod -l 'app=prometheus,component=server' -o name` 9090
