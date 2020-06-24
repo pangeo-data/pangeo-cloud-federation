@@ -17,12 +17,12 @@ pangeo:
           volumeMounts:
           - name: home
             mountPath: /home/jovyan
-            subPath: "home/ocean.pangeo.io/{username}"
+            subPath: "home/hub/{username}"
       storage:
         type: static
         static:
           pvcName: home-nfs
-          subPath: "home/ocean.pangeo.io/{username}"
+          subPath: "home/hub/{username}"
       cloudMetadata:
         enabled: true
     hub:
@@ -94,6 +94,6 @@ homeDirectories:
   nfs:
     enabled: true
     serverPath: "/homes"
-    # Output from gcloud beta filestore instances describe dev-home --location=us-central1-b
-    serverIP: 10.171.161.186
-    serverName: test
+    # Output from `gcloud filestore instances describe pangeo-uscentral1b --zone=us-central1-b`
+    serverIP: 10.126.142.50
+    serverName: home

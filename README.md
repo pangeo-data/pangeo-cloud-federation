@@ -7,9 +7,7 @@ chart parameters are changed. Changing the image will typically take ~20 minutes
 
 Name    | Cloud: region      |  Staging [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging)                             | Production [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod)
 --      |-                   |-                                         |-
-dev     | GCP: us-central1-b | https://staging.hub.pangeo.io            | https://hub.pangeo.io
-ocean   | GCP: us-central1-b | https://staging.ocean.pangeo.io          | https://ocean.pangeo.io
-hydro   | GCP: us-central1-b | https://staging.hydro.pangeo.io          | https://hydro.pangeo.io
+gcp-uscentral1b   | GCP: us-central1-b | -          | -
 aws2    | AWS: us-west-2     | https://staging.aws-uswest2.pangeo.io    | https://aws-uswest2.pangeo.io
 ooi     | Azure: eastus      | https://staging.ooi.pangeo.io            | https://ooi.pangeo.io
 
@@ -33,8 +31,8 @@ Once you have a cluster created, you can begin customizing the configuration.
 * Request a git-crypt symmetric key from the maintainers of this repo to be used for your deployment secrets files.
 * Initialize git-crypt using the unlock command.
   * `git-crypt unlock /path/to/your.key`
-* Copy the deployments/dev directory to a directory with your deployment name (we'll use `foobar` as our deployment name from here on).
-  * `cp -r dev foobar`
+* Copy the one of the deployments to a directory with your deployment name (we'll use `foobar` as our deployment name from here on).
+  * `cp -r example foobar`
 * **Add your deployment's secrets directory to .gitattributes.** IMPORTANT: before pushing to GitHub ensure encryption with `git-crypt status | grep secrets`
 * Configure the JupyterHub config files. These are found in `deployments/foobar/config`.
 * Configure the `hubploy.yaml` config file.
@@ -51,7 +49,7 @@ Once you have a cluster created, you can begin customizing the configuration.
 ### Troubleshooting
 
 * `Error: UPGRADE FAILED: "example.pangeo.io-staging" has no deployed releases`
-  * If your first deploy of an application fails. Run `helm delete dev-staging --purge` anywhere you have run `gcloud container clusters get-credentials`
+  * If your first deploy of an application fails. Run `helm delete example-staging --purge` anywhere you have run `gcloud container clusters get-credentials`
 
 ### Related Projects
 
