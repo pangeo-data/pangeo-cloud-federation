@@ -135,3 +135,15 @@ homeDirectories:
     # Output from `gcloud filestore instances describe pangeo-uscentral1b --zone=us-central1-b`
     serverIP: 10.126.142.50
     serverName: home
+
+grafana:
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: prometheus
+          orgId: 1
+          type: prometheus
+          url: http://gcp-uscentral1b-prometheus-server
+          access: proxy
+          isDefault: true
