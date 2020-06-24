@@ -36,10 +36,6 @@ cluster:
 		--no-enable-ip-alias \
 		--no-enable-legacy-authorization \
 		--no-enable-basic-auth \
-		--enable-private-nodes \
-		--enable-private-endpoint \
-		--master-ipv4-cidr 172.16.0.32/28 \
-		--enable-ip-alias \
 		--enable-autoupgrade --enable-autorepair --max-surge-upgrade=1 \
 		--machine-type=n1-standard-1 \
 		--enable-autoscaling --min-nodes=1 --max-nodes=2 \
@@ -49,7 +45,11 @@ cluster:
 		--workload-metadata=GKE_METADATA \
 		--workload-pool=$(PROJECT).svc.id.goog \
 		--enable-stackdriver-kubernetes
-		# --autoprovisioning-service-account=pangeo \
+		# --autoprovisioning-service-account=pangeo  # maybe need to do this after the initial setup
+		# --enable-ip-alias
+		# --enable-private-nodes
+		# --enable-private-endpoint
+		# --master-ipv4-cidr 172.16.0.32/28
 	gcloud container clusters get-credentials $(CLUSTER) --zone=$(ZONE)
 	# kubectl create namespace $(NAMESPACE)
 	# kubectl -n $(NAMESPACE) apply -f ../../pangeo-deploy/templates/pangeo-rbac.yaml

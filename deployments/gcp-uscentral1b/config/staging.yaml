@@ -1,13 +1,13 @@
 pangeo:
   jupyterhub:
-    proxy:
-      https:
-        hosts:
-          - staging.ocean.pangeo.io
-        letsencrypt:
-          contactEmail: raphael.dussin@gmail.com
-      service:
-        loadBalancerIP: 35.238.36.78
+    # proxy:
+    #   https:
+    #     hosts:
+    #       - staging.ocean.pangeo.io
+    #     letsencrypt:
+    #       contactEmail: raphael.dussin@gmail.com
+    #   service:
+    #     loadBalancerIP: 35.238.36.78
     hub:
       resources:
         requests:
