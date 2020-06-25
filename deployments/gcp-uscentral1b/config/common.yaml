@@ -35,6 +35,8 @@ pangeo:
           prometheus.io/scrape: 'true'
           prometheus.io/path: '/hub/metrics'
       extraConfig:
+        administrators: |
+          c.Authenticator.admin_users = ["TomAugspurger"]
         image_pulls: |
           c.KubeSpawner.start_timeout = 60 * 10  # 10-minute timeout for large image pulls
         profile_list: |
