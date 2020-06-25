@@ -40,7 +40,7 @@ cluster:
 		--enable-autoupgrade --enable-autorepair --max-surge-upgrade=1 \
 		--machine-type=n1-standard-1 \
 		--enable-autoscaling --min-nodes=1 --max-nodes=2 \
-		--node-labels="hub.jupyter.org/nodepurpose=core" \
+		--node-labels="hub.jupyter.org/node-purpose=core" \
 		--enable-autoprovisioning --autoprovisioning-config-file autoprovisioning.json \
 		--enable-vertical-pod-autoscaling \
 		--workload-metadata=GKE_METADATA \
