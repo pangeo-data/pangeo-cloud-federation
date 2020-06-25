@@ -22,8 +22,9 @@ pangeo:
         enabled: false
     singleuser:
       extraEnv:
-        DASK_GATEWAY__ADDRESS: "https://staging.ocean.pangeo.io/services/dask-gateway/"
-        DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-ocean-staging-dask-gateway.ocean-staging:80"
+        # TODO: DNS
+        DASK_GATEWAY__ADDRESS: "https://34.69.173.244/services/dask-gateway/"
+        DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-us-central1b-staging-dask-gateway.staging:80"
     hub:
       services:
         dask-gateway:

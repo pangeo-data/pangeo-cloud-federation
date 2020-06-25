@@ -144,6 +144,6 @@ grafana:
         - name: prometheus
           orgId: 1
           type: prometheus
-          url: http://gcp-uscentral1b-prometheus-server
+          url: http://us-central1b-staging-prometheus-server
           access: proxy
           isDefault: true
