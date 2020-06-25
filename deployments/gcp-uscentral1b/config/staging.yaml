@@ -13,6 +13,10 @@ pangeo:
         requests:
           cpu: "0.1"
           memory: 0.25Gi
+        limits:
+          cpu: "0.1"
+          memory: 0.25Gi
+
     scheduling:
       userScheduler:
         enabled: false

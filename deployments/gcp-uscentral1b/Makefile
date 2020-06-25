@@ -1,5 +1,6 @@
 PROJECT?=pangeo-181919
 NAMESPACE?=staging
+RELEASE?=us-central1b-$(NAMESPACE)
 ZONE?=us-central1-b
 CLUSTER?=pangeo-uscentral1b
 
@@ -75,6 +76,15 @@ nfs:
 destroy-nfs:
 	echo "[Destroying NFS server: $(CLUSTER)]"
 	gcloud filestore instances delete $(CLUSTER) --zone=$(ZONE)
+
+
+pangeo:
+	helm upgrade --wait --install \
+		$(RELEASE) ../../pangeo-deploy \
+		--namespace=$(NAMESPACE) --version=0.1.0 \
+		-f ./config/common.yaml \
+		-f ./config/$(NAMESPACE).yaml \
+		-f ./secrets/$(NAMESPACE).yaml
 
 serviceaccount:
 	gcloud iam service-accounts add-iam-policy-binding \
