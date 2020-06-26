@@ -5,6 +5,11 @@ pangeo:
         nodeAffinity:
           matchNodePurpose: require
     singleuser:
+      # XXX: Hubploy should handle the image stuff
+      image:
+        name: pangeo/pangeo-notebook
+        tag: b261b3e
+
       initContainers:
         - name: volume-mount-hack
           image: busybox
