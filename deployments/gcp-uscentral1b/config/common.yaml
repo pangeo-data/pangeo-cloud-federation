@@ -96,13 +96,17 @@ pangeo:
         - mountPath: /usr/local/share/jupyterhub/static/extra-assets
           name: custom-templates
           subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
+      extraEnv:
+        OAUTH2_AUTHORIZE_URL: "https://pangeo.auth0.com/authorize"
+        OAUTH2_TOKEN_URL: "https://pangeo.auth0.com/oauth/token"
+        OAUTH_CALLBACK_URL: "https://staging.hub.pangeo.io/hub/oauth_callback"
 
     auth:
       type: custom
       custom:
         className: oauthenticator.generic.GenericOAuthenticator
         config:
-          login_service: "auth0"
+          login_service: "Pangeo"
           token_url: https://pangeo.auth0.com/oauth/token
           userdata_url: https://pangeo.auth0.com/oauth/userinfo
           userdata_method: GET
