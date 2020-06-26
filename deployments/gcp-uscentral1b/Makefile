@@ -98,7 +98,7 @@ serviceaccount:
 
 
 print-grafana-password:
-	@kubectl get secret -n $(NAMESPACE) gcp-uscentral1b-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo 
+	@kubectl get secret -n $(NAMESPACE) us-central1b-staging-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
 forward-grafana:
 	kubectl port-forward -n $(NAMESPACE) `kubectl -n $(NAMESPACE) get pod -l 'app.kubernetes.io/name=grafana' -o name` 3000
