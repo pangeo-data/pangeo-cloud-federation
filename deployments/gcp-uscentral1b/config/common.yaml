@@ -109,7 +109,8 @@ pangeo:
                      raise ValueError("When specifying an image you must also provide a tag")
                  extra_annotations = {
                      "hub.jupyter.org/username": user.name,
-                     "prometheus.io/scrape": "true"
+                     "prometheus.io/scrape": "true",
+                     "prometheus.io/port": "8787",
                  }
                  extra_labels = {
                      "hub.jupyter.org/username": user.name,
