@@ -1,13 +1,15 @@
 pangeo:
   jupyterhub:
     scheduling:
-      userPods:
-        nodeAffinity:
-          matchNodePurpose: require
       corePods:
         nodeAffinity:
           matchNodePurpose: require
     singleuser:
+      # XXX: Hubploy should handle the image stuff
+      image:
+        name: pangeo/pangeo-notebook
+        tag: b261b3e
+
       initContainers:
         - name: volume-mount-hack
           image: busybox
@@ -17,12 +19,12 @@ pangeo:
           volumeMounts:
           - name: home
             mountPath: /home/jovyan
-            subPath: "home/hub/{username}"
+            subPath: "uscentral1b/{username}"
       storage:
         type: static
         static:
           pvcName: home-nfs
-          subPath: "home/hub/{username}"
+          subPath: "uscentral1b/{username}"
       cloudMetadata:
         enabled: true
     hub:
@@ -33,7 +35,13 @@ pangeo:
         limits:
           cpu: "1.25"
           memory: 1Gi
+      service:
+        annotations:
+          prometheus.io/scrape: 'true'
+          prometheus.io/path: '/hub/metrics'
       extraConfig:
+        administrators: |
+          c.Authenticator.admin_users = ["TomAugspurger"]
         image_pulls: |
           c.KubeSpawner.start_timeout = 60 * 10  # 10-minute timeout for large image pulls
         profile_list: |
@@ -90,6 +98,40 @@ pangeo:
           name: custom-templates
           subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
 
+  dask-gateway:
+    gateway:
+      extraConfig:
+        optionHandler: |
+          from dask_gateway_server.options import Options, Integer, Float, String
+          def cluster_options(user):
+             def option_handler(options):
+                 if ":" not in options.image:
+                     raise ValueError("When specifying an image you must also provide a tag")
+                 extra_annotations = {
+                     "hub.jupyter.org/username": user.name,
+                     "prometheus.io/scrape": "true"
+                 }
+                 extra_labels = {
+                     "hub.jupyter.org/username": user.name,
+                 }
+                 return {
+                     "worker_cores_limit": options.worker_cores,
+                     "worker_cores": min(options.worker_cores / 2, 1),
+                     "worker_memory": "%fG" % options.worker_memory,
+                     "image": options.image,
+                     "scheduler_extra_pod_annotations": extra_annotations,
+                     "worker_extra_pod_annotations": extra_annotations,
+                     "scheduler_extra_pod_labels": extra_labels,
+                     "worker_extra_pod_labels": extra_labels,
+                 }
+             return Options(
+                 Integer("worker_cores", 2, min=1, max=4, label="Worker Cores"),
+                 Float("worker_memory", 4, min=1, max=8, label="Worker Memory (GiB)"),
+                 String("image", default="pangeo/pangeo-notebook:latest", label="Image"),
+                 handler=option_handler,
+             )
+          c.Backend.cluster_options = cluster_options
+
 homeDirectories:
   nfs:
     enabled: true
@@ -97,3 +139,15 @@ homeDirectories:
     # Output from `gcloud filestore instances describe pangeo-uscentral1b --zone=us-central1-b`
     serverIP: 10.126.142.50
     serverName: home
+
+grafana:
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: prometheus
+          orgId: 1
+          type: prometheus
+          url: http://us-central1b-staging-prometheus-server
+          access: proxy
+          isDefault: true
