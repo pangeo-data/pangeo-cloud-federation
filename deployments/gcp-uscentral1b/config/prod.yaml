@@ -1,19 +1,20 @@
 pangeo:
   jupyterhub:
-    proxy:
-      https:
-        hosts:
-          - ocean.pangeo.io
-        letsencrypt:
-          contactEmail: raphael.dussin@gmail.com
-      service:
-        loadBalancerIP: 34.66.6.21
-    singleuser:
-      extraEnv:
-        DASK_GATEWAY__ADDRESS: "https://ocean.pangeo.io/services/dask-gateway/"
-        DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-ocean-prod-dask-gateway.ocean-prod:80"
+    # proxy:
+    #   https:
+    #     hosts:
+    #       - prod.us-central1-b.gcp.pangeo.io
+    #     letsencrypt:
+    #       contactEmail: rpa@ldeo.columbia.edu 
+    #   service:
+    #     loadBalancerIP: 34.69.173.244
     hub:
       services:
         dask-gateway:
           # This makes the gateway available at ${HUB_URL}/services/dask-gateway
-          url: "http://traefik-ocean-prod-dask-gateway.ocean-prod"
+          url: "http://traefik-us-central1b-prod-dask-gateway.prod"
+    singleuser:
+      extraEnv:
+        # TODO: DNS
+        DASK_GATEWAY__ADDRESS: "https://prod.us-central1-b.gcp.pangeo.io/services/dask-gateway/"
+        DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-us-central1b-prod-dask-gateway.prod:80"
