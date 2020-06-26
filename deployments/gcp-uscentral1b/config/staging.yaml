@@ -27,5 +27,5 @@ pangeo:
     singleuser:
       extraEnv:
         # TODO: DNS
-        DASK_GATEWAY__ADDRESS: "http://34.69.173.244/services/dask-gateway/"
+        DASK_GATEWAY__ADDRESS: "https://staging.us-central1-b.gcp.pangeo.io/services/dask-gateway/"
         DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-us-central1b-staging-dask-gateway.staging:80"
