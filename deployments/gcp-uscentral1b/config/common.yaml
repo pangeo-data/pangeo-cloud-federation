@@ -152,7 +152,7 @@ pangeo:
                  }
              return Options(
                  Integer("worker_cores", 2, min=1, max=16, label="Worker Cores"),
-                 Float("worker_memory", 4, min=1, max=32, label="Worker Memory (GiB)"), ,
+                 Float("worker_memory", 4, min=1, max=32, label="Worker Memory (GiB)"),
                  String("image", default="pangeo/pangeo-notebook:latest", label="Image"),
                  handler=option_handler,
              )
