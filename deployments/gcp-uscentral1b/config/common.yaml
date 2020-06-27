@@ -151,8 +151,8 @@ pangeo:
                      "worker_extra_pod_labels": extra_labels,
                  }
              return Options(
-                 Integer("worker_cores", 2, min=1, max=4, label="Worker Cores"),
-                 Float("worker_memory", 4, min=1, max=8, label="Worker Memory (GiB)"),
+                 Integer("worker_cores", 2, min=1, max=16, label="Worker Cores"),
+                 Float("worker_memory", 4, min=1, max=32, label="Worker Memory (GiB)"), ,
                  String("image", default="pangeo/pangeo-notebook:latest", label="Image"),
                  handler=option_handler,
              )
