@@ -87,6 +87,7 @@ pangeo:
 		-f ./secrets/$(NAMESPACE).yaml
 
 serviceaccount:
+	# Assumes the GSA `pangeo` exists. Run `make google-service-account` if not.
 	gcloud iam service-accounts add-iam-policy-binding \
 		--role roles/iam.workloadIdentityUser \
 		--member "serviceAccount:$(PROJECT).svc.id.goog[$(NAMESPACE)/pangeo]" \
@@ -95,6 +96,9 @@ serviceaccount:
 	  --overwrite --namespace $(NAMESPACE) \
 		pangeo \
 		iam.gke.io/gcp-service-account=pangeo@$(PROJECT).iam.gserviceaccount.com
+
+scratch:
+	gsutil lifecycle set lifecycle.json gs://pangeo-scratch
 
 
 print-grafana-password:
@@ -105,3 +109,6 @@ forward-grafana:
 
 forward-prometheus:
 	kubectl port-forward -n $(NAMESPACE) `kubectl -n $(NAMESPACE) get pod -l 'app=prometheus,component=server' -o name` 9090
+
+google-service-account:
+	gcloud iam service-accounts create pangeo
