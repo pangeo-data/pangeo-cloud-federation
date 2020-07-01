@@ -1,0 +1,31 @@
+pangeo:
+  jupyterhub:
+    proxy:
+      https:
+        hosts:
+          - staging.us-central1-b.gcp.pangeo.io
+        letsencrypt:
+          contactEmail: rpa@ldeo.columbia.edu 
+      service:
+        loadBalancerIP: 34.69.173.244
+    hub:
+      resources:
+        requests:
+          cpu: "0.1"
+          memory: 0.25Gi
+        limits:
+          cpu: "0.1"
+          memory: 0.25Gi
+      services:
+        dask-gateway:
+          # This makes the gateway available at ${HUB_URL}/services/dask-gateway
+          url: "http://traefik-gcp-uscentral1b-staging-dask-gateway.staging"
+
+    scheduling:
+      userScheduler:
+        enabled: false
+    singleuser:
+      extraEnv:
+        # TODO: DNS
+        DASK_GATEWAY__ADDRESS: "https://staging.us-central1-b.gcp.pangeo.io/services/dask-gateway/"
+        DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-gcp-uscentral1b-staging-dask-gateway.staging:80"

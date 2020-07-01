@@ -1,5 +1,5 @@
 images:
-  image_name: us.gcr.io/pangeo-181919/hydro-pangeo-io-notebook
+  image_name: us.gcr.io/pangeo-181919/ocean-pangeo-io-notebook
   image_config_path: pangeo.jupyterhub.singleuser.image
   registry:
     provider: gcloud
@@ -12,5 +12,6 @@ cluster:
   gcloud:
     project: pangeo-181919
     service_key: gcloud-service-key.json
-    cluster: dev-pangeo-io-cluster
+    cluster: pangeo-uscentral1b
     zone: us-central1-b
+

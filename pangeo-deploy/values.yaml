@@ -90,3 +90,7 @@ pangeo:
 homeDirectories:
   nfs:
     enabled: false
+
+grafana:
+  ingress:
+    enabled: true
