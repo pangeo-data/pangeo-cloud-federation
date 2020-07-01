@@ -12,6 +12,6 @@ cluster:
   gcloud:
     project: pangeo-181919
     service_key: gcloud-service-key.json
-    cluster: dev-pangeo-io-cluster
+    cluster: pangeo-uscentral1b
     zone: us-central1-b
 
