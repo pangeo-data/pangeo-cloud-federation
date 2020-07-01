@@ -18,9 +18,12 @@ pangeo:
         annotations:
           prometheus.io/scrape: 'true'
           prometheus.io/path: '/hub/metrics'
+      extraEnv:
+        OAUTH_CALLBACK_URL: "https://us-central1-b.gcp.pangeo.io/hub/oauth_callback"
+
 
     singleuser:
       extraEnv:
         # TODO: DNS
-        DASK_GATEWAY__ADDRESS: "https://prod.us-central1-b.gcp.pangeo.io/services/dask-gateway/"
+        DASK_GATEWAY__ADDRESS: "https://us-central1-b.gcp.pangeo.io/services/dask-gateway/"
         DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-gcp-uscentral1b-prod-dask-gateway.prod:80"
