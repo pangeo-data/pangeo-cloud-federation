@@ -140,7 +140,7 @@ jobs:
           when: always
           no_output_timeout: 2h
           command: |
-            hubploy build gcp-uscentral1b --check-registry --push --namespace=${CIRCLE_BRANCH}
+            hubploy build gcp-uscentral1b --check-registry --push
 
       - run:
           name: Build aws-uswest2.pangeo.io image if needed
