@@ -57,7 +57,7 @@ pangeo:
               mountPath: /srv/shared
               subPath: "icesat2.pangeo.io/shared"
       extraEnv:
-        PANGEO_SCRATCH: "s3://pangeo-scratch"
+        PANGEO_SCRATCH_PREFIX: "s3://pangeo-scratch"
 
       storage:
         type: static
