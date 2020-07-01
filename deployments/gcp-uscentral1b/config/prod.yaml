@@ -1,13 +1,13 @@
 pangeo:
   jupyterhub:
-    # proxy:
-    #   https:
-    #     hosts:
-    #       - prod.us-central1-b.gcp.pangeo.io
-    #     letsencrypt:
-    #       contactEmail: rpa@ldeo.columbia.edu 
-    #   service:
-    #     loadBalancerIP: 34.69.173.244
+    proxy:
+      https:
+        hosts:
+          - us-central1-b.gcp.pangeo.io
+        letsencrypt:
+          contactEmail: rpa@ldeo.columbia.edu
+      service:
+        loadBalancerIP: 35.238.103.127
     hub:
       services:
         dask-gateway:
