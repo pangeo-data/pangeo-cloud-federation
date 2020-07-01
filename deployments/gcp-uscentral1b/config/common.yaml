@@ -35,10 +35,6 @@ pangeo:
         limits:
           cpu: "1.25"
           memory: 1Gi
-      service:
-        annotations:
-          prometheus.io/scrape: 'true'
-          prometheus.io/path: '/hub/metrics'
       extraConfig:
         administrators: |
           c.Authenticator.admin_users = ["TomAugspurger"]
