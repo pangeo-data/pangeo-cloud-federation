@@ -140,7 +140,7 @@ jobs:
           when: always
           no_output_timeout: 2h
           command: |
-            hubploy build gcp-uscentral1b --check-registry --push
+            hubploy build gcp-uscentral1b --check-registry --push --namespace=${CIRCLE_BRANCH}
 
       - run:
           name: Build aws-uswest2.pangeo.io image if needed
@@ -177,7 +177,7 @@ jobs:
           name: Deploy gcp-uscentral1b.pangeo.io
           when: always
           command: |
-            hubploy deploy gcp-uscentral1b pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail
+            hubploy deploy gcp-uscentral1b pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail --namespace ${CIRCLE_BRANCH}
 
       # NOTE: should move the dynamic IP into hubploy where credentials and awscli version already dealt with
       # sleep 2min for now, but better to poll for readiness https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
