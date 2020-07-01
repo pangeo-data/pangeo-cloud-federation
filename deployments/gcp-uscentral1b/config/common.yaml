@@ -22,7 +22,7 @@ pangeo:
             subPath: "uscentral1b/{username}"
       extraEnv:
         # Scratch storage within the cluster
-        PANGEO_SCRATCH: "gcs://pangeo-scratch"
+        PANGEO_SCRATCH_PREFIX: "gs://pangeo-scratch"
 
       storage:
         type: static
