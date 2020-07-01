@@ -13,6 +13,12 @@ pangeo:
         dask-gateway:
           # This makes the gateway available at ${HUB_URL}/services/dask-gateway
           url: "http://traefik-us-central1b-prod-dask-gateway.prod"
+      service:
+        # Just in prod to avoid possible port contention.
+        annotations:
+          prometheus.io/scrape: 'true'
+          prometheus.io/path: '/hub/metrics'
+
     singleuser:
       extraEnv:
         # TODO: DNS
