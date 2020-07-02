@@ -178,6 +178,7 @@ jobs:
           when: always
           command: |
             hubploy deploy gcp-uscentral1b pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail --namespace ${CIRCLE_BRANCH}
+            helm upgrade --wait --install metrics stable/prometheus-operator --namespace=metrics -f metrics/values.yaml
 
       # NOTE: should move the dynamic IP into hubploy where credentials and awscli version already dealt with
       # sleep 2min for now, but better to poll for readiness https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
@@ -195,6 +196,8 @@ jobs:
           when: always
           command: |
             hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail
+            helm upgrade --wait --install metrics stable/prometheus-operator --namespace=metrics -f metrics/values.yaml
+
       - run:
           name: Revert to Original EKS IP Whitelist
           when: always
