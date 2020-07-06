@@ -100,15 +100,5 @@ serviceaccount:
 scratch:
 	gsutil lifecycle set lifecycle.json gs://pangeo-scratch
 
-
-print-grafana-password:
-	@kubectl get secret -n $(NAMESPACE) us-central1b-staging-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
-
-forward-grafana:
-	kubectl port-forward -n $(NAMESPACE) `kubectl -n $(NAMESPACE) get pod -l 'app.kubernetes.io/name=grafana' -o name` 3000
-
-forward-prometheus:
-	kubectl port-forward -n $(NAMESPACE) `kubectl -n $(NAMESPACE) get pod -l 'app=prometheus,component=server' -o name` 9090
-
 google-service-account:
 	gcloud iam service-accounts create pangeo
