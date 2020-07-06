@@ -96,6 +96,9 @@ serviceaccount:
 	  --overwrite --namespace $(NAMESPACE) \
 		pangeo \
 		iam.gke.io/gcp-service-account=pangeo@$(PROJECT).iam.gserviceaccount.com
+	gcloud projects add-iam-policy-binding pangeo-181919 \
+	  --member serviceAccount:pangeo@$(PROJECT).iam.gserviceaccount.com \
+	  --role roles/serviceusage.serviceUsageConsumer
 
 scratch:
 	gsutil lifecycle set lifecycle.json gs://pangeo-scratch
