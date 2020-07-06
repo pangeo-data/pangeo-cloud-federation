@@ -1,25 +1,24 @@
 # Monitor all namespaces
 # https://github.com/coreos/prometheus-operator/issues/2890#issuecomment-583006452
 grafana:
-  dask:
-    dask:
-      # Ref: https://grafana.com/dashboards/2
-      gnetId: 11522
-      revision: 2
-      datasource: Prometheus
-
-  dashboardProviders:
-    dashboardproviders.yaml:
-      apiVersion: 1
-      providers:
-        - name: 'dask'
-          orgId: 1
-          folder: ''
-          type: file
-          disableDeletion: true
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/dask
+  dashboardProviders: 
+   dashboardproviders.yaml:
+     apiVersion: 1
+     providers:
+     - name: 'default'
+       orgId: 1
+       folder: ''
+       type: file
+       disableDeletion: false
+       editable: true
+       options:
+         path: /var/lib/grafana/dashboards/default
+  dashboards:
+    default:
+      dask:
+        gnetId: 11522
+        revision: 2
+        datasource: Prometheus
 
 prometheus:
   prometheusSpec:
