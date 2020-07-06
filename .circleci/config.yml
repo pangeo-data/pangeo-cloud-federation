@@ -179,6 +179,7 @@ jobs:
           when: always
           command: |
             hubploy deploy gcp-uscentral1b pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail --namespace ${CIRCLE_BRANCH}
+            kubectl create namespace metrics
             helm upgrade --wait --install metrics stable/prometheus-operator --namespace=metrics -f metrics/values.yaml
 
       # NOTE: should move the dynamic IP into hubploy where credentials and awscli version already dealt with
@@ -197,6 +198,7 @@ jobs:
           when: always
           command: |
             hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail
+            kubectl create namespace metrics
             helm upgrade --wait --install metrics stable/prometheus-operator --namespace=metrics -f metrics/values.yaml
 
       - run:
