@@ -1,1 +1,1 @@
-FROM pangeo/pangeo-notebook:afe4262
+FROM pangeo/pangeo-notebook:latest
