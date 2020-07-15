@@ -30,4 +30,4 @@ pangeo:
       extraEnv:
         # TODO: DNS
         DASK_GATEWAY__ADDRESS: "https://ooi.pangeo.io/services/dask-gateway/"
-        DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-ooi-dask-gateway.staging:80"
+        DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-ooi-prod-dask-gateway.ooi-prod:80"
