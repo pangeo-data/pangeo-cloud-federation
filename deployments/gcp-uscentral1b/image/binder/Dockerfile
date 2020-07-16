@@ -1,1 +1,1 @@
-FROM pangeo/pangeo-notebook:latest
+FROM pangeo/pangeo-notebook@sha256:e8fe4d9cf061c0a1f420da2b93bcbe4ef76ece68d56acc150ea63b8c8a6dc342
