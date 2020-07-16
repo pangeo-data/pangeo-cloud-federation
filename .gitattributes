@@ -1,3 +1,4 @@
 deployments/gcp-uscentral1b/secrets/** filter=git-crypt diff=git-crypt
 deployments/icesat2/secrets/** filter=git-crypt diff=git-crypt
 deployments/ooi/secrets/** filter=git-crypt-ooi diff=git-crypt-ooi
+metrics/secret.yaml filter=git-crypt-ooi diff=git-crypt-ooi

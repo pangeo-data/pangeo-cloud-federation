@@ -1,6 +1,24 @@
 # Monitor all namespaces
 # https://github.com/coreos/prometheus-operator/issues/2890#issuecomment-583006452
 grafana:
+  grafana.ini:
+    server:
+      domain: "grafana.us-central1-b.gcp.pangeo.io"
+      root_url: "%(protocol)s://%(domain)s/grafana"
+      serve_from_sub_path: true
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: 'true'
+    persistence:
+      enabled: true
+      size: 1Gi
+      accessModes:
+        - ReadWriteOnce
+    hosts:
+      - "grafana.us-central1-b.gcp.pangeo.io"
+
   dashboardProviders: 
    dashboardproviders.yaml:
      apiVersion: 1

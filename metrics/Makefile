@@ -1,7 +1,8 @@
 NAMESPACE?=metrics
 
 deploy:
-	helm upgrade --wait --install metrics stable/prometheus-operator --namespace=metrics -f values.yaml
+	helm upgrade --wait --install metrics-ingress stable/nginx-ingress --namespace=$(NAMESPACE) -f ingress-values.yaml
+	helm upgrade --wait --install metrics stable/prometheus-operator --namespace=$(NAMESPACE) -f values.yaml -f secret.yaml
 
 
 print-grafana-password:
