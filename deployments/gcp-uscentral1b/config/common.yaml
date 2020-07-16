@@ -132,6 +132,14 @@ pangeo:
 
   dask-gateway:
     gateway:
+      backend:
+        worker:
+          extraPodConfig:
+            tolerations:
+              - key: "cloud.google.com/gke-preemptible"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
       extraConfig:
         optionHandler: |
           from dask_gateway_server.options import Options, Integer, Float, String
