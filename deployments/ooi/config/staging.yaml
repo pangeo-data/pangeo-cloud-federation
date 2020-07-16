@@ -18,3 +18,8 @@ pangeo:
       service:
         annotations: {'service.beta.kubernetes.io/azure-load-balancer-resource-group': 'ooi-pangeo'}
         loadBalancerIP: 13.92.63.24
+    singleuser:
+      extraEnv:
+        # TODO: DNS
+        DASK_GATEWAY__ADDRESS: "https://staging.ooi.pangeo.io/services/dask-gateway/"
+        DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-ooi-staging-dask-gateway.ooi-staging:80"

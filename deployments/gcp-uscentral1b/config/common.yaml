@@ -39,6 +39,11 @@ pangeo:
         limits:
           cpu: "1.25"
           memory: 1Gi
+      service:
+        annotations:
+          prometheus.io/scrape: 'true'
+          prometheus.io/path: '/hub/metrics'
+
       extraConfig:
         administrators: |
           c.Authenticator.admin_users = ["TomAugspurger"]
@@ -75,6 +80,8 @@ pangeo:
                 }
             },
           ]
+        prometheus: |
+          c.JupyterHub.authenticate_prometheus = False
 
         customPodHook: |
           c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
@@ -165,15 +172,3 @@ homeDirectories:
     # Output from `gcloud filestore instances describe pangeo-uscentral1b --zone=us-central1-b`
     serverIP: 10.126.142.50
     serverName: home
-
-grafana:
-  datasources:
-    datasources.yaml:
-      apiVersion: 1
-      datasources:
-        - name: prometheus
-          orgId: 1
-          type: prometheus
-          url: http://us-central1b-staging-prometheus-server
-          access: proxy
-          isDefault: true
