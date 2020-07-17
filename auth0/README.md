@@ -32,6 +32,7 @@ You have to create an Management API Application with proper scope to allow Rule
 - Name: Auth0 Management API
 - Type: Machine to Machine App
 - Select API: Auth0 Management API
+- Scopes: `read:user_idp_tokens`
 - Go to Application settings, you'll find your ID and SECRET (to use as Rules Environment Variables)
 
 ## Rules
