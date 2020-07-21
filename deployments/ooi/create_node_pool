@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# create second node pool
+az aks nodepool add \
+  --name "notebook" \
+  --cluster-name "ooi-pangeo" \
+  --resource-group "ooi-pangeo" \
+  --node-count 2 \
+  --node-osdisk-size 30 \
+  --node-vm-size "Standard_D2s_v3" \
+  --enable-cluster-autoscaler \
+  --min-count 2 \
+  --max-count 10 \
+  --max-pods 250 \
+  --verbose
