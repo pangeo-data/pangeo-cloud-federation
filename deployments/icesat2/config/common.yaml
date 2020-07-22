@@ -121,9 +121,9 @@ pangeo:
         00-template-config: |
           c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom-templates/']
           c.JupyterHub.template_vars = {
-            'pangeo_hub_title': 'aws-uswest.pangeo.io',
-            'pangeo_hub_subtitle': 'a community hub for the pangeo project',
-            'pangeo_welcome': """Welcome to aws-uswest2.pangeo.io, the computational environment for <a href="https://icesat-2hackweek.github.io">Icesat-2 Hackweek</a>! This hub lives in AWS region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. <strong>This is a prototype and should be treated accordingly. We make no promises that the hub will remain active. Do not store passwords or sensitive data in your home directory</strong> Access is currently limited to the <a href="https://github.com/pangeo-data">Pangeo GitHub Organization members</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation/issues">github issue tracker</a>."""
+            'pangeo_hub_title': 'Pangeo Cloud',
+            'pangeo_hub_subtitle': 'aws-uswest.pangeo.io',
+            'pangeo_welcome': """Welcome to Pangeo Cloud! This JupyterHub lives in the AWS Cloud region <code>us-west-2</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and is supported by <a href="https://github.com/pangeo-data/nasa-access-17">NASA Grant #17-ACCESS17-0003</a> and cloud credits from Amazon. For information and signup instructions, please visit the <a href="http://pangeo.io/cloud.html">Pangeo Cloud Website</a>. <strong>This is a prototype and should be treated accordingly. We make no promises that the hub will remain active. Do not store passwords or sensitive data in your home directory</strong>."""
           }
       extraEnv:
         OAUTH2_AUTHORIZE_URL: "https://pangeo.auth0.com/authorize"

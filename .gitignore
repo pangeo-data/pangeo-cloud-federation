@@ -1,3 +1,4 @@
 Chart.lock
 pangeo-deploy/charts/
 pangeo-deploy/requirements.lock
+pangeo-gdrive-service-account.json
