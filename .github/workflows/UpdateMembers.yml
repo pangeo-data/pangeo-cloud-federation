@@ -2,7 +2,7 @@ name: UpdateMembers
 
 on:
   schedule:
-    - cron: "0 * * * *"  #Nightly
+    - cron: "0 0 * * *"  # Nightly at midnight
 
 jobs:
   update-members:
