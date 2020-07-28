@@ -7,7 +7,8 @@ function (user, context, callback) {
   })[0];
   var access_token = github.access_token;
   request.get({
-      url: "https://api.github.com/user/teams",
+      baseUrl: "https://api.github.com/",
+      uri: "/user/teams?per_page=100",
       headers: {
         // use token authorization to talk to github API
         "Authorization": "token "+access_token,
@@ -20,7 +21,9 @@ function (user, context, callback) {
         if(data){
           // extract github team names to array
           var github_teams = JSON.parse(data).map(function(team){
+            if(team.organization.login === 'pangeo-data'){
             return team.organization.login + "/" + team.slug;
+            }
           });
           // add teams to the application metadata
           user.app_metadata = user.app_metadata || {};
