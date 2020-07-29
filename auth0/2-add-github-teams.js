@@ -1,5 +1,4 @@
 // https://gravitational.com/blog/aws-github-sso/
-// Uses first org in REQUIRED_GITHUB_ORGS application list?
 function (user, context, callback) {
   // access token to talk to github API
   var github = user.identities.filter(function (id){
@@ -21,10 +20,10 @@ function (user, context, callback) {
         if(data){
           // extract github team names to array
           var github_teams = JSON.parse(data).map(function(team){
-            if(team.organization.login === 'pangeo-data'){
             return team.organization.login + "/" + team.slug;
-            }
           });
+          // Filter list to only include pangeo-data teams
+          github_teams = github_teams.filter(function (str) { return str.includes('pangeo-data'); });
           // add teams to the application metadata
           user.app_metadata = user.app_metadata || {};
           // update the app_metadata that will be part of the response
