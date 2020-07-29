@@ -6,10 +6,10 @@ chart parameters are changed. Changing the image will typically take ~20 minutes
 # Clusters
 
 Name    | Cloud: region      |  Staging [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/staging)                             | Production [![CircleCI](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod.svg?style=svg)](https://circleci.com/gh/pangeo-data/pangeo-cloud-federation/tree/prod)
---      |-                   |-                                         |-
-gcp-uscentral1b   | GCP: us-central1-b | -          | -
-aws2    | AWS: us-west-2     | https://staging.aws-uswest2.pangeo.io    | https://aws-uswest2.pangeo.io
-ooi     | Azure: eastus      | https://staging.ooi.pangeo.io            | https://ooi.pangeo.io
+--                |-                   |-                                            |-
+gcp-uscentral1b   | GCP: us-central1-b | https://staging.us-central1-b.gcp.pangeo.io | https://us-central1-b.gcp.pangeo.io
+aws2              | AWS: us-west-2     | https://staging.aws-uswest2.pangeo.io       | https://aws-uswest2.pangeo.io
+ooi               | Azure: eastus      | https://staging.ooi.pangeo.io               | https://ooi.pangeo.io
 
 ## Instructions to add a new hub
 
