@@ -2,7 +2,7 @@ name: notebook
 channels:
   - conda-forge
 dependencies:
-  - pangeo-notebook=2020.07.03
+  - pangeo-notebook=2020.07.28
   - awscli
   - boto3
   - datashader
