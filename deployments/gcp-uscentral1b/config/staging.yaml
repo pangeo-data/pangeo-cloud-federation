@@ -29,3 +29,19 @@ pangeo:
         # TODO: DNS
         DASK_GATEWAY__ADDRESS: "https://staging.us-central1-b.gcp.pangeo.io/services/dask-gateway/"
         DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-gcp-uscentral1b-staging-dask-gateway.staging:80"
+
+metrics:
+  enabled: true
+
+prometheus-operator:
+  grafana:
+    server:
+      domain: "grafana.us-central1-b.gcp.pangeo.io"
+    ingress:
+      hosts:
+        - "grafana.us-central1-b.gcp.pangeo.io"
+
+ingress-nginx:
+  controller:
+    service:
+      loadBalancerIP: "34.121.206.128"
