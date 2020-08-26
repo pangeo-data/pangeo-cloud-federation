@@ -6,7 +6,7 @@ version: 0.1.0
 dependencies:
   - name: daskhub
     version: "4.4.1"
-    repository: helm.dask.org
+    repository: https://helm.dask.org
     import-values:
       - child: rbac
         parent: rbac
