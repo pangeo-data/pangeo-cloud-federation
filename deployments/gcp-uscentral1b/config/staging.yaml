@@ -40,12 +40,6 @@ prometheus-operator:
     ingress:
       hosts:
         - "grafana.us-central1-b.gcp.pangeo.io"
-      annotations:
-        cert-manager.io/issuer: letsencrypt-production
-      tls:
-        - secretName: grafana.us-central1-b.gcp.pangeo.io.io-tls
-          hosts:
-            - grafana.us-central1-b.gcp.pangeo.io
 
 ingress-nginx:
   controller:
