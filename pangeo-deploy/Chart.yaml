@@ -5,8 +5,16 @@ name: pangeo-deploy
 version: 0.1.0
 dependencies:
   - name: pangeo
-    version: "v0.2.2-n059.h1730652"
+    version: "v0.2.2-n063.h716913e"
     repository: https://pangeo-data.github.io/helm-chart/
     import-values:
       - child: rbac
         parent: rbac
+  - name: ingress-nginx
+    version: "2.11.3"
+    repository: https://kubernetes.github.io/ingress-nginx
+    condition: metrics.enabled
+  - name: prometheus-operator
+    version: "9.3.1"
+    repository: https://kubernetes-charts.storage.googleapis.com
+    condition: metrics.enabled
