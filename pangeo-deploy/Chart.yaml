@@ -4,9 +4,9 @@ description: A Helm chart for Kubernetes
 name: pangeo-deploy
 version: 0.1.0
 dependencies:
-  - name: pangeo
-    version: "v0.2.2-n063.h716913e"
-    repository: https://pangeo-data.github.io/helm-chart/
+  - name: daskhub
+    version: "4.4.1"
+    repository: helm.dask.org
     import-values:
       - child: rbac
         parent: rbac
