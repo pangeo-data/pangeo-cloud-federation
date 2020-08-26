@@ -16,6 +16,10 @@ daskhub:
         limits:
           cpu: "0.1"
           memory: 0.25Gi
+    singleuser:
+      extraEnv:
+        DASK_GATEWAY__ADDRESS: "https://staging.us-central1-b.gcp.pangeo.io/services/dask-gateway/"
+
     scheduling:
       userScheduler:
         enabled: false
