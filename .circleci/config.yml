@@ -172,6 +172,8 @@ jobs:
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo add dask-gateway https://dask.org/dask-gateway-helm-repo/
             helm repo add stable https://kubernetes-charts.storage.googleapis.com
+            helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+            helm repo add prometheus-operator https://kubernetes-charts.storage.googleapis.com
             helm repo update
 
       - run:

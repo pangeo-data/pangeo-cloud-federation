@@ -23,3 +23,19 @@ daskhub:
     scheduling:
       userScheduler:
         enabled: false
+
+metrics:
+  enabled: true
+
+prometheus-operator:
+  grafana:
+    server:
+      domain: "grafana.us-central1-b.gcp.pangeo.io"
+    ingress:
+      hosts:
+        - "grafana.us-central1-b.gcp.pangeo.io"
+
+ingress-nginx:
+  controller:
+    service:
+      loadBalancerIP: "34.121.206.128"
