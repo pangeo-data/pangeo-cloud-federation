@@ -17,6 +17,32 @@ pangeo:
       extraEnv:
         OAUTH_CALLBACK_URL: "https://staging.aws-uswest2.pangeo.io/hub/oauth_callback"
     singleuser:
+      profileList:
+        - display_name: "Staging Pangeo-notebook"
+          description: "https://github.com/pangeo-data/pangeo-docker-images/tree/master/pangeo-notebook"
+          kubespawner_override:
+            image: pangeo/pangeo-notebook:master
+        - display_name: "Latest Pangeo-notebook"
+          description: "https://github.com/pangeo-data/pangeo-docker-images/releases"
+          kubespawner_override:
+            image: pangeo/pangeo-notebook:latest
+        - display_name: "Staging Base-notebook"
+          description: "https://github.com/pangeo-data/pangeo-docker-images/tree/master/base-notebook"
+          kubespawner_override:
+            image: pangeo/base-notebook:master
+        - display_name: "Staging ML-notebook"
+          description: "https://github.com/pangeo-data/pangeo-docker-images/tree/master/ml-notebook"
+          kubespawner_override:
+            image: pangeo/ml-notebook:master
+            mem_limit: 60G
+            mem_guarantee: 25G
+            environment: {'NVIDIA_DRIVER_CAPABILITIES': 'compute,utility'}
+            tolerations: [{'key': 'nvidia.com/gpu','operator': 'Equal','value': 'present','effect': 'NoSchedule'}]
+            extra_resource_limits: {"nvidia.com/gpu": "1"}
+        - display_name: "ICESat-2 Hackweek 2020"
+          description: "https://github.com/ICESAT-2HackWeek/jupyter-image-2020"
+          kubespawner_override:
+            image: uwhackweeks/icesat2:latest
       extraEnv:
         DASK_GATEWAY__ADDRESS: "https://staging.aws-uswest2.pangeo.io/services/dask-gateway"
         DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-icesat2-staging-dask-gateway.icesat2-staging:80"
