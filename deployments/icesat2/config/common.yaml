@@ -12,31 +12,8 @@ daskhub:
       continuous:
         enabled: false
     singleuser:
-      profileList:
-        - display_name: "Standard environment"
-          description: "https://github.com/pangeo-data/pangeo-cloud-federation/tree/staging/deployments/icesat2/image/binder"
-          default: true
-        - display_name: "ICESat-2 Hackweek 2020"
-          description: "https://github.com/ICESAT-2HackWeek/jupyter-image-2020"
-          kubespawner_override:
-            image: uwhackweeks/icesat2:latest
-        - display_name: "Latest Pangeo-notebook"
-          description: "https://github.com/pangeo-data/pangeo-docker-images/tree/master/pangeo-notebook"
-          kubespawner_override:
-            image: pangeo/pangeo-notebook:latest
-        - display_name: "Latest Base-notebook"
-          description: "https://github.com/pangeo-data/pangeo-docker-images/tree/master/base-notebook"
-          kubespawner_override:
-            image: pangeo/base-notebook:latest
-        - display_name: "Latest ML-notebook"
-          description: "https://github.com/pangeo-data/pangeo-docker-images/tree/master/ml-notebook"
-          kubespawner_override:
-            image: pangeo/ml-notebook:latest
-            mem_limit: 60G
-            mem_guarantee: 25G
-            environment: {'NVIDIA_DRIVER_CAPABILITIES': 'compute,utility'}
-            tolerations: [{'key': 'nvidia.com/gpu','operator': 'Equal','value': 'present','effect': 'NoSchedule'}]
-            extra_resource_limits: {"nvidia.com/gpu": "1"}
+      image:
+        pullPolicy: 'Always'
       startTimeout: 600
       initContainers:
         - name: change-volume-mount-permissions
