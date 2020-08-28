@@ -139,7 +139,7 @@ prometheus-operator:
     dashboards:
       default:
         dask:
-          gnetId: 11522
+          gnetId: 12591
           revision: 2
           datasource: Prometheus
 
