@@ -45,3 +45,14 @@ pangeo:
           - staging.aws-uswest2.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
+
+metrics:
+  enabled: true
+
+prometheus-operator:
+  grafana:
+    server:
+      domain: "grafana.staging.aws-uswest2.pangeo.io"
+    ingress:
+      hosts:
+        - "grafana.staging.aws-uswest2.pangeo.io"

@@ -33,3 +33,11 @@ daskhub:
           - aws-uswest2.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
+
+prometheus-operator:
+  grafana:
+    server:
+      domain: "grafana.aws-uswest2.pangeo.io"
+    ingress:
+      hosts:
+        - "grafana.aws-uswest2-pangeo.io"
