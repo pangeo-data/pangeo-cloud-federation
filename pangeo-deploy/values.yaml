@@ -124,6 +124,12 @@ homeDirectories:
 # * ingress-nginx.controller.service.loadBalancerIP: ...
 
 prometheus-operator:
+  alertmanager:
+    enabled: false
+
+  nodeExporter:
+    enabled: false
+
   grafana:
     grafana.ini:
       auth.anonymous:
