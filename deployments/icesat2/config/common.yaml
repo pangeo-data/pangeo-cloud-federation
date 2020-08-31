@@ -1,4 +1,4 @@
-pangeo:
+daskhub:
   jupyterhub:
     scheduling:
       userPods:
