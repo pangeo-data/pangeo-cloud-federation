@@ -75,6 +75,17 @@ daskhub:
                     'mem_guarantee': '12G',
                 }
             },
+            {
+                'display_name': 'ML Image - Large (12 GB - 16 GB)',
+                'description': "https://github.com/pangeo-data/pangeo-docker-images/tree/master/ml-notebook",
+                'kubespawner_override': {
+                    'image': 'pangeo/ml-notebook:master',
+                    'cpu_limit': 2,
+                    'cpu_guarantee': 1,
+                    'mem_limit': '16G',
+                    'mem_guarantee': '12G',
+                }
+            },
           ]
 
         customPodHook: |
@@ -142,4 +153,3 @@ homeDirectories:
     # Output from `gcloud filestore instances describe pangeo-uscentral1b --zone=us-central1-b`
     serverIP: 10.126.142.50
     serverName: home
-
