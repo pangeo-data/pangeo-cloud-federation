@@ -82,8 +82,8 @@ daskhub:
                     'image': 'pangeo/ml-notebook:master',
                     'cpu_limit': 2,
                     'cpu_guarantee': 1,
-                    'mem_limit': '8G',
-                    'mem_guarantee': '4G',
+                    'mem_limit': '16G',
+                    'mem_guarantee': '12G',
                 }
             },
           ]
