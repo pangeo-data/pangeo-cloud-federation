@@ -1,5 +1,5 @@
 # Note that there must be a tag
-FROM pangeo/base-notebook:latest
+FROM pangeo/pangeo-notebook:latest
 
 # update conda
 #RUN conda update -n root conda
