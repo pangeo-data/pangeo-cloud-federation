@@ -4,3 +4,4 @@ vim
 man-db
 tree
 jq
+git
