@@ -7,7 +7,7 @@ dependencies:
   # ooi
   - av
   - pycamhd
-  - gmt=6.1.0
+  - gmt=6.1.1
   # core scipy packages
   - numpy
   - scipy
