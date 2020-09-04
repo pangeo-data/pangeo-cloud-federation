@@ -31,7 +31,7 @@ metrics:
 prometheus-operator:
   grafana:
     server:
-      domain: "grafana.staging.aws-uswest2.pangeo.io"
+      domain: "grafana.staging.ooi.pangeo.io"
     ingress:
       hosts:
-        - "grafana.staging.aws-uswest2.pangeo.io"
+        - "grafana.staging.ooi.pangeo.io"
