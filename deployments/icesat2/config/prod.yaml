@@ -35,6 +35,7 @@ daskhub:
           contactEmail: scottyh@uw.edu
 
 prometheus-operator:
+  enabled: false  # handled in staging
   grafana:
     server:
       domain: "grafana.aws-uswest2.pangeo.io"
