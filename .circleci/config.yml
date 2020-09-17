@@ -188,7 +188,7 @@ jobs:
           name: Add Runner IP to EKS Kubernetes API Whitelist
           when: always
           command: |
-            AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt
+            export AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt
             RUNNERIP=`curl --silent https://checkip.amazonaws.com`
             aws --version
             aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${RUNNERIP}/32 > /dev/null
