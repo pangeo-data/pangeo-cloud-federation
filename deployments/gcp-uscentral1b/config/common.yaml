@@ -1,14 +1,12 @@
-pangeo:
+daskhub:
   jupyterhub:
     scheduling:
       corePods:
         nodeAffinity:
           matchNodePurpose: require
     singleuser:
-      # XXX: Hubploy should handle the image stuff
       image:
-        name: pangeo/pangeo-notebook
-        tag: b261b3e
+        pullPolicy: 'Always'
 
       initContainers:
         - name: volume-mount-hack
@@ -39,10 +37,6 @@ pangeo:
         limits:
           cpu: "1.25"
           memory: 1Gi
-      service:
-        annotations:
-          prometheus.io/scrape: 'true'
-          prometheus.io/path: '/hub/metrics'
 
       extraConfig:
         administrators: |
@@ -79,16 +73,25 @@ pangeo:
                     'mem_guarantee': '12G',
                 }
             },
+            {
+                'display_name': 'ML Image - Large (12 GB - 16 GB)',
+                'description': "https://github.com/pangeo-data/pangeo-docker-images/tree/master/ml-notebook",
+                'kubespawner_override': {
+                    'image': 'pangeo/ml-notebook:master',
+                    'cpu_limit': 2,
+                    'cpu_guarantee': 1,
+                    'mem_limit': '16G',
+                    'mem_guarantee': '12G',
+                }
+            },
           ]
-        prometheus: |
-          c.JupyterHub.authenticate_prometheus = False
 
         customPodHook: |
           c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
           c.JupyterHub.template_vars = {
-            'pangeo_hub_title': 'us-central1-b.gcp.pangeo.io',
-            'pangeo_hub_subtitle': 'a community hub for ocean, atmospheric, and climate research',
-            'pangeo_welcome': """Welcome to us-central1-b.gcp.pangeo.io. This hub lives in Google Cloud region <code>us-central1-b</code>. It is maintained by the <a href="http://pangeo.io">Pangeo project</a> and supported by a grant from the National Science Foundation (NSF award 1740648), which includes a direct award of cloud credits from Google Cloud. The hub's configuration is stored in the github repository <a href="https://github.com/pangeo-data/pangeo-cloud-federation/">https://github.com/pangeo-data/pangeo-cloud-federation/</a>. To provide feedback and report any technical problems, please use the <a href="https://github.com/pangeo-data/pangeo-cloud-federation//issues">github issue tracker</a>.""",
+            'pangeo_hub_title': 'Pangeo Cloud',
+            'pangeo_hub_subtitle': 'us-central1-b.gcp.pangeo.io',
+            'pangeo_welcome': """Welcome to Pangeo Cloud. This hub lives in Google Cloud region <code>us-central1-b</code>. For information and signup instructions, please visit the <a href="http://pangeo.io/cloud.html">Pangeo Cloud Website</a>.""",
           }
 
       extraVolumes:
@@ -132,38 +135,14 @@ pangeo:
 
   dask-gateway:
     gateway:
-      extraConfig:
-        optionHandler: |
-          from dask_gateway_server.options import Options, Integer, Float, String
-          def cluster_options(user):
-             def option_handler(options):
-                 if ":" not in options.image:
-                     raise ValueError("When specifying an image you must also provide a tag")
-                 extra_annotations = {
-                     "hub.jupyter.org/username": user.name,
-                     "prometheus.io/scrape": "true",
-                     "prometheus.io/port": "8787",
-                 }
-                 extra_labels = {
-                     "hub.jupyter.org/username": user.name,
-                 }
-                 return {
-                     "worker_cores_limit": options.worker_cores,
-                     "worker_cores": min(options.worker_cores / 2, 1),
-                     "worker_memory": "%fG" % options.worker_memory,
-                     "image": options.image,
-                     "scheduler_extra_pod_annotations": extra_annotations,
-                     "worker_extra_pod_annotations": extra_annotations,
-                     "scheduler_extra_pod_labels": extra_labels,
-                     "worker_extra_pod_labels": extra_labels,
-                 }
-             return Options(
-                 Integer("worker_cores", 2, min=1, max=16, label="Worker Cores"),
-                 Float("worker_memory", 4, min=1, max=32, label="Worker Memory (GiB)"),
-                 String("image", default="pangeo/pangeo-notebook:latest", label="Image"),
-                 handler=option_handler,
-             )
-          c.Backend.cluster_options = cluster_options
+      backend:
+        worker:
+          extraPodConfig:
+            tolerations:
+              - key: "cloud.google.com/gke-preemptible"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
 
 homeDirectories:
   nfs:

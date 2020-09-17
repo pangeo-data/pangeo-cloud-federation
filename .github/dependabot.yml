@@ -1,6 +1,10 @@
 version: 2
 updates:
   - package-ecosystem: "docker"
-    directory: "deployments/"
+    directory: "deployments/gcp-uscentral1b/image/binder/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "docker"
+    directory: "deployments/icesat2/image/binder/"
     schedule:
       interval: "daily"

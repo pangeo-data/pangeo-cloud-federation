@@ -1,4 +1,4 @@
-pangeo:
+daskhub:
   # Pangeo configuration values
   # --------------------
   # The following configuration options are specifically for the custom Pangeo components.
@@ -8,7 +8,6 @@ pangeo:
   rbac:
     enabled: true
 
-
   # Dependency configuration values
   # -------------------------------
   # To configure dependencies you must create a key with the name of the dependency
@@ -17,7 +16,6 @@ pangeo:
   jupyterhub:
     # Helm config for jupyterhub goes here
     # See https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/master/jupyterhub/values.yaml
-
     singleuser:
       cpu:
         limit: 2
@@ -29,7 +27,6 @@ pangeo:
       extraEnv:
         # The default worker image matches the singleuser image.
         DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
-        DASK_GATEWAY__AUTH__TYPE: 'jupyterhub'
       serviceAccountName: pangeo
 
     prePuller:
@@ -43,6 +40,16 @@ pangeo:
         enabled: true
       userPlaceholder:
         enabled: false
+
+    hub:
+      service:
+        annotations:
+          prometheus.io/scrape: 'true'
+          prometheus.io/path: '/hub/metrics'
+      extraConfig:
+        prometheus: |
+          c.JupyterHub.authenticate_prometheus = False
+
   dask-gateway:
     gateway:
       backend:
@@ -60,29 +67,39 @@ pangeo:
             securityContext:
               fsGroup: 1000
 
-        # TODO: figure out a replacement
-        # userLimts: |
-        #   c.UserLimits.max_cores = 100
-        #   c.UserLimits.max_memory = "400 G"
-        #   c.UserLimits.max_clusters = 1
+        # TODO: figure out a replacement for userLimits.
       extraConfig:
         optionHandler: |
           from dask_gateway_server.options import Options, Integer, Float, String
-          def option_handler(options):
-              if ":" not in options.image:
-                  raise ValueError("When specifying an image you must also provide a tag")
-              return {
-                  "worker_cores_limit": options.worker_cores,
-                  "worker_cores": min(options.worker_cores / 2, 1),
-                  "worker_memory": "%fG" % options.worker_memory,
-                  "image": options.image,
-              }
-          c.Backend.cluster_options = Options(
-              Integer("worker_cores", 2, min=1, max=16, label="Worker Cores"),
-              Float("worker_memory", 4, min=1, max=32, label="Worker Memory (GiB)"),
-              String("image", default="pangeo/base-notebook:2020.04.10", label="Image"),
-              handler=option_handler,
-          )
+          def cluster_options(user):
+             def option_handler(options):
+                 if ":" not in options.image:
+                     raise ValueError("When specifying an image you must also provide a tag")
+                 extra_annotations = {
+                     "hub.jupyter.org/username": user.name,
+                     "prometheus.io/scrape": "true",
+                     "prometheus.io/port": "8787",
+                 }
+                 extra_labels = {
+                     "hub.jupyter.org/username": user.name,
+                 }
+                 return {
+                     "worker_cores_limit": options.worker_cores,
+                     "worker_cores": min(options.worker_cores / 2, 1),
+                     "worker_memory": "%fG" % options.worker_memory,
+                     "image": options.image,
+                     "scheduler_extra_pod_annotations": extra_annotations,
+                     "worker_extra_pod_annotations": extra_annotations,
+                     "scheduler_extra_pod_labels": extra_labels,
+                     "worker_extra_pod_labels": extra_labels,
+                 }
+             return Options(
+                 Integer("worker_cores", 2, min=1, max=16, label="Worker Cores"),
+                 Float("worker_memory", 4, min=1, max=32, label="Worker Memory (GiB)"),
+                 String("image", default="pangeo/pangeo-notebook:latest", label="Image"),
+                 handler=option_handler,
+             )
+          c.Backend.cluster_options = cluster_options
         idle: |
           # timeout after 30 minutes of inactivity
           c.KubeClusterConfig.idle_timeout = 1800
@@ -91,6 +108,156 @@ homeDirectories:
   nfs:
     enabled: false
 
-grafana:
-  ingress:
-    enabled: true
+
+# prometheus-operator configuration.
+# This is disabled by default. Set the follow to enable and configure
+# * metrics.enabled: true
+# * prometheus-operator.grafana.server.domain: ...
+# * prometheus-operator.grafana.serveringress.hosts: ...
+# * ingress-nginx.controller.service.loadBalancerIP: ...
+
+prometheus-operator:
+  alertmanager:
+    enabled: false
+
+  nodeExporter:
+    enabled: false
+
+  grafana:
+    grafana.ini:
+      auth.anonymous:
+        enabled: true
+        org_name: Main Org.
+        org_role: Viewer
+      auth.basic:
+        enabled: true
+        org_role: Editor
+      server:
+        root_url: "%(protocol)s://%(domain)s/grafana"
+        serve_from_sub_path: true
+
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        kubernetes.io/tls-acme: 'true'
+      persistence:
+        enabled: true
+        size: 1Gi
+        accessModes:
+          - ReadWriteOnce
+
+    dashboardProviders:
+     dashboardproviders.yaml:
+       apiVersion: 1
+       providers:
+       - name: 'default'
+         orgId: 1
+         folder: ''
+         type: file
+         disableDeletion: false
+         editable: true
+         options:
+           path: /var/lib/grafana/dashboards/default
+    dashboards:
+      default:
+        dask:
+          gnetId: 12591
+          revision: 2
+          datasource: Prometheus
+
+  prometheus:
+    # Monitor all namespaces
+    # https://github.com/coreos/prometheus-operator/issues/2890#issuecomment-583006452
+    prometheusSpec:
+      ruleSelector: {}
+      ruleNamespaceSelector: {}
+      ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelector: {}
+      serviceMonitorNamespaceSelector: {}
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelector: {}
+      podMonitorNamespaceSelector: {}
+      podMonitorSelectorNilUsesHelmValues: false
+
+      # Watch for prometheus.io/scrape: true -style annotations.
+      # prometheus-operator doesn't support these directly because they
+      # "arene't as flexible" as their PodMonitor / ServiceMonitor,
+      # but they suffice for us.
+      # https://github.com/coreos/prometheus-operator/issues/1547
+      additionalScrapeConfigs:
+        # Scrape config for service endpoints.
+        #
+        # The relabeling allows the actual service scrape endpoint to be configured
+        # via the following annotations:
+        #
+        # * `prometheus.io/scrape`: Only scrape services that have a value of `true`
+        # * `prometheus.io/scheme`: If the metrics endpoint is secured then you will need
+        # to set this to `https` & most likely set the `tls_config` of the scrape config.
+        # * `prometheus.io/path`: If the metrics path is not `/metrics` override this.
+        # * `prometheus.io/port`: If the metrics are exposed on a different port to the
+        # service then set this appropriately.
+        - job_name: 'kubernetes-service-endpoints'
+          kubernetes_sd_configs:
+            - role: endpoints
+          relabel_configs:
+            - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+              action: keep
+              regex: true
+            - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
+              action: replace
+              target_label: __scheme__
+              regex: (https?)
+            - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+              action: replace
+              target_label: __metrics_path__
+              regex: (.+)
+            - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+              action: replace
+              target_label: __address__
+              regex: ([^:]+)(?::\d+)?;(\d+)
+              replacement: $1:$2
+            - action: labelmap
+              regex: __meta_kubernetes_service_label_(.+)
+            - source_labels: [__meta_kubernetes_namespace]
+              action: replace
+              target_label: kubernetes_namespace
+            - source_labels: [__meta_kubernetes_service_name]
+              action: replace
+              target_label: kubernetes_name
+            - source_labels: [__meta_kubernetes_service_name]
+              action: drop
+              regex: 'node-exporter'
+
+        # Example scrape config for pods
+        #
+        # The relabeling allows the actual pod scrape endpoint to be configured via the
+        # following annotations:
+        #
+        # * `prometheus.io/scrape`: Only scrape pods that have a value of `true`
+        # * `prometheus.io/path`: If the metrics path is not `/metrics` override this.
+        # * `prometheus.io/port`: Scrape the pod on the indicated port instead of the default of `9102`.
+        - job_name: 'kubernetes-pods'
+          kubernetes_sd_configs:
+            - role: pod
+          relabel_configs:
+            - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+              action: keep
+              regex: true
+            - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+              action: replace
+              target_label: __metrics_path__
+              regex: (.+)
+            - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+              action: replace
+              regex: ([^:]+)(?::\d+)?;(\d+)
+              replacement: $1:$2
+              target_label: __address__
+            - action: labelmap
+              regex: __meta_kubernetes_pod_label_(.+)
+            - source_labels: [__meta_kubernetes_namespace]
+              action: replace
+              target_label: kubernetes_namespace
+            - source_labels: [__meta_kubernetes_pod_name]
+              action: replace
+              target_label: kubernetes_pod_name

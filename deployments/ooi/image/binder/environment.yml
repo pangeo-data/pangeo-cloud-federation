@@ -2,10 +2,12 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
+  - python=3.7.*
+  - pangeo-notebook=2020.08.31
   # ooi
   - av
   - pycamhd
-  - gmt=6.0.0
+  - gmt=6.1.1
   # core scipy packages
   - numpy
   - scipy
@@ -92,9 +94,9 @@ dependencies:
   - prefect
   - pip
   - pip:
-    - azure
-    - git+https://github.com/ooicloud/ooi-opendata.git@bad61bf649ae5b189ff14fae06b567b25a8b2e47
+    - azure-storage-blob
     - git+https://github.com/GenericMappingTools/pygmt
-    - intake_geopandas
-    - git+https://github.com/NCAR/intake-esm.git@master
-    - git+https://github.com/hhuangwx/cmaps.git#egg=cmaps
+#    - git+https://github.com/ooicloud/ooi-opendata.git@bad61bf649ae5b189ff14fae06b567b25a8b2e47
+#    - intake_geopandas
+#    - git+https://github.com/NCAR/intake-esm.git@master
+#    - git+https://github.com/hhuangwx/cmaps.git#egg=cmaps

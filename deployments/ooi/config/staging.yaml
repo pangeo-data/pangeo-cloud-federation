@@ -1,10 +1,16 @@
-pangeo:
+daskhub:
   jupyterhub:
     hub:
-      services:
-        dask-gateway:
-          # This makes the gateway available at ${HUB_URL}/services/dask-gateway
-          url: "http://traefik-ooi-staging-dask-gateway.ooi-staging"
+      # Reduce requests on staging hub since it is rarely used!
+      resources:
+        requests:
+          cpu: 0
+          memory: 0G
+        limits:
+          cpu: 0.5
+          memory: 1G
+      #extraEnv:
+      #  OAUTH_CALLBACK_URL: "https://staging.aws-uswest2.pangeo.io/hub/oauth_callback"
     scheduling:
       userPlaceholder:
         enabled: false
@@ -18,8 +24,14 @@ pangeo:
       service:
         annotations: {'service.beta.kubernetes.io/azure-load-balancer-resource-group': 'ooi-pangeo'}
         loadBalancerIP: 13.92.63.24
-    singleuser:
-      extraEnv:
-        # TODO: DNS
-        DASK_GATEWAY__ADDRESS: "https://staging.ooi.pangeo.io/services/dask-gateway/"
-        DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-ooi-staging-dask-gateway.ooi-staging:80"
+
+metrics:
+  enabled: true
+
+prometheus-operator:
+  grafana:
+    server:
+      domain: "grafana.staging.ooi.pangeo.io"
+    ingress:
+      hosts:
+        - "grafana.staging.ooi.pangeo.io"

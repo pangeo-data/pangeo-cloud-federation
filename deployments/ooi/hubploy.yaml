@@ -1,6 +1,6 @@
 images:
   image_name: ooicloud.azurecr.io/ooi-pangeo-io-notebook
-  image_config_path: pangeo.jupyterhub.singleuser.image
+  image_config_path: daskhub.jupyterhub.singleuser.image
   registry:
     provider: azure
     azure:

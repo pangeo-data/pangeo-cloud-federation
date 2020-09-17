@@ -1,10 +1,5 @@
-pangeo:
+daskhub:
   jupyterhub:
-    hub:
-      services:
-        dask-gateway:
-          # This makes the gateway available at ${HUB_URL}/services/dask-gateway
-          url: "http://traefik-ooi-prod-dask-gateway.ooi-prod"
     scheduling:
       userPlaceholder:
         enabled: true
@@ -26,8 +21,3 @@ pangeo:
       service:
         annotations: {'service.beta.kubernetes.io/azure-load-balancer-resource-group': 'ooi-pangeo'}
         loadBalancerIP: 23.96.23.164
-    singleuser:
-      extraEnv:
-        # TODO: DNS
-        DASK_GATEWAY__ADDRESS: "https://ooi.pangeo.io/services/dask-gateway/"
-        DASK_GATEWAY__PROXY_ADDRESS: "gateway://traefik-ooi-prod-dask-gateway.ooi-prod:80"
