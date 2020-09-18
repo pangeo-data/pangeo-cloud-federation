@@ -26,12 +26,12 @@ daskhub:
         loadBalancerIP: 13.92.63.24
 
 metrics:
-  enabled: true
+  enabled: false
 
-prometheus-operator:
-  grafana:
-    server:
-      domain: "grafana.staging.ooi.pangeo.io"
-    ingress:
-      hosts:
-        - "grafana.staging.ooi.pangeo.io"
+# prometheus-operator:
+#   grafana:
+#     server:
+#       domain: "grafana.staging.ooi.pangeo.io"
+#     ingress:
+#       hosts:
+#         - "grafana.staging.ooi.pangeo.io"
