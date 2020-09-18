@@ -204,7 +204,7 @@ jobs:
           name: Revert to Original EKS IP Whitelist
           when: always
           command: |
-            AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt
+            export AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt
             aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${AWS_IP_WHITELIST} > /dev/null
 
       - run:
