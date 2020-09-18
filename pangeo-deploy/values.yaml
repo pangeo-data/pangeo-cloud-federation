@@ -56,6 +56,15 @@ daskhub:
         scheduler:
           extraPodConfig:
             serviceAccountName: pangeo
+            tolerations:
+              - key: "k8s.dask.org/dedicated"
+                operator: "Equal"
+                value: "scheduler"
+                effect: "NoSchedule"
+              - key: "k8s.dask.org_dedicated"
+                operator: "Equal"
+                value: "scheduler"
+                effect: "NoSchedule"
         worker:
           extraContainerConfig:
             securityContext:
@@ -66,6 +75,15 @@ daskhub:
             automountServiceAccountToken: true
             securityContext:
               fsGroup: 1000
+            tolerations:
+              - key: "k8s.dask.org/dedicated"
+                operator: "Equal"
+                value: "worker"
+                effect: "NoSchedule"
+              - key: "k8s.dask.org_dedicated"
+                operator: "Equal"
+                value: "worker"
+                effect: "NoSchedule"
 
         # TODO: figure out a replacement for userLimits.
       extraConfig:
