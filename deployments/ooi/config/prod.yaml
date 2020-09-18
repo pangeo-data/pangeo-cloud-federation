@@ -21,3 +21,10 @@ daskhub:
       service:
         annotations: {'service.beta.kubernetes.io/azure-load-balancer-resource-group': 'ooi-pangeo'}
         loadBalancerIP: 23.96.23.164
+
+prometheus-operator:
+  enabled: false
+  grafana:
+    enabled: false
+  prometheus:
+    enabled: false
