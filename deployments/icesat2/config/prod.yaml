@@ -36,3 +36,7 @@ daskhub:
 
 prometheus-operator:
   enabled: false  # handled in staging
+  grafana:
+    enabled: false
+  prometheus:
+    enabled: false
