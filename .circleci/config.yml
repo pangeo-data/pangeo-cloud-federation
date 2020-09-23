@@ -54,7 +54,7 @@ jobs:
             hubploy build gcp-uscentral1b --commit-range ${COMMIT_RANGE}
 
             # Test the deployment
-            curl -LO "curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
+            curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
 
             export TOKEN=JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_${CIRCLE_BRANCH}
             if [[ CIRCLE_BRANCH == "staging" ]]; then
@@ -161,7 +161,7 @@ jobs:
             hubploy build gcp-uscentral1b --check-registry --push
 
             # Test the deployment
-            curl -LO "curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
+            curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
 
             export TOKEN=JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_${CIRCLE_BRANCH}
             if [[ CIRCLE_BRANCH == "staging" ]]; then
@@ -218,7 +218,7 @@ jobs:
           command: |
             hubploy deploy gcp-uscentral1b pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail --namespace ${CIRCLE_BRANCH}
             # Test the deployment
-            curl -LO "curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
+            curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
 
             export TOKEN=JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_${CIRCLE_BRANCH}
             if [[ CIRCLE_BRANCH == "staging" ]]; then
