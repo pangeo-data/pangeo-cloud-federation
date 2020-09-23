@@ -1,3 +1,5 @@
+import os
+
 import dask_gateway
 
 
@@ -14,4 +16,5 @@ class TestCommon:
 class TestGCP:
     """GCP-specific tests"""
     def test_scratch_bucket(self):
-        assert 0  # deliberately fail for now.
+        scratch = os.environ["PANGEO_SCRATCH"]
+        assert scratch == "gs://pangeo-scratch/pangeo-bot/"
