@@ -1,10 +1,6 @@
 import dask_gateway
 
 
-def inc(x):
-    return x + 1
-
-
 class TestCommon:
     """Tests that should run on all deployments"""
 
@@ -14,11 +10,21 @@ class TestCommon:
         cluster.scale(1)
         client.wait_for_workers(1)
 
-        result = client.map(inc, range(2))
-        result = client.gather(result)
-
 
 class TestGCP:
     """GCP-specific tests"""
     def test_scratch_bucket(self):
-        pass
+        assert 0  # deliberately fail for now.
+
+
+if __name__ == "__main__":
+    # We use kubectl to copy and exec the tests on a singleuser
+    # server. This needs a kubeconfig, and so we call this,
+    # use hubploy to handle auth, and call the tests in a subprocess.
+    import sys
+    import subprocess
+    import hubploy.auth
+
+    deployment = sys.argv[1]
+    with hubploy.auth.cluster_auth(deployment):
+        subprocess.check_output(['./run_tests.sh'])
