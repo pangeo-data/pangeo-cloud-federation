@@ -7,6 +7,9 @@ else
   export JUPYTERHUB_URL="https://us-central1-b.gcp.pangeo.io"
 fi
 
+curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
+chmod +x kubectl
+
 # Start a server
 echo "[Staring singleuser server]"
 curl -X POST -H "Authorization: token ${TOKEN}" ${JUPYTERHUB_URL}/hub/api/users/pangeo-bot/server
