@@ -235,7 +235,6 @@ jobs:
           command: |
             # Run the tests
             kubectl -n staging exec jupyter-${JUPYTERHUB_USER} /srv/conda/envs/notebook/bin/pytest /tmp/test.py
-pi/users/tomaugspurger/server"
 
       - run:
           name: Stop server for <...>
