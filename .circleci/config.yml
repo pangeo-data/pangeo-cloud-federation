@@ -141,20 +141,6 @@ jobs:
           no_output_timeout: 2h
           command: |
             hubploy build gcp-uscentral1b --check-registry --push
-            # Test the deployment
-            # Start a JupyterHub server for ... a bot.
-            curl -X POST -H "Authorization: token ${JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_STAGING}" "https://staging.us-central1-b.gcp.pangeo.io/hub/api/users/pangeo-bot/server"
-            # Copy the test file
-            kubectl -n ${CIRCLE_BRANCH} cp test.py jupyter-pangeo-bot:/tmp/test.py
-            # Run the tests
-            kubectl -n staging exec jupyter-pangeo-bot /srv/conda/envs/notebook/bin/pytest /tmp/test.py
-
-      - run:
-          name: Stop server for pangeo-bot
-          when: always
-          command: |
-            # TODO: get the status code?
-            curl -X DELETE -H "Authorization: token ${JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_STAGING}" "https://staging.us-central1-b.gcp.pangeo.io/hub/api/users/pangeo-bot/server"
 
       - run:
           name: Build aws-uswest2.pangeo.io image if needed
