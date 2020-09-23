@@ -18,6 +18,7 @@ while [[ $(./kubectl -n ${CIRCLE_BRANCH} get pods jupyter-pangeo-2dbot -o 'jsonp
 
 # Copy the test file
 ./kubectl -n ${CIRCLE_BRANCH} cp test.py jupyter-pangeo-2dbot:/tmp/test.py
+./kubectl -n ${CIRCLE_BRANCH} cp pytest.ini jupyter-pangeo-2dbot:/tmp/pytest.ini
 
 # Run the tests
 echo "[Running tests]"
