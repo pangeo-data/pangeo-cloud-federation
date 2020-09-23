@@ -182,6 +182,7 @@ jobs:
           command: |
             hubploy deploy gcp-uscentral1b pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail --namespace ${CIRCLE_BRANCH}
 
+
       # NOTE: should move the dynamic IP into hubploy where credentials and awscli version already dealt with
       # sleep 2min for now, but better to poll for readiness https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
       - run:
@@ -214,6 +215,34 @@ jobs:
           command: |
             hubploy deploy ooi pangeo-deploy ${CIRCLE_BRANCH} --timeout 1200s --cleanup-on-fail
 
+  test:
+    docker:
+      - image: circleci/python:3.7.2
+
+    working_directory: ~/repo
+    steps:
+      - run:
+          name: Test gcp-uscentral1b.pangeo.io
+          when: always
+          command: |
+            # Start a JupyterHub server for ... a bot.
+            # curl -X POST -H "Authorization: token <token>" "http://127.0.0.1:8081/hub/api/users/<user>/server"
+            curl -X POST -H "Authorization: token ${JUPYTERHUB_TOKEN}" "${JUPYTERHUB_URL}/hub/api/users/${JUPYTERHUB_USER}/server"
+            # Copy the test file
+            kubectl -n ${CIRCLE_BRANCH} cp test.py jupyter-${JUPYTERHUB_USER}:/tmp/test.py
+      - run:
+          name: Run tests
+          command: |
+            # Run the tests
+            kubectl -n staging exec jupyter-${JUPYTERHUB_USER} /srv/conda/envs/notebook/bin/pytest /tmp/test.py
+pi/users/tomaugspurger/server"
+
+      - run:
+          name: Stop server for <...>
+          when: always
+          command: |
+            # TODO: get the status code?
+            curl -X DELETE -H "Authorization: token ${JUPYTERHUB_TOKEN}" "${JUPYTERHUB_URL}/hub/api/users/${JUPYTERHUB_USER}/server"
 
 workflows:
   version: 2
@@ -231,3 +260,4 @@ workflows:
               only:
                 - staging
                 - prod
+      - test
