@@ -51,6 +51,16 @@ Once you have a cluster created, you can begin customizing the configuration.
 * `Error: UPGRADE FAILED: "example.pangeo.io-staging" has no deployed releases`
   * If your first deploy of an application fails. Run `helm delete example-staging --purge` anywhere you have run `gcloud container clusters get-credentials`
 
+### Testing
+
+We have some rudimentary testing of deployments. The tests are located in the file ``test.py``.
+Tests should be grouped according to which cloud deployment they should run on (all, GCP only, etc.)
+
+There were some manual setup steps
+
+* Sign up for the cloud with a regular user (we're using `pangeo-bot`)
+* Create an API token, upload to CircleCI
+
 ### Related Projects
 
 - [Pangeo](http://pangeo.io/): main website for the Pangeo project.
