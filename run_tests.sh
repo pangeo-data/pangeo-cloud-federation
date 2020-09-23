@@ -19,10 +19,10 @@ while [[ $(./kubectl -n ${CIRCLE_BRANCH} get pods jupyter-pangeo-2dbot -o 'jsonp
 # Run the tests
 echo "[Running tests]"
 ./kubectl -n staging exec jupyter-pangeo-2dbot /srv/conda/envs/notebook/bin/pytest /tmp/test.py
-
+RET=$?
 
 echo "[Cleaning up]"
 # Cleanup
 curl -X DELETE -H "Authorization: token ${TOKEN}" "${JUPYTERHUB_URL}/hub/api/users/pangeo-bot/server"
 
-
+exit $RET
