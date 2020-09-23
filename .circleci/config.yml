@@ -55,6 +55,7 @@ jobs:
 
             # Test the deployment
             curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
+            chmod +x kubectl
 
             export TOKEN=JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_${CIRCLE_BRANCH}
             if [[ CIRCLE_BRANCH == "staging" ]]; then
@@ -162,6 +163,7 @@ jobs:
 
             # Test the deployment
             curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
+            chmod +x kubectl
 
             export TOKEN=JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_${CIRCLE_BRANCH}
             if [[ CIRCLE_BRANCH == "staging" ]]; then
@@ -219,6 +221,7 @@ jobs:
             hubploy deploy gcp-uscentral1b pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail --namespace ${CIRCLE_BRANCH}
             # Test the deployment
             curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
+            chmod +x kubectl
 
             export TOKEN=JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_${CIRCLE_BRANCH}
             if [[ CIRCLE_BRANCH == "staging" ]]; then
