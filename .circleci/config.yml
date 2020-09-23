@@ -181,19 +181,21 @@ jobs:
           when: always
           command: |
             hubploy deploy gcp-uscentral1b pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail --namespace ${CIRCLE_BRANCH}
+            # Test the deployment
+            curl -LO "curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
+
             export TOKEN=JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_${CIRCLE_BRANCH}
             if [[ CIRCLE_BRANCH == "staging" ]]; then
               export JUPYTERHUB_URL="https://staging.us-central1-b.gcp.pangeo.io"
             else
               export JUPYTERHUB_URL="https://us-central1-b.gcp.pangeo.io"
             fi
-            # Test the deployment
-            # Start a JupyterHub server for ... a bot.
+            # Start a JupyterHub server
             curl -X POST -H "Authorization: token ${TOKEN}" "${JUPYTERHUB_URL}/hub/api/users/pangeo-bot/server"
             # Copy the test file
-            kubectl -n ${CIRCLE_BRANCH} cp test.py jupyter-pangeo-bot:/tmp/test.py
+            ./kubectl -n ${CIRCLE_BRANCH} cp test.py jupyter-pangeo-bot:/tmp/test.py
             # Run the tests
-            kubectl -n staging exec jupyter-pangeo-bot /srv/conda/envs/notebook/bin/pytest /tmp/test.py
+            ./kubectl -n staging exec jupyter-pangeo-bot /srv/conda/envs/notebook/bin/pytest /tmp/test.py
             # Cleanup
             curl -X DELETE -H "Authorization: token ${TOKEN}" "${JUPYTERHUB_URL}/hub/api/users/pangeo-bot/server"
 
