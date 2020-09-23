@@ -182,23 +182,7 @@ jobs:
           command: |
             hubploy deploy gcp-uscentral1b pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail --namespace ${CIRCLE_BRANCH}
             # Test the deployment
-            curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
-            chmod +x kubectl
-
-            export TOKEN=JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_${CIRCLE_BRANCH}
-            if [[ CIRCLE_BRANCH == "staging" ]]; then
-              export JUPYTERHUB_URL="https://staging.us-central1-b.gcp.pangeo.io"
-            else
-              export JUPYTERHUB_URL="https://us-central1-b.gcp.pangeo.io"
-            fi
-            # Start a JupyterHub server
-            curl -X POST -H "Authorization: token ${TOKEN}" "${JUPYTERHUB_URL}/hub/api/users/pangeo-bot/server"
-            # Copy the test file
-            ./kubectl -n ${CIRCLE_BRANCH} cp test.py jupyter-pangeo-bot:/tmp/test.py
-            # Run the tests
-            ./kubectl -n staging exec jupyter-pangeo-bot /srv/conda/envs/notebook/bin/pytest /tmp/test.py
-            # Cleanup
-            curl -X DELETE -H "Authorization: token ${TOKEN}" "${JUPYTERHUB_URL}/hub/api/users/pangeo-bot/server"
+            python test.py gcp-uscentral1b
 
       # NOTE: should move the dynamic IP into hubploy where credentials and awscli version already dealt with
       # sleep 2min for now, but better to poll for readiness https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
