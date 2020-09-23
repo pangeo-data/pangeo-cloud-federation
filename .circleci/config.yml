@@ -226,8 +226,7 @@ jobs:
           when: always
           command: |
             # Start a JupyterHub server for ... a bot.
-            # curl -X POST -H "Authorization: token <token>" "http://127.0.0.1:8081/hub/api/users/<user>/server"
-            curl -X POST -H "Authorization: token ${JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_STAGING}" "$https://staging.us-central1-b.gcp.pangeo.io/hub/api/users/pangeo-bot/server"
+            curl -X POST -H "Authorization: token ${JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_STAGING}" "https://staging.us-central1-b.gcp.pangeo.io/hub/api/users/pangeo-bot/server"
             # Copy the test file
             kubectl -n ${CIRCLE_BRANCH} cp test.py jupyter-pangeo-bot:/tmp/test.py
       - run:
@@ -241,7 +240,7 @@ jobs:
           when: always
           command: |
             # TODO: get the status code?
-            curl -X DELETE -H "Authorization: token ${JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_STAGING}" "$https://staging.us-central1-b.gcp.pangeo.io/hub/api/users/pangeo-bot/server"
+            curl -X DELETE -H "Authorization: token ${JUPYTERHUB_TOKEN_GCP_USCENTRAL1B_STAGING}" "https://staging.us-central1-b.gcp.pangeo.io/hub/api/users/pangeo-bot/server"
 
 workflows:
   version: 2
