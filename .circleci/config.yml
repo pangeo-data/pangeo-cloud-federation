@@ -53,13 +53,13 @@ jobs:
           command: |
             hubploy build gcp-uscentral1b --commit-range ${COMMIT_RANGE}
 
-      - run:
-          name: Test building aws-uswest2.pangeo.io image if needed
-          when: always
-          command: |
-            hubploy build icesat2 --commit-range ${COMMIT_RANGE}
-          environment:
-            PYTHONIOENCODING: utf-8
+      #- run:
+      #    name: Test building aws-uswest2.pangeo.io image if needed
+      #    when: always
+      #    command: |
+      #      hubploy build icesat2 --commit-range ${COMMIT_RANGE}
+      #    environment:
+      #      PYTHONIOENCODING: utf-8
 
       # This is currently disabled becauses it always runs and because the Azure
       # container registry is not open to annonymous read access. This can be changed
@@ -142,13 +142,13 @@ jobs:
           command: |
             hubploy build gcp-uscentral1b --check-registry --push
 
-      - run:
-          name: Build aws-uswest2.pangeo.io image if needed
-          when: always
-          command: |
-            hubploy build icesat2 --check-registry --push
-          environment:
-            PYTHONIOENCODING: utf-8
+      #- run:
+      #    name: Build aws-uswest2.pangeo.io image if needed
+      #    when: always
+      #    command: |
+      #      hubploy build icesat2 --check-registry --push
+      #    environment:
+      #      PYTHONIOENCODING: utf-8
 
       - run:
           name: Build ooi.pangeo.io image if needed
@@ -202,28 +202,28 @@ jobs:
 
       # NOTE: should move the dynamic IP into hubploy where credentials and awscli version already dealt with
       # sleep 2min for now, but better to poll for readiness https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
-      - run:
-          name: Add Runner IP to EKS Kubernetes API Whitelist
-          when: always
-          command: |
-            export AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt
-            RUNNERIP=`curl --silent https://checkip.amazonaws.com`
-            aws --version
-            aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${RUNNERIP}/32 > /dev/null
-            sleep 120
-      - run:
-          name: Deploy aws-uswest2.pangeo.io
-          when: always
-          no_output_timeout: 1200
-          command: |
-            hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH} --timeout 1200s --cleanup-on-fail
+      #- run:
+      #    name: Add Runner IP to EKS Kubernetes API Whitelist
+      #    when: always
+      #    command: |
+      #      export AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt
+      #      RUNNERIP=`curl --silent https://checkip.amazonaws.com`
+      #      aws --version
+      #      aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${RUNNERIP}/32 > /dev/null
+      #      sleep 120
+      #- run:
+      #    name: Deploy aws-uswest2.pangeo.io
+      #    when: always
+      #    no_output_timeout: 1200
+      #    command: |
+      #      hubploy deploy icesat2 pangeo-deploy ${CIRCLE_BRANCH} --timeout 1200s --cleanup-on-fail
 
-      - run:
-          name: Revert to Original EKS IP Whitelist
-          when: always
-          command: |
-            export AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt
-            aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${AWS_IP_WHITELIST} > /dev/null
+      #- run:
+      #    name: Revert to Original EKS IP Whitelist
+      #    when: always
+      #    command: |
+      #      export AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt
+      #      aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${AWS_IP_WHITELIST} > /dev/null
 
       - run:
           name: Deploy ooi.pangeo.io
