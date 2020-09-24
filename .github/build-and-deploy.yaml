@@ -40,10 +40,29 @@ jobs:
               helm repo add prometheus-operator https://kubernetes-charts.storage.googleapis.com &&
               helm repo update"
         - uses: $HUBPLOY_IMAGE
+          name: Add Runner IP to EKS Kubernetes API Whitelist
+          with:
+            entrypoint: /bin/bash
+            args: >
+              -c "export AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt &&
+              RUNNERIP=`curl --silent https://checkip.amazonaws.com` &&
+              aws --version &&
+              aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${RUNNERIP}/32 > /dev/null &&
+              sleep 120"
+        - uses: $HUBPLOY_IMAGE
           name: Deploy AWS Staging Hub
           if: github.ref == 'refs/heads/staging'
           with:
             args: deploy icesat2 pangeo-deploy staging --timeout 1200s --cleanup-on-fail
+        - uses: $HUBPLOY_IMAGE
+          name: Revert to Original EKS IP Whitelist
+          env:
+            AWS_IP_WHITELIST: ${{ secrets.AWS_IP_WHITELIST }}
+          with:
+            entrypoint: /bin/bash
+            args: >
+              -c "export AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt &&
+              aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${AWS_IP_WHITELIST} > /dev/null"
         #- uses: $HUBPLOY_IMAGE
         #  name: Deploy AWS Production Hub
         #  if: github.ref == 'refs/heads/prod'
