@@ -181,6 +181,8 @@ jobs:
           when: always
           command: |
             hubploy deploy gcp-uscentral1b pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail --namespace ${CIRCLE_BRANCH}
+            # Test the deployment
+            python run_tests.py gcp-uscentral1b
 
       # NOTE: should move the dynamic IP into hubploy where credentials and awscli version already dealt with
       # sleep 2min for now, but better to poll for readiness https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
@@ -213,7 +215,6 @@ jobs:
           no_output_timeout: 1200
           command: |
             hubploy deploy ooi pangeo-deploy ${CIRCLE_BRANCH} --timeout 1200s --cleanup-on-fail
-
 
 workflows:
   version: 2
