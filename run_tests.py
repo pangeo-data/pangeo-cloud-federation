@@ -1,3 +1,4 @@
+import contextlib
 import sys
 import subprocess
 import hubploy.auth
@@ -8,7 +9,14 @@ if __name__ == "__main__":
     # server. This needs a kubeconfig, and so we call this,
     # use hubploy to handle auth, and call the tests in a subprocess.
     deployment = sys.argv[1]
-    with hubploy.auth.cluster_auth(deployment):
+
+    auth = hubploy.auth.cluster_auth(deployment)
+
+    if not hasattr(auth, "__enter__"):
+        # Older versions of hubploy.
+        auth = contextlib.nullcontext()
+
+    with auth:
         process = subprocess.Popen(["./run_tests.sh"],
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
