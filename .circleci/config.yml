@@ -182,7 +182,10 @@ jobs:
           command: |
             hubploy deploy gcp-uscentral1b pangeo-deploy ${CIRCLE_BRANCH} --cleanup-on-fail --namespace ${CIRCLE_BRANCH}
             # Test the deployment
-            python run_tests.py gcp-uscentral1b
+            if [[ ${CIRCLE_BRANCH} == staging ]]; then
+              # We aren't set up for testing prod yet (tokens, etc.)
+              python run_tests.py gcp-uscentral1b
+            fi
 
       # NOTE: should move the dynamic IP into hubploy where credentials and awscli version already dealt with
       # sleep 2min for now, but better to poll for readiness https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
