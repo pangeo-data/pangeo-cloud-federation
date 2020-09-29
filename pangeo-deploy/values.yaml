@@ -110,6 +110,7 @@ daskhub:
                       "worker_extra_pod_annotations": extra_annotations,
                       "scheduler_extra_pod_labels": extra_labels,
                       "worker_extra_pod_labels": extra_labels,
+                      "environment": options.environment,
                   }
               return Options(
                   Integer("worker_cores", 2, min=1, max=16, label="Worker Cores"),
