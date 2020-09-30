@@ -4,10 +4,14 @@ on:
     branches:
       - staging
       #- prod
+    paths:
+      - 'deployments/icesat2/image/binder/*'
   pull_request:
     branches:
       - staging
       #- prod
+    paths:
+      - 'deployments/icesat2/image/binder/*'
 
 env:
   HUBPLOY_IMAGE: docker://yuvipanda/hubploy:20200826083951674280

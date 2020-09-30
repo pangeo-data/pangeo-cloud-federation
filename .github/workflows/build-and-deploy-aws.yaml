@@ -4,6 +4,11 @@ on:
     branches:
       - staging
       #- prod
+    paths:
+      - 'deployments/icesat2/**'
+      - 'pangeo-deploy/**'
+    paths_ignore:
+      - 'deployments/icesat2/image/binder/*'
 
 env:
   HUBPLOY_IMAGE: docker://yuvipanda/hubploy:20200826083951674280
