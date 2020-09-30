@@ -22,10 +22,10 @@ jobs:
           with:
             entrypoint: /bin/bash
             args: -c "echo ${GIT_CRYPT_KEY} | base64 -d | git crypt unlock - && git crypt status"
-        - uses: $HUBPLOY_IMAGE
-          name: Build & Push AWS Image if Needed
-          with:
-            args: -c "build icesat2 --check-registry --push"
+        #- uses: $HUBPLOY_IMAGE
+        #  name: Build & Push AWS Image if Needed
+        #  with:
+        #    args: -c "build icesat2 --check-registry --push"
         - uses: $HUBPLOY_IMAGE
           name: Setup Helm
           with:
