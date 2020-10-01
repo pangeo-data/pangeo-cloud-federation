@@ -3,12 +3,14 @@ on:
   push:
     branches:
       - staging
+      - switch-to-github-actions
       #- prod
     paths:
       - 'deployments/icesat2/image/binder/*'
   pull_request:
     branches:
       - staging
+      - switch-to-github-actions
       #- prod
     paths:
       - 'deployments/icesat2/image/binder/*'

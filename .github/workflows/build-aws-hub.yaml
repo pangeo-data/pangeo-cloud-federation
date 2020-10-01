@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - staging
+      - switch-to-github-actions
       #- prod
     paths:
       - 'deployments/icesat2/**'
