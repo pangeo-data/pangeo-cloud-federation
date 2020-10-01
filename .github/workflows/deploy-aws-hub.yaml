@@ -8,11 +8,12 @@ on:
     paths:
       - 'deployments/icesat2/**'
       - 'pangeo-deploy/**'
+      - '.github/workflows/deploy-aws-hub.yaml'
     paths_ignore:
       - 'deployments/icesat2/image/binder/*'
 
 env:
-  HUBPLOY_IMAGE: docker://yuvipanda/hubploy:20200826083951674280
+  HELM_EXECUTABLE: /usr/local/bin/helm3
 
 jobs:
   deploy_aws:
@@ -21,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: $HUBPLOY_IMAGE
+      - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Unlock git-crypt Secrets
         env:
           GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
@@ -32,20 +33,20 @@ jobs:
       #  name: Build & Push AWS Image if Needed
       #  with:
       #    args: -c "build icesat2 --check-registry --push"
-      - uses: $HUBPLOY_IMAGE
+      - #uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Setup Helm
-        with:
-          entrypoint: /bin/bash
-          args: >
-            -c "helm init --client-only &&
-            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/ &&
-            helm repo add dask https://helm.dask.org/ &&
-            helm repo add dask-gateway https://dask.org/dask-gateway-helm-repo/ &&
-            helm repo add stable https://kubernetes-charts.storage.googleapis.com &&
-            helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx &&
-            helm repo add prometheus-operator https://kubernetes-charts.storage.googleapis.com &&
-            helm repo update"
-      - uses: $HUBPLOY_IMAGE
+        run: |
+          curl https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz | tar -xzf -
+          sudo mv linux-amd64/helm $HELM_EXECUTABLE
+          helm3 version
+          helm3 repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+          helm3 repo add dask https://helm.dask.org/
+          helm3 repo add dask-gateway https://dask.org/dask-gateway-helm-repo/
+          helm3 repo add stable https://kubernetes-charts.storage.googleapis.com
+          helm3 repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+          helm3 repo add prometheus-operator https://kubernetes-charts.storage.googleapis.com
+          helm3 repo update
+      - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Add Runner IP to EKS Kubernetes API Whitelist
         with:
           entrypoint: /bin/bash
@@ -55,12 +56,12 @@ jobs:
             aws --version &&
             aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${RUNNERIP}/32 > /dev/null &&
             sleep 120"
-      - uses: $HUBPLOY_IMAGE
+      - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Deploy AWS Staging Hub
         if: (github.ref == 'refs/heads/staging') || (github.ref == 'refs/heads/switch-to-github-actions')
         with:
           args: deploy icesat2 pangeo-deploy staging --timeout 1200s --cleanup-on-fail
-      - uses: $HUBPLOY_IMAGE
+      - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Revert to Original EKS IP Whitelist
         env:
           AWS_IP_WHITELIST: ${{ secrets.AWS_IP_WHITELIST }}

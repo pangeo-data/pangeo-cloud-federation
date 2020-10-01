@@ -7,6 +7,7 @@ on:
       #- prod
     paths:
       - 'deployments/icesat2/image/binder/*'
+      - '.github/workflows/build-aws-image.yaml'
   pull_request:
     branches:
       - staging
@@ -15,23 +16,20 @@ on:
     paths:
       - 'deployments/icesat2/image/binder/*'
 
-env:
-  HUBPLOY_IMAGE: docker://yuvipanda/hubploy:20200826083951674280
-
 jobs:
   build_aws_image:
     name: Build AWS Image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: $HUBPLOY_IMAGE
+      - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Unlock git-crypt Secrets
         env:
           GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
         with:
           entrypoint: /bin/bash
           args: -c "echo ${GIT_CRYPT_KEY} | base64 -d | git crypt unlock - && git crypt status"
-      - uses: $HUBPLOY_IMAGE
+      - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Build & Push AWS Image if Needed
         with:
-          args: -c "build icesat2 --push"
+          args: build icesat2 --push
