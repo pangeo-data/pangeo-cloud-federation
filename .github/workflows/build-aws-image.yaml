@@ -32,4 +32,4 @@ jobs:
       - uses: $HUBPLOY_IMAGE
         name: Build & Push AWS Image if Needed
         with:
-          args: -c "build icesat2 --check-registry --push"
+          args: -c "build icesat2 --push"
