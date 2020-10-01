@@ -57,7 +57,7 @@ jobs:
             sleep 120"
       - uses: $HUBPLOY_IMAGE
         name: Deploy AWS Staging Hub
-        if: github.ref == 'refs/heads/staging'
+        if: (github.ref == 'refs/heads/staging') || (github.ref == 'refs/heads/switch-to-github-actions')
         with:
           args: deploy icesat2 pangeo-deploy staging --timeout 1200s --cleanup-on-fail
       - uses: $HUBPLOY_IMAGE
