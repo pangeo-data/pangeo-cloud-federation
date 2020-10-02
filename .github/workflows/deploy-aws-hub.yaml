@@ -29,7 +29,7 @@ jobs:
         with:
           entrypoint: /bin/bash
           args: -c "echo ${GIT_CRYPT_KEY} | base64 -d | git crypt unlock - && git crypt status"
-        name: Setup Helm
+      - name: Setup Helm
         run: |
           curl https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz | tar -xzf -
           sudo mv linux-amd64/helm $HELM_EXECUTABLE
