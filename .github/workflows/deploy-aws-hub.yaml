@@ -63,6 +63,7 @@ jobs:
           args: deploy icesat2 pangeo-deploy staging --timeout 1200s --cleanup-on-fail
       - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Revert to Original EKS IP Whitelist
+        if: always()
         env:
           AWS_IP_WHITELIST: ${{ secrets.AWS_IP_WHITELIST }}
         with:
