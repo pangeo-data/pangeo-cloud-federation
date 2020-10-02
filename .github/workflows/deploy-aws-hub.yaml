@@ -29,11 +29,6 @@ jobs:
         with:
           entrypoint: /bin/bash
           args: -c "echo ${GIT_CRYPT_KEY} | base64 -d | git crypt unlock - && git crypt status"
-      #- uses: $HUBPLOY_IMAGE
-      #  name: Build & Push AWS Image if Needed
-      #  with:
-      #    args: -c "build icesat2 --check-registry --push"
-      - #uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Setup Helm
         run: |
           curl https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz | tar -xzf -
@@ -71,8 +66,3 @@ jobs:
           args: >
             -c "export AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt &&
             aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${AWS_IP_WHITELIST} > /dev/null"
-      #- uses: $HUBPLOY_IMAGE
-      #  name: Deploy AWS Production Hub
-      #  if: github.ref == 'refs/heads/prod'
-      #  with:
-        #    args: deploy icesat2 pangeo-deploy prod --timeout 1200s --cleanup-on-fail
