@@ -6,11 +6,11 @@ on:
       - switch-to-github-actions
       #- prod
     paths:
-      - 'deployments/icesat2/**'
+      - 'deployments/icesat2/config/**'
+      - 'deployments/icesat2/secrets/**'
+      - 'deployments/icesat2/hubploy.yaml'
       - 'pangeo-deploy/**'
       - '.github/workflows/deploy-aws-hub.yaml'
-    paths_ignore:
-      - 'deployments/icesat2/image/binder/*'
 
 env:
   HELM_EXECUTABLE: /usr/local/bin/helm3
