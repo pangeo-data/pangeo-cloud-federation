@@ -185,6 +185,9 @@ jobs:
             if [[ ${CIRCLE_BRANCH} == staging ]]; then
               # We aren't set up for testing prod yet (tokens, etc.)
               python run_tests.py gcp-uscentral1b
+            else
+              curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl"
+              chmod +x kubectl
             fi
             # Patch gateway pods to set affinity till dask-gateway>0.8 is out.
             python deployments/gcp-uscentral1b/patches/patch.py gcp-uscentral1b ${CIRCLE_BRANCH}

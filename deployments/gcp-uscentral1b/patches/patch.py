@@ -23,5 +23,5 @@ if __name__ == "__main__":
         for obj in ["traefik-gcp-uscentral1b-{}-dask-gateway".format(namespace),
                     "api-gcp-uscentral1b-{}-dask-gateway".format(namespace),
                     "controller-gcp-uscentral1b-{}-dask-gateway".format(namespace)]:
-            cmd = 'kubectl -n {namespace} patch deployment {obj} --patch="$(cat deployments/gcp-uscentral1b/patches/patch.yaml)"'.format(namespace=namespace, obj=obj)
+            cmd = './kubectl -n {namespace} patch deployment {obj} --patch="$(cat deployments/gcp-uscentral1b/patches/patch.yaml)"'.format(namespace=namespace, obj=obj)
             ret = subprocess.check_output(cmd, shell=True)
