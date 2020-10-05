@@ -14,3 +14,9 @@ daskhub:
 
 prometheus-operator:
   enabled: false  # handled in staging
+  grafana:
+    enabeld: false
+  ingress:
+    enabled: false
+  prometheus:
+    enabled: false
