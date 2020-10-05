@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - staging
-      - switch-to-github-actions
       #- prod
     paths:
       - 'deployments/icesat2/config/**'
@@ -53,7 +52,7 @@ jobs:
             sleep 120"
       - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Deploy AWS Staging Hub
-        if: (github.ref == 'refs/heads/staging') || (github.ref == 'refs/heads/switch-to-github-actions')
+        if: github.ref == 'refs/heads/staging'
         with:
           args: deploy icesat2 pangeo-deploy staging --timeout 1200s --cleanup-on-fail
       - uses: docker://yuvipanda/hubploy:20200826083951674280
