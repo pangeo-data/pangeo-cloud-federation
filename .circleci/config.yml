@@ -186,6 +186,8 @@ jobs:
               # We aren't set up for testing prod yet (tokens, etc.)
               python run_tests.py gcp-uscentral1b
             fi
+            # Patch gateway pods to set affinity till dask-gateway>0.8 is out.
+            python deployments/gcp-uscentral1b/patches/patch.py gcp-uscentral1b ${CIRCLE_BRANCH}
 
       # NOTE: should move the dynamic IP into hubploy where credentials and awscli version already dealt with
       # sleep 2min for now, but better to poll for readiness https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
