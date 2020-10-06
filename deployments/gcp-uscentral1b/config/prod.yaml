@@ -14,9 +14,48 @@ daskhub:
 
 prometheus-operator:
   enabled: false  # handled in staging
+  # I don't understand why these pods are showing up in the first place,
+  # when we've disabled them
+  prometheusOperator:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
   grafana:
-    enabeld: false
-  ingress:
     enabled: false
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
   prometheus:
     enabled: false
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
+  kube-state-metrics:
+    enabled: false
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
