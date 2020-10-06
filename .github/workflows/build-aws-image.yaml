@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - staging
+      - correct-build-action
       #- prod
     paths:
       - 'deployments/icesat2/image/binder/*'
@@ -10,6 +11,7 @@ on:
   pull_request:
     branches:
       - staging
+      - correct-build-action
       #- prod
     paths:
       - 'deployments/icesat2/image/binder/*'
