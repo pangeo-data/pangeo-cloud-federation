@@ -1,0 +1,67 @@
+name: Deploy AWS Hub
+on:
+  push:
+    branches:
+      - staging
+      #- prod
+    paths:
+      - 'deployments/icesat2/config/**'
+      - 'deployments/icesat2/secrets/**'
+      - 'deployments/icesat2/hubploy.yaml'
+      - 'pangeo-deploy/**'
+      - '.github/workflows/deploy-aws-hub.yaml'
+
+env:
+  HELM_EXECUTABLE: /usr/local/bin/helm3
+
+jobs:
+  deploy_aws:
+    name: Deploy AWS Hub
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker://yuvipanda/hubploy:20200826083951674280
+        name: Unlock git-crypt Secrets
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
+        with:
+          entrypoint: /bin/bash
+          args: -c "echo ${GIT_CRYPT_KEY} | base64 -d | git crypt unlock - && git crypt status"
+      - name: Setup Helm
+        run: |
+          curl https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz | tar -xzf -
+          sudo mv linux-amd64/helm $HELM_EXECUTABLE
+          helm3 version
+          helm3 repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+          helm3 repo add dask https://helm.dask.org/
+          helm3 repo add dask-gateway https://dask.org/dask-gateway-helm-repo/
+          helm3 repo add stable https://kubernetes-charts.storage.googleapis.com
+          helm3 repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+          helm3 repo add prometheus-operator https://kubernetes-charts.storage.googleapis.com
+          helm3 repo update
+      - uses: docker://yuvipanda/hubploy:20200826083951674280
+        name: Add Runner IP to EKS Kubernetes API Whitelist
+        with:
+          entrypoint: /bin/bash
+          args: >
+            -c "export AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt &&
+            RUNNERIP=`curl --silent https://checkip.amazonaws.com` &&
+            aws --version &&
+            aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${RUNNERIP}/32 > /dev/null &&
+            sleep 120"
+      - uses: docker://yuvipanda/hubploy:20200826083951674280
+        name: Deploy AWS Staging Hub
+        if: github.ref == 'refs/heads/staging'
+        with:
+          args: deploy icesat2 pangeo-deploy staging --timeout 1200s --cleanup-on-fail
+      - uses: docker://yuvipanda/hubploy:20200826083951674280
+        name: Revert to Original EKS IP Whitelist
+        if: always()
+        env:
+          AWS_IP_WHITELIST: ${{ secrets.AWS_IP_WHITELIST }}
+        with:
+          entrypoint: /bin/bash
+          args: >
+            -c "export AWS_SHARED_CREDENTIALS_FILE=./deployments/icesat2/secrets/aws-config.txt &&
+            aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${AWS_IP_WHITELIST} > /dev/null"
