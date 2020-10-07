@@ -154,3 +154,61 @@ homeDirectories:
     # Output from `gcloud filestore instances describe pangeo-uscentral1b --zone=us-central1-b`
     serverIP: 10.126.142.50
     serverName: home
+
+
+# prometheus-operator configuration.
+# We set the affinity here in common. staging handles most of the
+# rest of the configuartion (domain, IP addresses, etc.)
+prometheus-operator:
+  prometheusOperator:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
+  grafana:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
+  prometheus:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
+  kube-state-metrics:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
+
+ingress-nginx:
+  controller:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
