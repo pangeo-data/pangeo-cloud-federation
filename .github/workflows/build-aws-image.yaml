@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - staging
-      - correct-build-action
       #- prod
     paths:
       - 'deployments/icesat2/image/binder/*'
@@ -11,7 +10,6 @@ on:
   pull_request:
     branches:
       - staging
-      - correct-build-action
       #- prod
     paths:
       - 'deployments/icesat2/image/binder/*'
@@ -32,9 +30,6 @@ jobs:
       #  with:
       #    entrypoint: /bin/bash
       #    args: -c "echo ${GIT_CRYPT_KEY} | base64 -d | git crypt unlock - && git crypt status"
-      - name: Check git log
-        run: |
-          git log -n 5
       - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Build & Push AWS Image if Needed
         with:
