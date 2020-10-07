@@ -24,65 +24,14 @@ metrics:
   enabled: true
 
 prometheus-operator:
-  prometheusOperator:
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: hub.jupyter.org/node-purpose
-              operator: In
-              values:
-              - core
-
   grafana:
     server:
       domain: "grafana.us-central1-b.gcp.pangeo.io"
     ingress:
       hosts:
         - "grafana.us-central1-b.gcp.pangeo.io"
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: hub.jupyter.org/node-purpose
-              operator: In
-              values:
-              - core
-  prometheus:
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: hub.jupyter.org/node-purpose
-              operator: In
-              values:
-              - core
-  kube-state-metrics:
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: hub.jupyter.org/node-purpose
-              operator: In
-              values:
-              - core
 
 ingress-nginx:
   controller:
     service:
       loadBalancerIP: "34.121.206.128"
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: hub.jupyter.org/node-purpose
-              operator: In
-              values:
-              - core
-
-
