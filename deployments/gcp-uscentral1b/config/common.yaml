@@ -29,6 +29,9 @@ daskhub:
           subPath: "uscentral1b/{username}"
       cloudMetadata:
         enabled: true
+    prePuller:
+      continuous:
+        enabled: false
     hub:
       resources:
         requests:
