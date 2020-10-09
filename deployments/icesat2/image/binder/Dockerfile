@@ -1,1 +1,1 @@
-FROM pangeo/base-image:2020.09.13
+FROM pangeo/base-image:2020.10.08
