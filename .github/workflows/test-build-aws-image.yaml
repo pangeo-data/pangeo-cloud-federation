@@ -1,16 +1,16 @@
-name: Build and Push AWS Image
+name: Test Build AWS Image
 on:
-  push:
+  pull_request_target:
     branches:
       - staging
       #- prod
     paths:
       - 'deployments/icesat2/image/binder/*'
-      - '.github/workflows/build-aws-image.yaml'
+      - '.github/workflows/test-build-aws-image.yaml'
 
 jobs:
   build_aws_image:
-    name: Build and Push AWS Image
+    name: Test Build AWS Image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -26,4 +26,4 @@ jobs:
       - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Build & Push AWS Image if Needed
         with:
-          args: build icesat2 --push
+          args: build icesat2
