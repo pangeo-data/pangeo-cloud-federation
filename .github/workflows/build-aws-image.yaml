@@ -1,13 +1,6 @@
-name: Build AWS Image
+name: Build and Push AWS Image
 on:
   push:
-    branches:
-      - staging
-      #- prod
-    paths:
-      - 'deployments/icesat2/image/binder/*'
-      - '.github/workflows/build-aws-image.yaml'
-  pull_request:
     branches:
       - staging
       #- prod
@@ -17,7 +10,7 @@ on:
 
 jobs:
   build_aws_image:
-    name: Build AWS Image
+    name: Build and Push AWS Image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
