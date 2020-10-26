@@ -47,6 +47,8 @@ daskhub:
         limits:
           cpu: 0.8
           memory: 2.5G
+      image:
+        tag: "0.10.0-beta.1"
       extraEnv:
         KUBERNETES_SERVICE_HOST: kubernetes.default.svc.cluster.local
       extraConfig:
