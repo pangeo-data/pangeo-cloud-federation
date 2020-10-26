@@ -35,6 +35,9 @@ daskhub:
       memory:
         limit: 2.5G
         guarantee: 1.25G
+    prePuller:
+      continuous:
+        enabled: false
     hub:
       #nodeSelector: {agentpool: nodepool1}
       resources:
