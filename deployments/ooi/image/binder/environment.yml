@@ -2,8 +2,8 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
-  - python=3.7.*
-  - pangeo-notebook=2020.08.31
+  - python=3.8.*
+  - pangeo-notebook=2020.10.26
   # ooi
   - av
   - pycamhd
@@ -25,11 +25,11 @@ dependencies:
   #- pytorch-cpu
   # pyviz
   - holoviews
+  - bokeh
   - panel
   - jupyter-panel-proxy
   - geoviews
   - hvplot
-  - geoviews
   - datashader
   - seaborn
   - altair
