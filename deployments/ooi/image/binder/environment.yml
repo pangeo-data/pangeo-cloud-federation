@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.8.*
-  - pangeo-notebook=2020.10.26
+  - pangeo-notebook=2020.10.08
   # ooi
   - av
   - pycamhd
