@@ -91,7 +91,7 @@ daskhub:
         # TODO: figure out a replacement for userLimits.
       extraConfig:
         optionHandler: |
-          from dask_gateway_server.options import Options, Integer, Float, String, Mapping
+          from dask_gateway_server.options import Options, Float, String, Mapping
           def cluster_options(user):
               def option_handler(options):
                   if ":" not in options.image:
@@ -104,10 +104,18 @@ daskhub:
                   extra_labels = {
                       "hub.jupyter.org/username": user.name,
                   }
+                  # We multiply the requests by 0.95 to ensure that that they
+                  # pack well onto nodes. Kubernetes reserves a small fraction
+                  # of the memory / CPU for itself, so the common situation of
+                  # a node with 4 cores and a user requesting 4 cores means
+                  # we request just over half of the *allocatable* CPU, and so
+                  # we can't pack more than 1 worker on that node.
+                  # On GCP, the kubernetes requests are ~12% of the CPU.
                   return {
+                      "worker_cores": 0.88 * min(options.worker_cores / 2, 1),
                       "worker_cores_limit": options.worker_cores,
-                      "worker_cores": min(options.worker_cores / 2, 1),
-                      "worker_memory": "%fG" % options.worker_memory,
+                      "worker_memory": "%fG" % (0.95 * options.worker_memory),
+                      "worker_memory_limit": "%fG" % options.worker_memory,
                       "image": options.image,
                       "scheduler_extra_pod_annotations": extra_annotations,
                       "worker_extra_pod_annotations": extra_annotations,
@@ -116,7 +124,7 @@ daskhub:
                       "environment": options.environment,
                   }
               return Options(
-                  Integer("worker_cores", 2, min=1, max=16, label="Worker Cores"),
+                  Float("worker_cores", 2, min=1, max=16, label="Worker Cores"),
                   Float("worker_memory", 4, min=1, max=32, label="Worker Memory (GiB)"),
                   String("image", default="pangeo/pangeo-notebook:latest", label="Image"),
                   Mapping("environment", {}, label="Environment Variables"),
