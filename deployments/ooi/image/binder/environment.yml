@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.7.*
-  - pangeo-notebook=2020.08.31
+  - pangeo-notebook=2020.10.08
   # ooi
   - av
   - pycamhd
@@ -25,11 +25,11 @@ dependencies:
   #- pytorch-cpu
   # pyviz
   - holoviews
+  - bokeh
   - panel
   - jupyter-panel-proxy
   - geoviews
   - hvplot
-  - geoviews
   - datashader
   - seaborn
   - altair
