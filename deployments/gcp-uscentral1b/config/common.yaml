@@ -41,6 +41,11 @@ daskhub:
           cpu: "1.25"
           memory: 1Gi
 
+      services:
+        mlflow:
+          admin: True
+          url: mlflow
+
       extraConfig:
         administrators: |
           c.Authenticator.admin_users = ["TomAugspurger"]
