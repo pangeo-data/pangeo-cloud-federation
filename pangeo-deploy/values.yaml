@@ -123,6 +123,10 @@ daskhub:
         idle: |
           # timeout after 30 minutes of inactivity
           c.KubeClusterConfig.idle_timeout = 1800
+        limits: |
+          # per Dask cluster limits.
+          c.ClusterConfig.cluster_max_cores = 100
+          c.ClusterConfig.cluster_max_memory = "600 GB"
 
 homeDirectories:
   nfs:
