@@ -44,7 +44,7 @@ daskhub:
       services:
         mlflow:
           admin: True
-          url: mlflow
+          url: http://mlflow
 
       extraConfig:
         administrators: |
