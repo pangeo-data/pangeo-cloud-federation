@@ -126,7 +126,7 @@ daskhub:
         limits: |
           # per Dask cluster limits.
           c.ClusterConfig.cluster_max_cores = 100
-          c.ClusterConfig.cluster_max_memory = "600 GB"
+          c.ClusterConfig.cluster_max_memory = "600G"
 
 homeDirectories:
   nfs:
