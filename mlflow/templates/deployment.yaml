@@ -38,13 +38,12 @@ spec:
               containerPort: 80
               protocol: TCP
           env:
+            - name: STATIC_PREFIX
+              value: {{ .Values.static_prefix }}
             - name: BACKEND_STORE_URI
               value: {{ .Values.backend_store_uri }}
             - name: DEFAULT_ARTIFACT_ROOT
               value: {{ .Values.default_artifact_root }}
-            - name: STATIC_PREFIX
-              value: {{ .Values.static_prefix }}
-
           livenessProbe:
             httpGet:
               path: {{ .Values.static_prefix }}
@@ -67,4 +66,11 @@ spec:
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      # TODO: don't hardcode this
+      {{- if .Values.pvc.enabled }}
+      volumes:
+        - name: gcp-uscentral1b-{{ .Release.Namespace }}-home-nfs
+          persistentVolumeClaim:
+            claimName: home-nfs
       {{- end }}

@@ -4,6 +4,8 @@ RELEASE?=us-central1b-$(NAMESPACE)
 ZONE?=us-central1-b
 CLUSTER?=pangeo-uscentral1b
 
+.PHONY: test mlflow-staging mlflow-prod
+
 # Creation of the Kubernetes Cluster for Google
 #
 # Notes
@@ -99,9 +101,35 @@ serviceaccount:
 	gcloud projects add-iam-policy-binding pangeo-181919 \
 	  --member serviceAccount:pangeo@$(PROJECT).iam.gserviceaccount.com \
 	  --role roles/serviceusage.serviceUsageConsumer
+	# MLFlow
+	gcloud iam service-accounts add-iam-policy-binding \
+		--role roles/iam.workloadIdentityUser \
+		--member "serviceAccount:$(PROJECT).svc.id.goog[$(NAMESPACE)/mlflow]" \
+		mlflow@$(PROJECT).iam.gserviceaccount.com
+	kubectl annotate serviceaccount \
+	  --overwrite --namespace $(NAMESPACE) \
+		mlflow \
+		iam.gke.io/gcp-service-account=mlflow@$(PROJECT).iam.gserviceaccount.com
+	gcloud projects add-iam-policy-binding $(PROJECT) \
+	  --member serviceAccount:mlflow@$(PROJECT).iam.gserviceaccount.com \
+	  --role roles/serviceusage.serviceUsageConsumer
+	# TODO: how was IAM configured for pangeo?
+	gsutil iam ch serviceAccount:mlflow@pangeo-181919.iam.gserviceaccount.com:roles/storage.objectAdmin gs://pangeo-scratch
 
 scratch:
 	gsutil lifecycle set lifecycle.json gs://pangeo-scratch
 
 google-service-account:
 	gcloud iam service-accounts create pangeo
+	gcloud iam service-accounts create mlflow
+
+
+# Adds MLFlow as a jupyterhub service
+#
+
+
+mlflow-staging:
+	helm upgrade --wait --install -n staging mlflow ../../mlflow/
+
+mlflow-prod:
+	helm upgrade --wait --install -n prod mlflow ../../mlflow/
