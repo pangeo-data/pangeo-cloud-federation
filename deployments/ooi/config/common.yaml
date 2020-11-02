@@ -129,6 +129,17 @@ daskhub:
           - tjcrone
           - yuvipanda
 
+  dask-gateway:
+     gateway:
+       backend:
+         scheduler:
+           cores:
+             request: 0.4
+             limit: 0.4
+           memory:
+             request: 1.25G
+             limit: 1.25G
+
 homeDirectories:
   nfs:
     enabled: true
