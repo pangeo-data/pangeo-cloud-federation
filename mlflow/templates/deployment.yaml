@@ -47,12 +47,13 @@ spec:
 
           livenessProbe:
             httpGet:
-              path: {{ .Values.service_prefix }}
+              path: {{ .Values.static_prefix }}
               port: http
           readinessProbe:
             httpGet:
-              path: {{ .Values.service_prefix }}
+              path: {{ .Values.static_prefix }}
               port: http
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
