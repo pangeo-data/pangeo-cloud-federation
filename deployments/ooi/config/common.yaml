@@ -131,17 +131,48 @@ daskhub:
 
   dask-gateway:
     gateway:
-      backend:
-        worker:
-          cores:
-            request: 0.4
-            limit: 0.4
-          memory:
-            request: 1.25G
-            limit: 1.25G
       extraConfig:
         optionHandler: |
-          pass
+          from dask_gateway_server.options import Options, Integer, Float, String, Mapping
+          def cluster_options(user):
+              def option_handler(options):
+                  if ":" not in options.image:
+                      raise ValueError("When specifying an image you must also provide a tag")
+                  extra_annotations = {
+                      "hub.jupyter.org/username": user.name,
+                      "prometheus.io/scrape": "true",
+                      "prometheus.io/port": "8787",
+                  }
+                  extra_labels = {
+                      "hub.jupyter.org/username": user.name,
+                  }
+                  return {
+                      "worker_cores_limit": options.worker_cores,
+                      "worker_cores": min(options.worker_cores / 2, 1),
+                      "worker_memory": "%fG" % options.worker_memory,
+                      "image": options.image,
+                      "scheduler_extra_pod_annotations": extra_annotations,
+                      "worker_extra_pod_annotations": extra_annotations,
+                      "scheduler_extra_pod_labels": extra_labels,
+                      "worker_extra_pod_labels": extra_labels,
+                      "environment": options.environment,
+                  }
+              return Options(
+                  Integer("worker_cores", 0.4, min=0.4, max=0.4, label="Worker Cores"),
+                  Float("worker_memory", 1.25, min=1.25, max=1.25, label="Worker Memory (GiB)"),
+                  String("image", default="pangeo/pangeo-notebook:latest", label="Image"),
+                  Mapping("environment", {}, label="Environment Variables"),
+                  handler=option_handler,
+              )
+          c.Backend.cluster_options = cluster_options
+        idle: |
+          # timeout after 30 minutes of inactivity
+          c.KubeClusterConfig.idle_timeout = 1800
+        limits: |
+          # per Dask cluster limits.
+          c.ClusterConfig.cluster_max_cores = 100
+          c.ClusterConfig.cluster_max_memory = "600G"
+
 
 homeDirectories:
   nfs:
