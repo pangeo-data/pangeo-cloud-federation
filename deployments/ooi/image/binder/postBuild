@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # dask configuration
-mkdir /srv/conda/envs/notebook/etc/dask/
-cp dask_config.yaml /srv/conda/envs/notebook/etc/dask/dask.yaml
+#mkdir /srv/conda/envs/notebook/etc/dask/
+#cp dask_config.yaml /srv/conda/envs/notebook/etc/dask/dask.yaml
 
 # labextensions
 jupyter labextension install @pyviz/jupyterlab_pyviz jupyter-leaflet
