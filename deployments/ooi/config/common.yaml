@@ -134,10 +134,10 @@ daskhub:
        backend:
          worker:
            cores:
-             requests: 0.4
+             request: 0.4
              limit: 0.4
            memory:
-             requests: 1.25G
+             request: 1.25G
              limit: 1.25G
 
 homeDirectories:
