@@ -1,0 +1,42 @@
+alertmanager:
+  enabled: false
+
+nodeExporter:
+  enabled: true
+  tolerations:
+    - operator: "Exists"
+  updateStrategy:
+    type: RollingUpdate
+
+pushgateway:
+  enabled: false
+
+rbac:
+  create: true
+
+server:
+  enabled: true
+  retention: 30d
+  statefulSet: 
+    enabled: true
+  persistentVolume:
+    enabled: true
+  ingress:
+    enabled: false
+  affinity:
+   nodeAffinity:
+     requiredDuringSchedulingIgnoredDuringExecution:
+       nodeSelectorTerms:
+       - matchExpressions:
+         - key: hub.jupyter.org/node-purpose
+           operator: In
+           values:
+           - core
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 1Gi
+  requests:
+    cpu: 0m
+    memory: 0Gi

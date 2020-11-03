@@ -1,0 +1,77 @@
+ingress:
+  enabled: false
+  path: /grafana/?(.*)
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: hub.jupyter.org/node-purpose
+            operator: In
+            values:
+            - core
+
+grafana.ini:
+  server:
+    serve_from_sub_path: true
+  auth.anonymous:
+    enabled: true
+    org_name: Main Org.
+    org_role: Viewer
+  auth.basic:
+    enabled: true
+  smtp:
+    enabled: true
+
+deploymentStrategy:
+  type: Recreate
+
+persistence:
+  type: pvc
+  enabled: false
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: true
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+dashboards:
+  default:
+    cluster-monitoring-for-kubernetes:
+      gnetId: 10000
+      revision: 1
+      datasource: Prometheus
+    dask:
+      gnetId: 12591
+      revision: 2
+      datasource: Prometheus
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 1Gi
+  requests:
+    cpu: 0m
+    memory: 0Mi
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: hub.jupyter.org/node-purpose
+          operator: In
+          values:
+          - core
