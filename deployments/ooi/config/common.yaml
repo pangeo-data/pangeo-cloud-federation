@@ -130,15 +130,18 @@ daskhub:
           - yuvipanda
 
   dask-gateway:
-     gateway:
-       backend:
-         worker:
-           cores:
-             request: 0.4
-             limit: 0.4
-           memory:
-             request: 1.25G
-             limit: 1.25G
+    gateway:
+      backend:
+        worker:
+          cores:
+            request: 0.4
+            limit: 0.4
+          memory:
+            request: 1.25G
+            limit: 1.25G
+      extraConfig:
+        optionHandler: |
+          pass
 
 homeDirectories:
   nfs:
