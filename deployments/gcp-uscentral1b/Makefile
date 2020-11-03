@@ -114,7 +114,7 @@ serviceaccount:
 	  --member serviceAccount:mlflow@$(PROJECT).iam.gserviceaccount.com \
 	  --role roles/serviceusage.serviceUsageConsumer
 	# TODO: how was IAM configured for pangeo?
-	gsutil iam ch serviceAccount:mlflow@pangeo-181919.iam.gserviceaccount.com:roles/storage.objectAdmin gs://pangeo-scratch
+	gsutil iam ch serviceAccount:mlflow@pangeo-181919.iam.gserviceaccount.com:roles/storage.objectAdmin,objectViewer gs://pangeo-scratch
 
 scratch:
 	gsutil lifecycle set lifecycle.json gs://pangeo-scratch
