@@ -158,8 +158,8 @@ daskhub:
                       "environment": options.environment,
                   }
               return Options(
-                  Float("worker_cores", 0.4, min=0.1, max=8, label="Worker Cores"),
-                  Float("worker_memory", 1.25, min=0.25, max=8.25, label="Worker Memory (GiB)"),
+                  Float("worker_cores", 0.4, min=0.4, max=1.6, label="Worker Cores"),
+                  Float("worker_memory", 1.25, min=1.25, max=5, label="Worker Memory (GiB)"),
                   String("image", default="pangeo/pangeo-notebook:latest", label="Image"),
                   Mapping("environment", {}, label="Environment Variables"),
                   handler=option_handler,
