@@ -55,6 +55,14 @@ spec:
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            {{- if .Values.pvc.enabled }}
+            - mountPath: /srv/mlflow
+              name: mlflow-db-dir
+              {{- if .Values.pvc.subPath }}
+              subPath: {{ .Values.pvc.subPath | quote }}
+              {{- end  }}
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -70,7 +78,7 @@ spec:
       # TODO: don't hardcode this
       {{- if .Values.pvc.enabled }}
       volumes:
-        - name: gcp-uscentral1b-{{ .Release.Namespace }}-home-nfs
+        - name: mlflow-db-dir
           persistentVolumeClaim:
-            claimName: home-nfs
+            claimName: mlflow-db-dir
       {{- end }}

@@ -2,8 +2,6 @@
 backend_store_uri: "sqlite:///mlruns.sqlite"
 default_artifact_root: "gs://pangeo-scratch/mlflow/"
 static_prefix: "/services/mlflow"
-pvc:
-  enabled: true
 
 replicaCount: 1
 image:
@@ -66,3 +64,13 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+pvc:
+  enabled: true
+  annotations: {}
+  selector: {}
+  accessModes:
+    - ReadWriteOnce
+  storage: 1Gi
+  subPath:
+  storageClassName:
