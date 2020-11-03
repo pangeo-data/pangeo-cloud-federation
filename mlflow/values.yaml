@@ -1,12 +1,13 @@
-backend_store_uri: "file:///mlruns"
-default_artifact_root: ""
+# TODO: set good defaults and override for GCP.
+backend_store_uri: "sqlite:///srv/mlflow/mlflow.sqlite"
+default_artifact_root: "gs://pangeo-scratch/mlflow/"
 static_prefix: "/services/mlflow"
 
 replicaCount: 1
 image:
   repository: tomaugspurger/mlflow
   pullPolicy: Always
-  tag: ""
+  tag: "2020.11.02.01"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -59,7 +60,25 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
 
 nodeSelector: {}
-
 tolerations: []
+# affinity: {}
+# TODO: this affinity is jhub specific
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: hub.jupyter.org/node-purpose
+          operator: In
+          values:
+          - core
 
-affinity: {}
+pvc:
+  enabled: true
+  annotations: {}
+  selector: {}
+  accessModes:
+    - ReadWriteOnce
+  storage: 1Gi
+  subPath:
+  storageClassName: "standard"

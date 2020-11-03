@@ -1,0 +1,25 @@
+{{- if .Values.pvc.enabled -}}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mlflow-db-dir
+  labels:
+    {{- include "mlflow.labels" . | nindent 4 }}
+  {{- if .Values.pvc.annotations }}
+  annotations:
+    {{- .Values.pvc.annotations | toYaml | trimSuffix "\n" | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.pvc.selector }}
+  selector:
+    {{- .Values.pvc.selector | toYaml | trimSuffix "\n" | nindent 4 }}
+  {{- end }}
+  {{- if typeIs "string" .Values.pvc.storageClassName }}
+  storageClassName: {{ .Values.pvc.storageClassName | quote }}
+  {{- end }}
+  accessModes:
+    {{- .Values.pvc.accessModes | toYaml | trimSuffix "\n" | nindent 4 }}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.storage | quote }}
+{{- end }}
