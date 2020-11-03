@@ -132,7 +132,7 @@ daskhub:
   dask-gateway:
      gateway:
        backend:
-         scheduler:
+         worker:
            cores:
              request: 0.4
              limit: 0.4
