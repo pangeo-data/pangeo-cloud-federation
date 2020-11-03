@@ -55,14 +55,14 @@ spec:
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.pvc.enabled }}
           volumeMounts:
-            {{- if .Values.pvc.enabled }}
             - mountPath: /srv/mlflow
               name: mlflow-db-dir
               {{- if .Values.pvc.subPath }}
               subPath: {{ .Values.pvc.subPath | quote }}
               {{- end  }}
-            {{- end }}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -75,8 +75,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      # TODO: don't hardcode this
       {{- if .Values.pvc.enabled }}
+      # TODO: don't hardcode this
       volumes:
         - name: mlflow-db-dir
           persistentVolumeClaim:

@@ -60,10 +60,18 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
 
 nodeSelector: {}
-
 tolerations: []
-
-affinity: {}
+# affinity: {}
+# TODO: this affinity is jhub specific
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: hub.jupyter.org/node-purpose
+          operator: In
+          values:
+          - core
 
 pvc:
   enabled: true
@@ -73,4 +81,4 @@ pvc:
     - ReadWriteOnce
   storage: 1Gi
   subPath:
-  storageClassName:
+  storageClassName: "standard"
