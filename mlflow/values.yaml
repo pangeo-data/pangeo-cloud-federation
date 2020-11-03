@@ -1,5 +1,5 @@
 # TODO: set good defaults and override for GCP.
-backend_store_uri: "sqlite:///mlruns.sqlite"
+backend_store_uri: "sqlite:///srv/mlflow/mlflow.sqlite"
 default_artifact_root: "gs://pangeo-scratch/mlflow/"
 static_prefix: "/services/mlflow"
 
