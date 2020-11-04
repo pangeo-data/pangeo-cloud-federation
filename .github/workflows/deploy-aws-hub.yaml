@@ -38,7 +38,6 @@ jobs:
           helm3 repo add dask-gateway https://dask.org/dask-gateway-helm-repo/
           helm3 repo add stable https://kubernetes-charts.storage.googleapis.com
           helm3 repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-          helm3 repo add prometheus-operator https://kubernetes-charts.storage.googleapis.com
           helm3 repo update
       - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Add Runner IP to EKS Kubernetes API Whitelist
