@@ -42,10 +42,6 @@ Once you have a cluster created, you can begin customizing the configuration.
   * Edit the files in the binder directory to change the contents of the user Docker image. The specification for these files comes from [repo2docker](https://repo2docker.readthedocs.io/en/latest/).
   * Add or modify the README.md and Jupyter notebooks. These will be in each user's home directory.
 
-#### Push your setup to GitHub and let HubPloy do the rest
-
-* Make a commit to and push to your fork. Issue a Pull Request to this repo's `staging` branch.  
-
 ### Troubleshooting
 
 * `Error: UPGRADE FAILED: "example.pangeo.io-staging" has no deployed releases`
@@ -78,6 +74,12 @@ $ make metrics
 Configuration is in the `metrics` folder. We expose it with an nginx-ingress, which was configured to have a static IP on Google Cloud and added to our DNS to server from the URL above.
 
 Likewise with the aws / icesat2 deployment.
+
+### Workflow
+
+All pull requests should be made to the `staging` branch. When a change has been verified and is ready for
+deployment, `staging` can be merged into `prod`. This repository is set up with continuous deployment upon pushes
+to both `staging` and `prod`.
 
 ### Related Projects
 
