@@ -1,5 +1,5 @@
-alertmanager:
-  enabled: false
+rbac:
+  create: true
 
 nodeExporter:
   enabled: true
@@ -13,12 +13,15 @@ nodeExporter:
   requests:
     cpu: 0m
     memory: 0Gi
-
-pushgateway:
-  enabled: false
-
-rbac:
-  create: true
+  affinity:
+   nodeAffinity:
+     requiredDuringSchedulingIgnoredDuringExecution:
+       nodeSelectorTerms:
+       - matchExpressions:
+         - key: hub.jupyter.org/node-purpose
+           operator: In
+           values:
+           - core
 
 server:
   enabled: true
@@ -37,7 +40,6 @@ server:
     requests:
       cpu: 0m
       memory: 0Gi
-
   affinity:
    nodeAffinity:
      requiredDuringSchedulingIgnoredDuringExecution:
@@ -55,3 +57,18 @@ resources:
   requests:
     cpu: 0m
     memory: 0Gi
+
+
+
+alertmanager:
+  enabled: false
+
+pushgateway:
+  enabled: false
+
+configmapReload:
+  prometheus:
+    enabled: false
+  alertmanager:
+    enabled: false
+
