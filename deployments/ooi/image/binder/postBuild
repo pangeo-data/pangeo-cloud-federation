@@ -8,3 +8,4 @@
 jupyter labextension install @pyviz/jupyterlab_pyviz jupyter-leaflet
 jupyter labextension install dask-labextension
 jupyter serverextension enable dask_labextension
+jupyter labextension install @jupyter-widgets/jupyterlab-manager
