@@ -7,6 +7,12 @@ nodeExporter:
     - operator: "Exists"
   updateStrategy:
     type: RollingUpdate
+  limits:
+    cpu: 500m
+    memory: 1Gi
+  requests:
+    cpu: 0m
+    memory: 0Gi
 
 pushgateway:
   enabled: false
@@ -23,6 +29,15 @@ server:
     enabled: true
   ingress:
     enabled: false
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 0m
+      memory: 0Gi
+
   affinity:
    nodeAffinity:
      requiredDuringSchedulingIgnoredDuringExecution:
