@@ -24,14 +24,3 @@ daskhub:
       service:
         annotations: {'service.beta.kubernetes.io/azure-load-balancer-resource-group': 'ooi-pangeo'}
         loadBalancerIP: 13.92.63.24
-
-metrics:
-  enabled: false
-
-# prometheus-operator:
-#   grafana:
-#     server:
-#       domain: "grafana.staging.ooi.pangeo.io"
-#     ingress:
-#       hosts:
-#         - "grafana.staging.ooi.pangeo.io"

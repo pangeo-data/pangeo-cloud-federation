@@ -1,0 +1,18 @@
+ingress:
+  enabled: true
+  hosts:
+    - grafana.aws-uswest2.pangeo.io
+
+grafana.ini:
+  server:
+    root_url: http://grafana.aws-uswest2.pangeo.io/grafana
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: prometheus-server.icesat2-staging
+        access: proxy
+        isDefault: true

@@ -33,10 +33,3 @@ daskhub:
           - aws-uswest2.pangeo.io
         letsencrypt:
           contactEmail: scottyh@uw.edu
-
-prometheus-operator:
-  enabled: false  # handled in staging
-  grafana:
-    enabled: false
-  prometheus:
-    enabled: false

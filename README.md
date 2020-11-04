@@ -61,6 +61,24 @@ There were some manual setup steps
 * Sign up for the cloud with a regular user (we're using `pangeo-bot`)
 * Create an API token, upload to CircleCI
 
+### Monitoring
+
+We've deployed prometheus and grafana to monitor cluster usage. These metrics are publicially visible:
+
+* GCP: http://grafana.us-central1-b.gcp.pangeo.io/grafana/
+* AWS: http://grafana.aws-uswest2.pangeo.io/grafana/
+
+These are deployed indendently of CI. The GCP deployment is done in deployments/gcp-uscentral1b/Makefile, with the `metrics` target.
+
+```
+$ cd deployments/gcp-uscentral1b
+$ make metrics
+```
+
+Configuration is in the `metrics` folder. We expose it with an nginx-ingress, which was configured to have a static IP on Google Cloud and added to our DNS to server from the URL above.
+
+Likewise with the aws / icesat2 deployment.
+
 ### Related Projects
 
 - [Pangeo](http://pangeo.io/): main website for the Pangeo project.
