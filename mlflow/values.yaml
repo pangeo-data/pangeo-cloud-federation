@@ -1,0 +1,84 @@
+# TODO: set good defaults and override for GCP.
+backend_store_uri: "sqlite:///srv/mlflow/mlflow.sqlite"
+default_artifact_root: "gs://pangeo-scratch/mlflow/"
+static_prefix: "/services/mlflow"
+
+replicaCount: 1
+image:
+  repository: tomaugspurger/mlflow
+  pullPolicy: Always
+  tag: "2020.11.02.01"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+tolerations: []
+# affinity: {}
+# TODO: this affinity is jhub specific
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: hub.jupyter.org/node-purpose
+          operator: In
+          values:
+          - core
+
+pvc:
+  enabled: true
+  annotations: {}
+  selector: {}
+  accessModes:
+    - ReadWriteOnce
+  storage: 1Gi
+  subPath:
+  storageClassName: "standard"

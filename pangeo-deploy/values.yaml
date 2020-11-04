@@ -27,6 +27,9 @@ daskhub:
       extraEnv:
         # The default worker image matches the singleuser image.
         DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE: '{JUPYTER_IMAGE_SPEC}'
+        DASK_DISTRIBUTED__DASHBOARD_LINK: '/user/{JUPYTERHUB_USER}/proxy/{port}/status'
+        DASK_LABEXTENSION__FACTORY__MODULE: 'dask_gateway'
+        DASK_LABEXTENSION__FACTORY__CLASS: 'GatewayCluster'
       serviceAccountName: pangeo
 
     prePuller:
@@ -123,6 +126,10 @@ daskhub:
         idle: |
           # timeout after 30 minutes of inactivity
           c.KubeClusterConfig.idle_timeout = 1800
+        limits: |
+          # per Dask cluster limits.
+          c.ClusterConfig.cluster_max_cores = 100
+          c.ClusterConfig.cluster_max_memory = "600G"
 
 homeDirectories:
   nfs:

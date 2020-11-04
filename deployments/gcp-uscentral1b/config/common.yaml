@@ -21,6 +21,8 @@ daskhub:
       extraEnv:
         # Scratch storage within the cluster
         PANGEO_SCRATCH_PREFIX: "gs://pangeo-scratch"
+        # MLFlow configuration
+        MLFLOW_TRACKING_URI: "http://mlflow"
 
       storage:
         type: static
@@ -40,6 +42,11 @@ daskhub:
         limits:
           cpu: "1.25"
           memory: 1Gi
+
+      services:
+        mlflow:
+          admin: True
+          url: http://mlflow
 
       extraConfig:
         administrators: |
