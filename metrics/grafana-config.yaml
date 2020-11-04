@@ -32,7 +32,9 @@ deploymentStrategy:
 
 persistence:
   type: pvc
-  enabled: false
+  enabled: true
+  size: 1Gi
+  storageClassName: standard
 
 dashboardProviders:
   dashboardproviders.yaml:
