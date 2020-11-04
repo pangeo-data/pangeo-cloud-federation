@@ -1,5 +1,5 @@
-alertmanager:
-  enabled: false
+rbac:
+  create: true
 
 nodeExporter:
   enabled: true
@@ -7,12 +7,21 @@ nodeExporter:
     - operator: "Exists"
   updateStrategy:
     type: RollingUpdate
-
-pushgateway:
-  enabled: false
-
-rbac:
-  create: true
+  limits:
+    cpu: 500m
+    memory: 1Gi
+  requests:
+    cpu: 0m
+    memory: 0Gi
+  affinity:
+   nodeAffinity:
+     requiredDuringSchedulingIgnoredDuringExecution:
+       nodeSelectorTerms:
+       - matchExpressions:
+         - key: hub.jupyter.org/node-purpose
+           operator: In
+           values:
+           - core
 
 server:
   enabled: true
@@ -23,6 +32,14 @@ server:
     enabled: true
   ingress:
     enabled: false
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 0m
+      memory: 0Gi
   affinity:
    nodeAffinity:
      requiredDuringSchedulingIgnoredDuringExecution:
@@ -40,3 +57,18 @@ resources:
   requests:
     cpu: 0m
     memory: 0Gi
+
+
+
+alertmanager:
+  enabled: false
+
+pushgateway:
+  enabled: false
+
+configmapReload:
+  prometheus:
+    enabled: false
+  alertmanager:
+    enabled: false
+
