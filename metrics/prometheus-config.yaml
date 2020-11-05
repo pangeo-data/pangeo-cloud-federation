@@ -50,6 +50,18 @@ server:
            values:
            - core
 
+kube-state-metrics:
+  # TODO: GKE also has a gke-metrics agent. Do we need this too?
+  affinity:
+   nodeAffinity:
+     requiredDuringSchedulingIgnoredDuringExecution:
+       nodeSelectorTerms:
+       - matchExpressions:
+         - key: hub.jupyter.org/node-purpose
+           operator: In
+           values:
+           - core
+
 resources:
   limits:
     cpu: 500m
@@ -71,4 +83,3 @@ configmapReload:
     enabled: false
   alertmanager:
     enabled: false
-
