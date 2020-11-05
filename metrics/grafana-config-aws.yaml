@@ -16,3 +16,6 @@ datasources:
         url: prometheus-server.icesat2-staging
         access: proxy
         isDefault: true
+
+persistence:
+  storageClassName: "gp2"

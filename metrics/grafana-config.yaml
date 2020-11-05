@@ -30,11 +30,11 @@ grafana.ini:
 deploymentStrategy:
   type: Recreate
 
+# the storageClassName is set in -gcp.yaml and -aws.yaml
 persistence:
   type: pvc
   enabled: true
   size: 1Gi
-  storageClassName: standard
 
 dashboardProviders:
   dashboardproviders.yaml:
