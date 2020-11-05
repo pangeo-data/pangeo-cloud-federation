@@ -35,13 +35,14 @@ daskhub:
           contactEmail: scottyh@uw.edu
 
   dask-gateway:
-    backend:
-      # Ensure the scheduler and worker pods end up on
-      # nodes that are already being used, to avoid scheduling on nodes
-      # that would otherwise be reclaimed by the cluster autoscaler.
-      scheduler:
-        extraPodConfig:
-          schedulerName: icesat2-prod-user-scheduler
-      worker:
-        extraPodConfig:
-          schedulerName: icesat2-prod-staging-user-scheduler
+    gateway:
+      backend:
+        # Ensure the scheduler and worker pods end up on
+        # nodes that are already being used, to avoid scheduling on nodes
+        # that would otherwise be reclaimed by the cluster autoscaler.
+        scheduler:
+          extraPodConfig:
+            schedulerName: icesat2-prod-user-scheduler
+        worker:
+          extraPodConfig:
+            schedulerName: icesat2-prod-staging-user-scheduler
