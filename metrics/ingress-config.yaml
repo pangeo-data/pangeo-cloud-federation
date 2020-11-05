@@ -8,3 +8,13 @@ controller:
             operator: In
             values:
             - core
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 4Gi
+    requests:
+      cpu: 0m
+      memory: 0Gi
+
+
