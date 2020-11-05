@@ -16,9 +16,6 @@ daskhub:
         limits:
           cpu: "0.1"
           memory: 0.25Gi
-    scheduling:
-      userScheduler:
-        enabled: false
   dask-gateway:
     gateway:
       backend:
