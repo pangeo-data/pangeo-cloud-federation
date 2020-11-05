@@ -17,3 +17,6 @@ datasources:
         url: prometheus-server.staging
         access: proxy
         isDefault: true
+
+persistence:
+  storageClassName: standard

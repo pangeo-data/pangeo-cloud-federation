@@ -40,6 +40,7 @@ server:
     requests:
       cpu: 0m
       memory: 0Gi
+
   affinity:
    nodeAffinity:
      requiredDuringSchedulingIgnoredDuringExecution:
@@ -52,6 +53,14 @@ server:
 
 kube-state-metrics:
   # TODO: GKE also has a gke-metrics agent. Do we need this too?
+  resources:
+    limits:
+      cpu: 500m
+      memory: 4Gi
+    requests:
+      cpu: 0m
+      memory: 0Gi
+
   affinity:
    nodeAffinity:
      requiredDuringSchedulingIgnoredDuringExecution:
@@ -62,6 +71,7 @@ kube-state-metrics:
            values:
            - core
 
+# TODO: figure out if this top-level resources is used.
 resources:
   limits:
     cpu: 500m
@@ -69,8 +79,6 @@ resources:
   requests:
     cpu: 0m
     memory: 0Gi
-
-
 
 alertmanager:
   enabled: false
