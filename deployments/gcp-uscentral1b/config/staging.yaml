@@ -19,6 +19,17 @@ daskhub:
     scheduling:
       userScheduler:
         enabled: false
+  dask-gateway:
+    backend:
+      # Ensure the scheduler and worker pods end up on
+      # nodes that are already being used, to avoid scheduling on nodes
+      # that would otherwise be reclaimed by the cluster autoscaler.
+      scheduler:
+        extraPodConfig:
+          schedulerName: gcp-uscentral1b-staging-user-scheduler
+      worker:
+        extraPodConfig:
+          schedulerName: gcp-uscentral1b-staging-user-scheduler
 
 metrics:
   enabled: true
