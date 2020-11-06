@@ -2,19 +2,21 @@ ingress:
   enabled: true
   hosts:
     - grafana.us-central1-b.gcp.pangeo.io
+  service:
+    loadBalancerIP: 35.239.182.69
+
 
 grafana.ini:
   server:
     root_url: http://grafana.us-centra1b.pangeo.io/grafana
 
-# GCP and AWS use different namespaces (staging vs. icesat2-staging)
 datasources:
   datasources.yaml:
     apiVersion: 1
     datasources:
       - name: Prometheus
         type: prometheus
-        url: prometheus-server.staging
+        url: prometheus-server.metrics
         access: proxy
         isDefault: true
 
