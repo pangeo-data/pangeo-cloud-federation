@@ -10,7 +10,3 @@ dependencies:
     import-values:
       - child: rbac
         parent: rbac
-  - name: ingress-nginx
-    version: "2.11.3"
-    repository: https://kubernetes.github.io/ingress-nginx
-    condition: metrics.enabled
