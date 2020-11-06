@@ -28,11 +28,3 @@ daskhub:
         worker:
           extraPodConfig:
             schedulerName: gcp-uscentral1b-staging-user-scheduler
-
-metrics:
-  enabled: true
-
-ingress-nginx:
-  controller:
-    service:
-      loadBalancerIP: "34.121.206.128"
