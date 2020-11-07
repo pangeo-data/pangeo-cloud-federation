@@ -3,9 +3,10 @@ on:
   push:
     branches:
       - staging
-      #- prod
+      - prod
     paths:
       - 'deployments/icesat2/config/**'
+      - 'deployments/icesat2/image/**'
       - 'deployments/icesat2/secrets/**'
       - 'deployments/icesat2/hubploy.yaml'
       - 'pangeo-deploy/**'
