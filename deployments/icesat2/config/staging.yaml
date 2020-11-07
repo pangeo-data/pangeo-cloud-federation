@@ -14,6 +14,8 @@ daskhub:
         OAUTH_CALLBACK_URL: "https://staging.aws-uswest2.pangeo.io/hub/oauth_callback"
     singleuser:
       profileList:
+        - display_name: "Default Image"
+          description: "https://github.com/pangeo-data/pangeo-cloud-federation/blob/staging/deployments/icesat2/image/binder/Dockerfile"
         - display_name: "Staging Pangeo-notebook"
           description: "https://github.com/pangeo-data/pangeo-docker-images/tree/master/pangeo-notebook"
           kubespawner_override:
