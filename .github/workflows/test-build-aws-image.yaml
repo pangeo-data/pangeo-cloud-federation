@@ -5,7 +5,7 @@ on:
       - staging
       - prod
     paths:
-      - 'deployments/icesat2/image/binder/*'
+      - 'deployments/icesat2/image/**'
       - '.github/workflows/test-build-aws-image.yaml'
 
 jobs:
