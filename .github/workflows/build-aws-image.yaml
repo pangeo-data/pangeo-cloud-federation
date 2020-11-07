@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - staging
-      #- prod
+      - prod
     paths:
       - 'deployments/icesat2/image/binder/*'
       - '.github/workflows/build-aws-image.yaml'

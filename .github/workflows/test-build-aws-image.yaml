@@ -3,7 +3,7 @@ on:
   pull_request_target:
     branches:
       - staging
-      #- prod
+      - prod
     paths:
       - 'deployments/icesat2/image/binder/*'
       - '.github/workflows/test-build-aws-image.yaml'
