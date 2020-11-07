@@ -15,6 +15,7 @@ daskhub:
     singleuser:
       profileList:
         - display_name: "Default Image"
+          default: "True"
           description: "https://github.com/pangeo-data/pangeo-cloud-federation/blob/staging/deployments/icesat2/image/binder/Dockerfile"
         - display_name: "Staging Pangeo-notebook"
           description: "https://github.com/pangeo-data/pangeo-docker-images/tree/master/pangeo-notebook"
