@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Unlock git-crypt Secrets
         env:
@@ -29,6 +30,12 @@ jobs:
         with:
           entrypoint: /bin/bash
           args: -c "echo ${GIT_CRYPT_KEY} | base64 -d | git crypt unlock - && git crypt status"
+
+      - uses: docker://yuvipanda/hubploy:20200826083951674280
+        name: Push AWS Image with matching git commit tag
+        with:
+          args: build icesat2 --check-registry --push
+
       - name: Setup Helm
         run: |
           curl https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz | tar -xzf -
@@ -40,6 +47,7 @@ jobs:
           helm3 repo add stable https://kubernetes-charts.storage.googleapis.com
           helm3 repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
           helm3 repo update
+
       - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Add Runner IP to EKS Kubernetes API Whitelist
         with:
@@ -55,6 +63,7 @@ jobs:
         if: github.ref == 'refs/heads/staging'
         with:
           args: deploy icesat2 pangeo-deploy staging --timeout 1200s --cleanup-on-fail
+
       - uses: docker://yuvipanda/hubploy:20200826083951674280
         name: Revert to Original EKS IP Whitelist
         if: always()
