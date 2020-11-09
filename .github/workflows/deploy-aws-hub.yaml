@@ -18,21 +18,21 @@ env:
 jobs:
   deploy_aws:
     name: Deploy AWS Hub
-    # This job runs on Linux
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - uses: docker://yuvipanda/hubploy:20200826083951674280
-        name: Unlock git-crypt Secrets
+      - name: Unlock git-crypt Secrets
+        uses: docker://yuvipanda/hubploy:20200826083951674280
         env:
           GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
         with:
           entrypoint: /bin/bash
           args: -c "echo ${GIT_CRYPT_KEY} | base64 -d | git crypt unlock - && git crypt status"
 
-      - uses: docker://yuvipanda/hubploy:20200826083951674280
-        name: Push AWS Image with matching git commit tag
+      - name: Push AWS Image with matching git commit tag
+        uses: docker://yuvipanda/hubploy:20200826083951674280
         with:
           args: build icesat2 --check-registry --push
 
@@ -48,8 +48,8 @@ jobs:
           helm3 repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
           helm3 repo update
 
-      - uses: docker://yuvipanda/hubploy:20200826083951674280
-        name: Add Runner IP to EKS Kubernetes API Whitelist
+      - name: Add Runner IP to EKS Kubernetes API Whitelist
+        uses: docker://yuvipanda/hubploy:20200826083951674280
         with:
           entrypoint: /bin/bash
           args: >
@@ -58,14 +58,21 @@ jobs:
             aws --version &&
             aws eks update-cluster-config --region us-west-2 --name pangeo --resources-vpc-config publicAccessCidrs=${RUNNERIP}/32 > /dev/null &&
             sleep 120"
-      - uses: docker://yuvipanda/hubploy:20200826083951674280
-        name: Deploy AWS Staging Hub
+
+      - name: Deploy AWS Staging Hub
+        uses: docker://yuvipanda/hubploy:20200826083951674280
         if: github.ref == 'refs/heads/staging'
         with:
           args: deploy icesat2 pangeo-deploy staging --timeout 1200s --cleanup-on-fail
 
-      - uses: docker://yuvipanda/hubploy:20200826083951674280
-        name: Revert to Original EKS IP Whitelist
+      - name: Deploy AWS Prod Hub
+        uses: docker://yuvipanda/hubploy:20200826083951674280
+        if: github.ref == 'refs/heads/prod'
+        with:
+          args: deploy icesat2 pangeo-deploy prod --timeout 1200s --cleanup-on-fail
+
+      - name: Revert to Original EKS IP Whitelist
+        uses: docker://yuvipanda/hubploy:20200826083951674280
         if: always()
         env:
           AWS_IP_WHITELIST: ${{ secrets.AWS_IP_WHITELIST }}
