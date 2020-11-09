@@ -6,14 +6,9 @@ daskhub:
         OAUTH_CALLBACK_URL: "https://aws-uswest2.pangeo.io/hub/oauth_callback"
     singleuser:
       profileList:
-        - display_name: "Latest Pangeo-notebook"
+        - display_name: "Pangeo-notebook"
+          default: "True"
           description: "https://github.com/pangeo-data/pangeo-docker-images/releases"
-          kubespawner_override:
-            image: pangeo/pangeo-notebook:latest
-        - display_name: "Latest Base-notebook"
-          description: "https://github.com/pangeo-data/pangeo-docker-images/releases"
-          kubespawner_override:
-            image: pangeo/base-notebook:latest
         - display_name: "Latest ML-notebook"
           description: "https://github.com/pangeo-data/pangeo-docker-images/releases"
           kubespawner_override:

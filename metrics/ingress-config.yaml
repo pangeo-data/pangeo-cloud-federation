@@ -16,5 +16,3 @@ controller:
     requests:
       cpu: 0m
       memory: 0Gi
-
-
