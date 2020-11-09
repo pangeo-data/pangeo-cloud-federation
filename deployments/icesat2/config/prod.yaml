@@ -40,4 +40,4 @@ daskhub:
             schedulerName: icesat2-prod-user-scheduler
         worker:
           extraPodConfig:
-            schedulerName: icesat2-prod-staging-user-scheduler
+            schedulerName: icesat2-prod-user-scheduler
