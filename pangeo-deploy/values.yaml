@@ -52,6 +52,13 @@ daskhub:
       extraConfig:
         prometheus: |
           c.JupyterHub.authenticate_prometheus = False
+      networkPolicy:
+        # Disable hub network Policy, so that the dask gateawy server API can
+        # reach the hub directly. Only applies to JupyterHub>=0.10 and
+        # can be removed for dask-gateway>0.9.0
+        # https://github.com/dask/helm-chart/issues/142
+        enabled: false
+
 
   dask-gateway:
     gateway:
