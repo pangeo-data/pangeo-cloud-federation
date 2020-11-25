@@ -1,5 +1,18 @@
 daskhub:
   jupyterhub:
+    proxy:
+      https:
+        enabled: true
+      chp:
+        networkPolicy:
+          # Disable network security policy, perhaps causing upgrade issues.
+          # https://github.com/pangeo-data/pangeo-cloud-federation/issues/884
+          enabled: false
+      traefik:
+        networkPolicy:
+          # Disable network security policy, perhaps causing upgrade issues.
+          # https://github.com/pangeo-data/pangeo-cloud-federation/issues/884
+          enabled: false
     scheduling:
       userPods:
         nodeAffinity:
@@ -12,8 +25,13 @@ daskhub:
       continuous:
         enabled: false
     singleuser:
-      image:
-        pullPolicy: 'Always'
+      networkPolicy:
+        # Disable network security policy, perhaps causing upgrade issues.
+        # https://github.com/pangeo-data/pangeo-cloud-federation/issues/884
+        enabled: false
+      # only if using 'latest' or 'master' tags
+      #image:
+      #  pullPolicy: 'Always'
       startTimeout: 600
       initContainers:
         - name: change-volume-mount-permissions
