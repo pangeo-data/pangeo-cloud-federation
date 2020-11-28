@@ -4,7 +4,27 @@ daskhub:
       corePods:
         nodeAffinity:
           matchNodePurpose: require
+
+    proxy:
+      https:
+        enabled: true
+      chp:
+        networkPolicy:
+          # Disable network security policy, perhaps causing upgrade issues.
+          # https://github.com/pangeo-data/pangeo-cloud-federation/issues/884
+          enabled: false
+      traefik:
+        networkPolicy:
+          # Disable network security policy, perhaps causing upgrade issues.
+          # https://github.com/pangeo-data/pangeo-cloud-federation/issues/884
+          enabled: false
+
     singleuser:
+      networkPolicy:
+        # Disable network security policy, perhaps causing upgrade issues.
+        # https://github.com/pangeo-data/pangeo-cloud-federation/issues/884
+        enabled: false
+
       image:
         pullPolicy: 'Always'
 
