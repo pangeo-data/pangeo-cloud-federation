@@ -23,6 +23,8 @@ daskhub:
           kubespawner_override:
             image: uwhackweeks/icesat2:latest
     proxy:
+      https:
+        enabled: true
         hosts:
           - aws-uswest2.pangeo.io
         letsencrypt:

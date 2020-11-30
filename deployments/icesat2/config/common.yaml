@@ -1,17 +1,13 @@
 daskhub:
   jupyterhub:
     proxy:
-      https:
-        enabled: true
+      # Disable network security policy, perhaps causing upgrade issues.
+      # https://github.com/pangeo-data/pangeo-cloud-federation/issues/884
       chp:
         networkPolicy:
-          # Disable network security policy, perhaps causing upgrade issues.
-          # https://github.com/pangeo-data/pangeo-cloud-federation/issues/884
           enabled: false
       traefik:
         networkPolicy:
-          # Disable network security policy, perhaps causing upgrade issues.
-          # https://github.com/pangeo-data/pangeo-cloud-federation/issues/884
           enabled: false
     scheduling:
       userPods:

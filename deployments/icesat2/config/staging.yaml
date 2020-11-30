@@ -13,6 +13,9 @@ daskhub:
       extraEnv:
         OAUTH_CALLBACK_URL: "https://staging.aws-uswest2.pangeo.io/hub/oauth_callback"
     singleuser:
+      # only if using 'latest' or 'master' tags
+      image:
+        pullPolicy: 'Always'
       profileList:
         - display_name: "Default Image"
           default: "True"
@@ -43,6 +46,8 @@ daskhub:
           kubespawner_override:
             image: uwhackweeks/icesat2:latest
     proxy:
+      https:
+        enabled: true
         hosts:
           - staging.aws-uswest2.pangeo.io
         letsencrypt:
