@@ -1,0 +1,46 @@
+name: Helm
+on:
+  pull_request_target:
+    branches:
+      - staging
+      - prod
+
+env:
+  HELM_EXECUTABLE: /usr/local/bin/helm3
+
+# See https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/master/tools/templates/lint-and-validate.py
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Unlock git-crypt Secrets
+        uses: docker://yuvipanda/hubploy:20200826083951674280
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
+        with:
+          entrypoint: /bin/bash
+          args: -c "echo ${GIT_CRYPT_KEY} | base64 -d | git crypt unlock - && git crypt status"
+
+      - name: Setup Helm
+        run: |
+          curl https://get.helm.sh/helm-v3.4.1-linux-amd64.tar.gz | tar -xzf -
+          sudo mv linux-amd64/helm $HELM_EXECUTABLE
+          helm3 version
+          helm3 repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+          helm3 repo add dask https://helm.dask.org/
+          helm3 repo add dask-gateway https://dask.org/dask-gateway-helm-repo/
+          helm3 repo add stable https://charts.helm.sh/stable
+          # needed for prometheus and grafana
+          #helm3 repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+          helm3 repo update
+
+      - name: Helm Lint AWS Config
+        run: |
+          helm lint --strict pangeo-deploy -f pangeo-deploy/values.yaml \
+                                  -f deployments/icesat2/config/common.yaml \
+                                  -f deployments/icesat2/config/staging.yaml \
+                                  -f deployments/icesat2/secrets/staging.yaml

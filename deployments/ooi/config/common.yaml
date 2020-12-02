@@ -112,12 +112,12 @@ daskhub:
           subPath: "pangeo-custom-jupyterhub-templates/extra-assets"
     auth:
       type: github
-      #github:
-      #  orgWhitelist:
-      #    - ooicloud
-      #scopes:
-      #  - "read:org"
-      #  - "read:user"
+      github:
+        orgWhitelist:
+          - ooicloud
+      scopes:
+        - "read:org"
+        - "read:user"
       admin:
         access: true
         users:

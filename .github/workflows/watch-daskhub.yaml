@@ -1,0 +1,69 @@
+# GitHub workflow reference:
+# https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions
+#
+# This workflow has a job to monitor the dask/helm-chart repo for new tags, and
+# creates a PR to bump our dependency on DaskHub when needed.
+#
+name: Watch chart dependencies
+
+on:
+  schedule:
+    # Run every hour sharp, ref: https://crontab.guru/#0_*_*_*_*
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  check-daskhub-chart-version:
+    if: github.repository == 'pangeo-data/pangeo-cloud-federation'
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      # ref: https://github.com/oprypin/find-latest-tag
+      - name: Find latest tag of dependency
+        id: remote_chart
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: dask/helm-chart
+          releases-only: false
+
+      # ref: https://github.com/jacobtomlinson/gha-read-helm-chart
+      - name: Find current tag of dependency
+        id: local_chart
+        uses: jacobtomlinson/gha-read-helm-chart@0.1.3
+        with:
+          path: pangeo-deploy
+
+      # ref: https://github.com/jacobtomlinson/gha-find-replace
+      - name: Replace current with latest in Chart.yaml
+        uses: jacobtomlinson/gha-find-replace@0.1.2
+        with:
+          include: "pangeo-deploy/Chart.yaml"
+          find: "${{ steps.local_chart.outputs.dependencies_daskhub_version }}"
+          replace: "${{ steps.remote_chart.outputs.tag }}"
+
+      # ref: https://github.com/jacobtomlinson/gha-find-replace
+      - name: Git diff changes
+        run: |
+          git --no-pager diff --color=always
+
+      # ref: https://github.com/peter-evans/create-pull-request
+      - name: Create a PR
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          commit-message: Upgrade daskhub chart version to ${{ steps.remote_chart.outputs.tag }}
+          title: Upgrade daskhub chart version to ${{ steps.remote_chart.outputs.tag }}
+          reviewers: scottyhq,TomAugspurger,consideratio
+          labels: dependencies
+          branch: upgrade-daskhub-version
+          body: |
+            Upgrades daskhub chart version from `${{ steps.local_chart.outputs.dependencies_daskhub_version }}` to `${{ steps.remote_chart.outputs.tag }}`.
+
+            - [ ] Inspect eventual dependency changes between JupyterHub and Dask-Gateway [here](https://helm.dask.org/).
+            - [ ] If needed, inspect [the JupyterHub chart's changelog](http://github.com/jupyterhub/zero-to-jupyterhub-k8s/tree/master/CHANGELOG.md).
+            - [ ] If needed, inspect the [Dask-Gateway repo for changes](https://github.com/dask/dask-gateway), there is currently no changelog maintained.
