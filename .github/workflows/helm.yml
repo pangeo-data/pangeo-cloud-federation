@@ -40,7 +40,7 @@ jobs:
 
       - name: Helm Lint AWS Config
         run: |
-          helm lint --strict pangeo-deploy -f pangeo-deploy/values.yaml \
+          helm3 lint --strict pangeo-deploy -f pangeo-deploy/values.yaml \
                                   -f deployments/icesat2/config/common.yaml \
                                   -f deployments/icesat2/config/staging.yaml \
                                   -f deployments/icesat2/secrets/staging.yaml
