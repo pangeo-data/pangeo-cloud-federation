@@ -104,10 +104,6 @@ jobs:
             pip install --upgrade -r requirements.txt
 
             curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
-            # https://github.com/awslabs/amazon-ecr-credential-helper/issues/101
-            # Can simplify to sudo apt install amazon-ecr-credential-helper if running Ubuntu 19.04 and newer
-            export GOPATH=$PWD/venv
-            go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
 
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
@@ -164,14 +160,14 @@ jobs:
           name: Install helm
           when: always
           command: |
-            curl https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz | \
+            curl https://get.helm.sh/helm-v3.4.1-linux-amd64.tar.gz | \
               tar -xzf -
             sudo mv linux-amd64/helm /usr/local/bin
             helm version
             helm repo add dask https://helm.dask.org/
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo add dask-gateway https://dask.org/dask-gateway-helm-repo/
-            helm repo add stable https://kubernetes-charts.storage.googleapis.com
+            helm repo add stable https://charts.helm.sh/stable
             helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
             helm repo add prometheus-operator https://kubernetes-charts.storage.googleapis.com
             helm repo update
