@@ -22,6 +22,7 @@ while [[ $(./kubectl -n ${CIRCLE_BRANCH} get pods jupyter-pangeo-2dbot -o 'jsonp
 
 # Run the tests
 echo "[Running tests]"
+./kubectl -n staging exec jupyter-pangeo-2dbot -- /srv/conda/envs/notebook/bin/python -m pip install pytest
 ./kubectl -n staging exec jupyter-pangeo-2dbot -- /srv/conda/envs/notebook/bin/pytest -v -m "common or gcp" /tmp/test.py
 RET=$?
 
