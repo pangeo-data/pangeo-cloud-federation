@@ -49,7 +49,7 @@ daskhub:
           description: "https://github.com/carbonplan/trace/tree/main/envs/python-notebook"
           kubespawner_override:
             mem_limit: 64G
-            mem_guarantee: 60G
+            mem_guarantee: 32G
             image: carbonplan/trace-python-notebook:sha-4787439
     proxy:
       https:
