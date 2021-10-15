@@ -70,7 +70,7 @@ daskhub:
 
       extraConfig:
         administrators: |
-          c.Authenticator.admin_users = ["TomAugspurger"]
+          c.Authenticator.admin_users = ["TomAugspurger", "rabernat"]
         image_pulls: |
           c.KubeSpawner.start_timeout = 60 * 10  # 10-minute timeout for large image pulls
         profile_list: |
