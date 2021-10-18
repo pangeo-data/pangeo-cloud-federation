@@ -59,12 +59,12 @@ There were some manual setup steps
 
 ### Monitoring
 
-We've deployed prometheus and grafana to monitor cluster usage. These metrics are publicially visible:
+We've deployed prometheus and grafana to monitor cluster usage. These metrics are publically visible:
 
 * GCP: http://grafana.us-central1-b.gcp.pangeo.io/grafana/
 * AWS: http://grafana.aws-uswest2.pangeo.io/grafana/
 
-These are deployed indendently of CI. The GCP deployment is done in deployments/gcp-uscentral1b/Makefile, with the `metrics` target.
+These are deployed independently of CI. The GCP deployment is done in deployments/gcp-uscentral1b/Makefile, with the `metrics` target.
 
 ```
 $ cd deployments/gcp-uscentral1b
