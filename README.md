@@ -1,3 +1,5 @@
+[![UpdateMembers](https://github.com/pangeo-data/pangeo-cloud-federation/actions/workflows/UpdateMembers.yml/badge.svg)](https://github.com/pangeo-data/pangeo-cloud-federation/actions/workflows/UpdateMembers.yml)
+
 This repository manages the continuous deployment of the [Pangeo](http://pangeo.io/) Cloud Federation
 JupyterHub Kubernetes clusters using [hubploy](https://github.com/yuvipanda/hubploy).
 It contains scripts to automatically redeploy when the image definition or
