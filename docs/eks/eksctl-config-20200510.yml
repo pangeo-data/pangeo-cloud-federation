@@ -1,0 +1,200 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: pangeo
+  region: us-west-2
+
+availabilityZones: ["us-west-2a", "us-west-2b", "us-west-2d"]
+
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["*"]
+
+# manually create role and modify trust relationships
+
+iam:
+ withOIDC: true
+ serviceAccounts:
+   - metadata:
+       name: pangeo
+       namespace: icesat2-prod
+       labels:
+         aws-usage: "application"
+     attachPolicyARNs:
+       - "arn:aws:iam::783380859522:policy/pangeo-data-s3"
+   - metadata:
+       name: pangeo
+       namespace: icesat2-staging
+       labels:
+         aws-usage: "application"
+     attachPolicyARNs:
+       - "arn:aws:iam::783380859522:policy/pangeo-data-s3"
+   - metadata:
+       name: cluster-autoscaler
+       namespace: kube-system
+       labels:
+         aws-usage: "cluster-ops"
+         k8s-addon: cluster-autoscaler.addons.k8s.io
+         k8s-app: cluster-autoscaler
+     attachPolicyARNs:
+       - "arn:aws:iam::783380859522:policy/cluster-autoscaler"
+
+nodeGroups:
+  - name: core-spot
+    availabilityZones: ["us-west-2a"] # where persistant hb-db-pv lives
+    minSize: 1
+    maxSize: 2
+    desiredCapacity: 1
+    privateNetworking: true
+    volumeSize: 100
+    volumeType: gp2
+    labels:
+      node-role.kubernetes.io/core: core
+      hub.jupyter.org/node-purpose: core
+    ami: auto
+    amiFamily: AmazonLinux2
+    instancesDistribution:
+      instanceTypes:
+        - t3a.large
+        - t3.large
+      spotInstancePools: 2
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0 # all spot
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+  - name: user-spot
+    minSize: 0
+    maxSize: 50
+    desiredCapacity: 0
+    privateNetworking: true
+    instancesDistribution:
+      instanceTypes:
+        - m5.2xlarge
+        - m5a.2xlarge
+        - m5n.2xlarge
+      spotInstancePools: 3
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0 # all spot
+    volumeSize: 100
+    volumeType: gp2
+    labels:
+      node-role.kubernetes.io/user: user
+      hub.jupyter.org/node-purpose: user
+    taints:
+      hub.jupyter.org/dedicated: 'user:NoSchedule'
+    tags:
+        k8s.io/cluster-autoscaler/node-template/label/hub.jupyter.org/node-purpose: user
+        k8s.io/cluster-autoscaler/node-template/taint/hub.jupyter.org/dedicated: 'user:NoSchedule'
+    ami: auto
+    amiFamily: AmazonLinux2
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    preBootstrapCommands: # see https://github.com/weaveworks/eksctl/issues/1310
+      - yum install -y iptables-services
+      - iptables --insert FORWARD 1 --in-interface eni+ --destination 169.254.169.254/32 --jump DROP
+      - iptables-save | tee /etc/sysconfig/iptables
+      - systemctl enable --now iptables
+  - name: worker-spot
+    minSize: 0
+    maxSize: 50
+    desiredCapacity: 0
+    privateNetworking: true
+    instancesDistribution:
+      instanceTypes:
+        - r5.2xlarge
+        - r5a.2xlarge
+        - r5n.2xlarge
+      spotInstancePools: 3
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+    volumeSize: 100
+    volumeType: gp2
+    labels:
+      node-role.kubernetes.io/worker: worker
+      k8s.dask.org/node-purpose: worker
+    taints:
+      k8s.dask.org/dedicated: 'worker:NoSchedule'
+    tags:
+      k8s.io/cluster-autoscaler/node-template/label/k8s.dask.org/node-purpose: worker
+      k8s.io/cluster-autoscaler/node-template/taint/k8s.dask.org/dedicated: "worker:NoSchedule"
+    ami: auto
+    amiFamily: AmazonLinux2
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    preBootstrapCommands: # see https://github.com/weaveworks/eksctl/issues/1310
+      - yum install -y iptables-services
+      - iptables --insert FORWARD 1 --in-interface eni+ --destination 169.254.169.254/32 --jump DROP
+      - iptables-save | tee /etc/sysconfig/iptables
+      - systemctl enable --now iptables
+  - name: scheduler-spot
+    minSize: 0
+    maxSize: 20
+    desiredCapacity: 0
+    privateNetworking: true
+    instancesDistribution:
+      instanceTypes:
+        - t3.large
+        - t3a.large
+      spotInstancePools: 2
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+    volumeSize: 100
+    volumeType: gp2
+    labels:
+      node-role.kubernetes.io/scheduler: scheduler
+      k8s.dask.org/node-purpose: scheduler
+    taints:
+      k8s.dask.org/dedicated: 'scheduler:NoSchedule'
+    tags:
+      k8s.io/cluster-autoscaler/node-template/label/k8s.dask.org/node-purpose: scheduler
+      k8s.io/cluster-autoscaler/node-template/taint/k8s.dask.org/dedicated: "scheduler:NoSchedule"
+    ami: auto
+    amiFamily: AmazonLinux2
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    preBootstrapCommands: # see https://github.com/weaveworks/eksctl/issues/1310
+      - yum install -y iptables-services
+      - iptables --insert FORWARD 1 --in-interface eni+ --destination 169.254.169.254/32 --jump DROP
+      - iptables-save | tee /etc/sysconfig/iptables
+      - systemctl enable --now iptables
+  - name: user-gpu-spot
+    privateNetworking: true
+    instancesDistribution:
+      instanceTypes:
+        - p2.xlarge
+        - g3s.xlarge
+#        - p3.2xlarge
+      spotInstancePools: 2
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+    minSize: 0
+    maxSize: 4
+    desiredCapacity: 0
+    volumeSize: 100
+    volumeType: gp2
+    # https://github.com/kubernetes/autoscaler/issues/2642
+    labels:
+      node-role.kubernetes.io/user-gpu: user-gpu-spot
+      hub.jupyter.org/node-purpose: user
+      cloud.google.com/gke-accelerator: nvidia
+    tags:
+      k8s.io/cluster-autoscaler/node-template/label/hub.jupyter.org/node-purpose: user
+      k8s.io/cluster-autoscaler/node-template/taint/nvidia.com/gpu: 'present:NoSchedule'
+      k8s.io/cluster-autoscaler/node-template/label/cloud.google.com/gke-accelerator: nvidia
+    taints:
+      nvidia.com/gpu: 'present:NoSchedule'
+    ami: auto
+    amiFamily: AmazonLinux2
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    preBootstrapCommands: # see https://github.com/weaveworks/eksctl/issues/1310
+      - yum install -y iptables-services
+      - iptables --insert FORWARD 1 --in-interface eni+ --destination 169.254.169.254/32 --jump DROP
+      - iptables-save | tee /etc/sysconfig/iptables
+      - systemctl enable --now iptables
