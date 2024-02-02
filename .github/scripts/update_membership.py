@@ -37,7 +37,7 @@ def get_registered_members(cluster='aws-uswest2.pangeo.io'):
     worksheet = sh.get_worksheet(0)
     df = pd.DataFrame(worksheet.get_all_records())
     df = df[df['Clusters'].str.contains(cluster)]
-    registered_members = df['GitHub Username'].to_list()
+    registered_members = df['GitHub Username'].astype(str).to_list()
     registered_members.sort()
 
     return registered_members

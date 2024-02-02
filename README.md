@@ -1,3 +1,5 @@
+[![UpdateMembers](https://github.com/pangeo-data/pangeo-cloud-federation/actions/workflows/UpdateMembers.yml/badge.svg)](https://github.com/pangeo-data/pangeo-cloud-federation/actions/workflows/UpdateMembers.yml)
+
 This repository manages the continuous deployment of the [Pangeo](http://pangeo.io/) Cloud Federation
 JupyterHub Kubernetes clusters using [hubploy](https://github.com/yuvipanda/hubploy).
 It contains scripts to automatically redeploy when the image definition or
@@ -59,12 +61,12 @@ There were some manual setup steps
 
 ### Monitoring
 
-We've deployed prometheus and grafana to monitor cluster usage. These metrics are publicially visible:
+We've deployed prometheus and grafana to monitor cluster usage. These metrics are publically visible:
 
 * GCP: http://grafana.us-central1-b.gcp.pangeo.io/grafana/
 * AWS: http://grafana.aws-uswest2.pangeo.io/grafana/
 
-These are deployed indendently of CI. The GCP deployment is done in deployments/gcp-uscentral1b/Makefile, with the `metrics` target.
+These are deployed independently of CI. The GCP deployment is done in deployments/gcp-uscentral1b/Makefile, with the `metrics` target.
 
 ```
 $ cd deployments/gcp-uscentral1b
